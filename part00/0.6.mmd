@@ -1,0 +1,40 @@
+sequenceDiagram
+    participant browser
+    participant server
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/spa
+    activate server
+    server-->>browser: HTTP STATUS CODE 200 HTML document code - .html
+    deactivate server
+    
+    Note right of browser: The browser triggers the event handler that fetches the data from the API '/exampleapp/data.json' endpoint.
+    
+    Note right of server: The server responds by drawing the '/data.json' file notes from the 'exampleapp/spa.js' code via an AJAX XMLHttpRequest to the HTML document.
+    
+    Note right of server: The server responds with HTTP status 200 OK. Standard response for successful HTTP requests.
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: HTTP STATUS CODE 200 CSS file main.css
+    deactivate server
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/favicon.ico
+    activate server
+    server-->>browser: HTTP STATUS CODE 200 favicon file favicon.ico
+    deactivate server
+    
+    browser->>server: Object { content: "hallo" }
+    activate server
+    server-->>browser: (Browser Console) Object responseText { "message": "note created" } 
+    deactivate server
+    
+    Note right of browser: The browser triggers the event handler that passes the new note to the server.
+    
+    Note right of server: The server responds by sending the new note from the 'exampleapp/spa.js' code via an AJAX XMLHttpRequest to the API '/exampleapp/new_note_spa' endpoint.
+    
+    Note right of server: The server confirms the HTTP status 201 Created for its communication with the endpoint. Standard response for a fulfil request, results in the creation of a new resource.
+    
+    Note right of browser: The browser triggers the event handler that fetches the data from the API '/exampleapp/data.json' endpoint.
+    
+    Note right of server: The server responds by redrawing the '/data.json' file notes from the 'exampleapp/spa.js' code via an AJAX XMLHttpRequest. Finally, it shows the responseText in the console via console.log(this.responseText).  
+    

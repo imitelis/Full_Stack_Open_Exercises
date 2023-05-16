@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant browser
+    participant server
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/spa
+    activate server
+    server-->>browser: HTTP STATUS CODE 200 HTML document code - .html
+    deactivate server
+    
+    Note right of browser: The browser triggers the event handler that fetches the data from the API '/exampleapp/data.json' endpoint.
+    
+    Note right of server: The server responds by drawing the '/data.json' file notes from the 'exampleapp/spa.js' code via an AJAX XMLHttpRequest to the HTML document.
+    
+    Note right of server: The server responds with HTTP status 200 OK. Standard response for successful HTTP requests.
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: HTTP STATUS CODE 200 CSS file main.css
+    deactivate server
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/favicon.ico
+    activate server
+    server-->>browser: HTTP STATUS CODE 200 favicon file favicon.ico
+    deactivate server

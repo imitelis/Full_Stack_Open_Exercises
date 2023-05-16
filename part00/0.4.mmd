@@ -1,0 +1,56 @@
+sequenceDiagram
+    participant browser
+    participant server
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTTP STATUS CODE 200, HTML document code - .html, (Browser Console) data.json file depicting an Array of length: 100 "[..., Object { content: "special words", date: "20YY-MM-DD..." }]"
+    deactivate server
+    
+    Note right of browser: The browser executes the callback function that fetches the data from the API '/exampleapp/data.json' endpoint and renders the notes in the HTML document.
+    
+    Note right of server: The server responds with the '/data.json' file executed from the 'exampleapp/main.js' code via an AJAX XMLHttpRequest that shows the data in the console via console.log(data).
+    
+    Note right of server: The server responds with HTTP status 200 OK. Standard response for successful HTTP requests.
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: HTTP STATUS CODE 200, CSS file main.css
+    deactivate server
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/favicon.ico
+    activate server
+    browser-->>server: HTTP STATUS CODE 200, favicon file favicon.ico
+    deactivate server
+    
+    browser->>server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note, Object { content: "hallo" }
+    activate server
+    server-->>browser: HTTP STATUS CODE 302, redirected to HTML https://studies.cs.helsinki.fi/exampleapp/new_note
+    deactivate server
+    
+    Note right of browser: The browser triggers the event handler that passes the new note to the server.
+    
+    Note right of server: The server responds by sending the new note from the 'exampleapp/main.js' code via an AJAX XMLHttpRequest to the API '/exampleapp/new_note' endpoint.
+    
+    Note right of server: The server responds with HTTP status 302 Found. URL redirection. It indicates that a specific URL has been moved temporarily to a new location.
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTTP STATUS CODE 200, HTML document code - .html
+    server-->>browser: (Browser Console) data.json file depicting an Array which contains the new note appended as "[..., 99: Object { content: "hallo", date: "2023-03-03..." }]"
+    deactivate server
+    
+    Note right of browser: The browser executes the callback function that fetches the data from the API '/exampleapp/data.json' endpoint which now cointains the added new note and renders the notes in the HTML document.
+    
+    Note right of server: The server responds with the '/data.json' file executed from the 'exampleapp/main.js' code via an AJAX XMLHttpRequest that shows the updated data in the console via console.log(data).
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: HTTP STATUS CODE 200, CSS file main.css
+    deactivate server
+    
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/favicon.ico
+    activate server
+    browser-->>server: HTTP STATUS CODE 200, favicon file favicon.ico
+    deactivate server
+    
