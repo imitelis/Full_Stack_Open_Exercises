@@ -124,7 +124,7 @@ const App = () => {
         blogFormRef.current.toggleVisibility()
         blogService.createBlog(returnedBlog)
           .then(() => {
-            setSuccessMessage(`new blog ${returnedBlog.title} by ${returnedBlog.author} was added`)
+            setSuccessMessage(`new blog '${returnedBlog.title}' by '${returnedBlog.author}' was added`)
             clearMessage(undefined, true)
           })
           .catch((error) => {
@@ -158,10 +158,10 @@ const App = () => {
   const deleteBlog = (returnedBlog) => {
     try {
 
-      if (window.confirm(`remove blog ${returnedBlog.title} by ${returnedBlog.author}?`)) {
+      if (window.confirm(`remove blog '${returnedBlog.title}' by '${returnedBlog.author}'?`)) {
         blogService.deleteBlog(returnedBlog.id)
           .then(() => {
-            setErrorMessage(`blog ${returnedBlog.title} by ${returnedBlog.author} was removed`)
+            setErrorMessage(`blog '${returnedBlog.title}' by '${returnedBlog.author}' was removed`)
             clearMessage(true, undefined)
           })
           .catch((error) => {
