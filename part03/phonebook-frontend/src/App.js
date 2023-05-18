@@ -42,7 +42,7 @@ const App = () => {
     }
 
     return (
-      <div className='warning'>
+      <div className='error'>
         {message}
       </div>
     )
@@ -50,7 +50,7 @@ const App = () => {
 
   const validatePerson = (name, number) => {
     if (name.length < 3) {
-      setRedMessage(`Person validation failed: name: Path "name" ("${name}") is shorter than the minimum allowed length (3)`)
+      setRedMessage(`person validation failed: name: path "name" ("${name}") is shorter than the minimum allowed length (3)`)
       setTimeout(() => {
         setRedMessage(null)
       }, 3000)
@@ -58,7 +58,7 @@ const App = () => {
     }
   
     if (number.length < 8) {
-      setRedMessage(`Person validation failed: number: Path "number" ("${number}") is shorter than the minimum allowed length (8)`)
+      setRedMessage(`person validation failed: number: path "number" ("${number}") is shorter than the minimum allowed length (8)`)
       setTimeout(() => {
         setRedMessage(null)
       }, 3000)
@@ -66,7 +66,7 @@ const App = () => {
     }
   
     if (number.length > 14) {
-      setRedMessage(`Person validation failed: number: Path "number" ("${number}") is larger than maximum allowed length (14)`)
+      setRedMessage(`person validation failed: number: path "number" ("${number}") is larger than maximum allowed length (14)`)
       setTimeout(() => {
         setRedMessage(null)
       }, 3000)
@@ -74,7 +74,7 @@ const App = () => {
     }
   
     if (!number.match(/^(\d{2}-\d{5,11}|\d{3}-\d{4,10}|\d{8,14})$/)) {
-      setRedMessage(`Person validation failed: number: Path "number" ("${number}") is of invalid form (Must be like the following; 12345678 to 12345678901234, 12-34567 to 12-34567890123 or 123-4567 to 123-4567890123)`)
+      setRedMessage(`person validation failed: number: path "number" ("${number}") is of invalid form (Must be like the following; 12345678 to 12345678901234, 12-34567 to 12-34567890123 or 123-4567 to 123-4567890123)`)
       setTimeout(() => {
         setRedMessage(null)
       }, 12000)
@@ -101,13 +101,13 @@ const App = () => {
               setPersons(persons.map(person => person.id === personToUpdate.id ? personToUpdate : person))
               setNewName('')
               setNewNumber('')
-              setGreenMessage('Changed ' + String(newName) + ' phone number')
+              setGreenMessage('changed ' + String(newName) + ' phone number')
               setTimeout(() => {
                 setGreenMessage(null)
               }, 3000)
             })
             .catch(error => {
-              setRedMessage('It was not posible to update ' + String(newName) + ' phone number')
+              setRedMessage('it was not posible to update ' + String(newName) + ' phone number')
               setTimeout(() => {
                 setRedMessage(null)
               }, 3000)
@@ -121,7 +121,7 @@ const App = () => {
             setPersons(persons.concat(personObject))
             setNewName('')
             setNewNumber('')
-            setGreenMessage('Added ' + String(newName))
+            setGreenMessage('added ' + String(newName))
             setTimeout(() => {
               setGreenMessage(null)
             }, 3000)
@@ -131,17 +131,17 @@ const App = () => {
   }  
 
   const deletePerson = ({ person }) => {
-    if (window.confirm("Delete " + person.name + "?")) {
+    if (window.confirm("delete " + person.name + "?")) {
       personService.remove(person.id)
         .then(() => {
           setPersons(persons.filter((p) => p.id !== person.id))
-          setRedMessage('Information of ' + person.name + ' was removed')
+          setRedMessage('information of ' + person.name + ' was removed')
           setTimeout(() => {
             setRedMessage(null)
           }, 3000)
         })
         .catch(error => {
-          setRedMessage('Information of ' + String(person.name) + ' has already been removed from the server')
+          setRedMessage('information of ' + String(person.name) + ' has already been removed from the server')
           setTimeout(() => {
             setRedMessage(null)
           }, 3000)

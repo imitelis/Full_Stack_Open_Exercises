@@ -63,13 +63,13 @@ const App = () => {
           setPersons(persons.map(person => person.id === personToUpdate.id ? personToUpdate : person))
           setNewName('')
           setNewNumber('')
-          setGreenMessage('Changed ' + String(newName) + ' phone number')
+          setGreenMessage('changed ' + String(newName) + ' phone number')
           setTimeout(() => {
             setGreenMessage(null)
           }, 3000)
         })
         .catch(error => {
-          setRedMessage('It was not posible to update ' + String(newName) + ' phone number')
+          setRedMessage('it was not posible to update ' + String(newName) + ' phone number')
           setTimeout(() => {
             setRedMessage(null)
           }, 3000)

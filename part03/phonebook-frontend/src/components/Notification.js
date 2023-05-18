@@ -16,7 +16,7 @@ const NotificationRed = ({ message }) => {
     }
   
     return (
-      <div className='warning'>
+      <div className='error'>
         {message}
       </div>
     )
