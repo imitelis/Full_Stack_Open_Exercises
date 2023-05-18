@@ -42,7 +42,7 @@ const App = () => {
     }
   
     return (
-      <div className='warning'>
+      <div className='error'>
         {message}
       </div>
     )
@@ -81,7 +81,7 @@ const App = () => {
         setPersons(persons.concat(personObject))
         setNewName('')
         setNewNumber('')
-        setGreenMessage('Added ' + String(newName))
+        setGreenMessage('added ' + String(newName))
         setTimeout(() => {
           setGreenMessage(null)
         }, 3000)        
@@ -90,17 +90,17 @@ const App = () => {
   }
 
   const deletePerson = ({person}) => {
-    if (window.confirm("Delete " + person.name + "?")) {
+    if (window.confirm("delete " + person.name + "?")) {
       personService.remove(person.id)
       .then(() => {
         setPersons(persons.filter((p) => p.id !== person.id))
-        setRedMessage('Information of ' + person.name + ' was removed')
+        setRedMessage('information of ' + person.name + ' was removed')
         setTimeout(() => {
           setRedMessage(null)
         }, 3000)
       })
       .catch(error => {
-        setRedMessage('Information of ' + String(person.name) + ' has already been removed from the server')
+        setRedMessage('information of ' + String(person.name) + ' has already been removed from the server')
         setTimeout(() => {
           setRedMessage(null)
         }, 3000)
