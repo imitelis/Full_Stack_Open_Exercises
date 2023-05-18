@@ -162,3 +162,6 @@
   *  6.25: (6.19) Anecdotes connect (the old part) step1
   *  6.26: (6.20) Anecdotes connect (the old part) step2
   *  6.27: (6.21) Anecdotes connect (the old part) step3
+
+
+## Part 7 - React router, custom hooks, styling app with CSS and webpack - Exercises 7.1.
