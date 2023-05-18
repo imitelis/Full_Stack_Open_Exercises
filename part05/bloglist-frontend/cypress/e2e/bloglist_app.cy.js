@@ -64,6 +64,7 @@ describe('Blog app', () => {
         cy.get('#password').type('easypassword')
         cy.get('#login-button').click()
         cy.contains('Test admin logged in')
+        cy.contains('Blog list')
       })
 
       it('cypress login command' , function() {
@@ -85,11 +86,11 @@ describe('Blog app', () => {
         cy.get('#blog-author').type('T. Eisen')
         cy.get('#blog-url').type('test-eisen.net')
         cy.get('#create-button').click()
-        cy.get('.success').contains('a new blog My test blog by T. Eisen added')
+        cy.get('.success').contains('new blog My test blog by T. Eisen was added')
         cy.get('.success').should('have.css', 'color', 'rgb(0, 128, 0)')
         cy.get('.success').should('have.css', 'border-style', 'solid')
         cy.contains('new blog')
-        cy.contains('a new blog My test blog by T. Eisen added')
+        cy.contains('new blog My test blog by T. Eisen was added')
         cy.contains('My test blog by T. Eisen')
         cy.contains('show').click()
         cy.contains('url: test-eisen.net')

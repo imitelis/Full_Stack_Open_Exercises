@@ -124,7 +124,7 @@ const App = () => {
         blogFormRef.current.toggleVisibility()
         blogService.createBlog(returnedBlog)
           .then(() => {
-            setSuccessMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
+            setSuccessMessage(`new blog ${returnedBlog.title} by ${returnedBlog.author} was added`)
             clearMessage(undefined, true)
           })
           .catch((error) => {
@@ -158,7 +158,7 @@ const App = () => {
   const deleteBlog = (returnedBlog) => {
     try {
 
-      if (window.confirm(`Remove blog ${returnedBlog.title} by ${returnedBlog.author}?`)) {
+      if (window.confirm(`remove blog ${returnedBlog.title} by ${returnedBlog.author}?`)) {
         blogService.deleteBlog(returnedBlog.id)
           .then(() => {
             setErrorMessage(`blog ${returnedBlog.title} by ${returnedBlog.author} was removed`)
@@ -206,7 +206,7 @@ const App = () => {
       <br />
       {user &&
       <div>
-        <h2>Bloglist</h2>
+        <h2>Blog list</h2>
         {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
           <Blog
             key={blog.id}
