@@ -133,7 +133,7 @@
   *  5.23: Bloglist end to end testing step7
 
 
-## Part 6 - Advanced state management - Exercises 6.1.-6.24.
+## Part 6 - Advanced state management - Exercises 6.1.-6.27.
 
   *  6.1: Unicafe redux step1
   *  6.2: Unicafe redux step2
@@ -159,6 +159,6 @@
   *  6.22: Anecdotes query step3
   *  6.23: Anecdotes query step4
   *  6.24: Anecdotes query step5
-  *  6.19: Anecdotes connect (the old part) step1
-  *  6.20: Anecdotes connect (the old part) step2
-  *  6.21: Anecdotes connect (the old part) step3
+  *  6.25: (6.19) Anecdotes connect (the old part) step1
+  *  6.26: (6.20) Anecdotes connect (the old part) step2
+  *  6.27: (6.21) Anecdotes connect (the old part) step3
