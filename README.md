@@ -159,9 +159,36 @@
   *  6.22: Anecdotes query step3
   *  6.23: Anecdotes query step4
   *  6.24: Anecdotes query step5
-  *  6.25: (6.19) Anecdotes connect (the old part) step1
-  *  6.26: (6.20) Anecdotes connect (the old part) step2
-  *  6.27: (6.21) Anecdotes connect (the old part) step3
+  *  6.25: (6.19) Anecdotes connect step1 (the old part)
+  *  6.26: (6.20) Anecdotes connect step2 (the old part)
+  *  6.27: (6.21) Anecdotes connect step3 (the old part)
 
 
-## Part 7 - React router, custom hooks, styling app with CSS and webpack - Exercises 7.1.
+## Part 7 - React router, custom hooks, styling app with CSS and webpack - Exercises 7.1.-7.25.
+
+  *  7.1: Anecdotes router step1
+  *  7.2: Anecdotes router step2
+  *  7.3: Anecdotes router step3
+  *  7.4: Anecdotes hooks step1
+  *  7.5: Anecdotes hooks step2
+  *  7.6: Anecdotes hooks step3
+  *  7.7: Countries hooks step1
+  *  7.8: Notes hooks step1
+  *  7.9: Bloglist prettier step1
+  *  7.10: Bloglist redux step1
+  *  7.11: Bloglist redux step2
+  *  7.12: Bloglist redux step3
+  *  7.13: Bloglist redux step4
+  *  7.14: (7.10) Bloglist query step1
+  *  7.15: (7.11) Bloglist query step2
+  *  7.16: (7.12) Bloglist query step3
+  *  7.17: (7.13) Bloglist query step4
+  *  7.18: (7.14) Bloglist views step1
+  *  7.19: (7.15) Bloglist views step2
+  *  7.20: (7.16) Bloglist views step3
+  *  7.21: (7.17) Bloglist navigation step1
+  *  7.22: (7.18) Bloglist comments step1
+  *  7.23: (7.19) Bloglist comments step2
+  *  7.24: (7.20) Bloglist styles step1
+  *  7.25: (7.21) Bloglist styles step2
+
