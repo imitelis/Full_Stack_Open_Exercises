@@ -1,0 +1,12 @@
+h1, h2 {
+    color: green;
+    font-style: italic;
+}
+
+a {
+    color: dimgray
+}
+
+a:visited {
+    color: darkgreen
+}
