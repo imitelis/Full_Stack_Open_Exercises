@@ -7,6 +7,10 @@
     {
       "id": 2,
       "content": "best feature ever <3"
+    },
+    {
+      "content": "new note",
+      "id": 3
     }
   ],
   "persons": [
@@ -19,6 +23,11 @@
       "id": 2,
       "name": "Tarja Halonen",
       "number": "040-2223334"
+    },
+    {
+      "name": "Louis Compte",
+      "number": "909-7513892",
+      "id": 3
     }
   ]
 }

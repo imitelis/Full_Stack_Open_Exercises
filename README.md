@@ -172,8 +172,8 @@
   *  7.4: Anecdotes hooks step1
   *  7.5: Anecdotes hooks step2
   *  7.6: Anecdotes hooks step3
-  *  7.7: Countries hooks step1
-  *  7.8: Notes hooks step1
+  *  7.7: Country hooks step1
+  *  7.8: Ultimate hooks step1
   *  7.9: Bloglist prettier step1
   *  7.10: Bloglist redux step1
   *  7.11: Bloglist redux step2
@@ -191,4 +191,8 @@
   *  7.23: (7.19) Bloglist comments step2
   *  7.24: (7.20) Bloglist styles step1
   *  7.25: (7.21) Bloglist styles step2
+
+
+## Part 8 - GraphQL - Exercises 8.1.-7.25.
+
 

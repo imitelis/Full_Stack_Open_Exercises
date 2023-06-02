@@ -1,0 +1,10 @@
+PUT http://localhost:3001/api/blogs/64385f7a1fe33157b891b505
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NDM1ZmFiMDYyZDRhZTE0ZjlhMzkzMWEiLCJpYXQiOjE2ODE0MjMxMjYsImV4cCI6MTY4MTQyNjcyNn0.76qglvxDMfUOf3NAH4Mqx6WhRPLABkFtSJWNUjtqjCk
+
+{
+    "title": "Hallo!",
+    "author": "Me obviously, once again, third time",
+    "url": "localhost:3001",
+    "likes": 3
+}

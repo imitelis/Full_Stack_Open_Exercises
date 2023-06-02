@@ -8,9 +8,14 @@ const useField = (type) => {
     setValue(event.target.value)
   }
 
+  const clean = () => {
+    setValue('')
+  }
+
   return {
     type,
     value,
+    clean,
     onChange
   }
 }
@@ -18,10 +23,22 @@ const useField = (type) => {
 const useResource = (baseUrl) => {
   const [resources, setResources] = useState([])
 
-  // ...
+  useEffect(() => {
+    axios.get(baseUrl)
+    .then(response => {
+      setResources(response.data)
+    })
+    .catch(err => {
+      setResources([])
+    })
+  }, [resources, setResources])
+  console.log(resources)
 
   const create = (resource) => {
-    // ...
+    const request = axios.post(baseUrl, resource)
+    return request.then((response) => {
+      return response.data
+    })
   }
 
   const service = {
@@ -44,16 +61,19 @@ const App = () => {
   const handleNoteSubmit = (event) => {
     event.preventDefault()
     noteService.create({ content: content.value })
+    content.clean()
   }
  
   const handlePersonSubmit = (event) => {
     event.preventDefault()
     personService.create({ name: name.value, number: number.value})
+    name.clean()
+    number.clean()
   }
 
   return (
     <div>
-      <h1>Ultimate Hooks</h1>
+      <h1>Ultimate app</h1>
       <h2>Notes</h2>
       <form onSubmit={handleNoteSubmit}>
         <input {...content} />
