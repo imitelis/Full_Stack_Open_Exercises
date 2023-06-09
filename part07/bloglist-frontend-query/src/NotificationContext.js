@@ -6,7 +6,7 @@ const initialState = {
 }
 
 const notificationReducer = (state = initialState, action) => {
-    console.log('action', action.type)
+    // console.log('action', action.type)
     switch (action.type) {
       case "GREEN_NOTIFICATION":
         return { message: action.payload, color: 'green' }
@@ -36,7 +36,7 @@ export const useNotificationValue = () => {
   return notificationAndDispatch[0]
 }
 
-export const useDispatchValue = () => {
+export const useNotificationDispatchValue = () => {
   const notificationAndDispatch = useContext(NotificationContext)
   return notificationAndDispatch[1]
 }

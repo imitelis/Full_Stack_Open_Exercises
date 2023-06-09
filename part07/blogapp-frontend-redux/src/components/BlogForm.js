@@ -1,16 +1,19 @@
-import { useState, useRef } from "react";
-import { useDispatch } from 'react-redux'
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
-import { setGreenNotification, setRedNotification } from '../reducers/notificationReducer'
-import { newBlog } from '../reducers/blogsReducer'
+import {
+  setGreenNotification,
+  setRedNotification,
+} from "../reducers/notificationReducer";
+import { newBlog } from "../reducers/blogsReducer";
 
-const BlogForm = ({ user, blogFormRef }) => {
+const BlogForm = ({ user, innerRef }) => {
   const [newTitle, setNewTitle] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
   const [newUrl, setNewUrl] = useState("");
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const addBlog = (event) => {
     event.preventDefault();
@@ -23,40 +26,62 @@ const BlogForm = ({ user, blogFormRef }) => {
     setNewTitle("");
     setNewAuthor("");
     setNewUrl("");
-  }
+  };
 
   const handleErrorResponse = (error, user) => {
     if (error?.response?.status === 500) {
       dispatch(setRedNotification("fatal error: lost connection to blog"));
     } else if (error?.response?.status === 401) {
-      dispatch(setRedNotification(`session expired: ${user.name} please log and try again`));
-    } else {
-      dispatch(setRedNotification(`fatal error: something wrong happened (${error?.response?.data.error})`));
+      dispatch(
+        setRedNotification(
+          `session expired: ${user.name} please log and try again`
+        )
+      );
+    } else if (error?.response?.data.error) {
+      dispatch(
+        setRedNotification(
+          `fatal error: something wrong happened (${error?.response?.data.error})`
+        )
+      );
     }
-  }
+  };
 
   const createABlog = (returnedBlog) => {
     try {
       if (!returnedBlog.title && !returnedBlog.url) {
-        dispatch(setRedNotification(`error: title (${returnedBlog.title}) and url (${returnedBlog.url}) are required`));
+        dispatch(
+          setRedNotification(
+            `error: title (${returnedBlog.title}) and url (${returnedBlog.url}) are required`
+          )
+        );
       } else if (!returnedBlog.title) {
-        dispatch(setRedNotification(`error: title (${returnedBlog.title}) is required`));
+        dispatch(
+          setRedNotification(`error: title (${returnedBlog.title}) is required`)
+        );
       } else if (!returnedBlog.url) {
-        dispatch(setRedNotification(`error: url (${returnedBlog.url}) is required`));
+        dispatch(
+          setRedNotification(`error: url (${returnedBlog.url}) is required`)
+        );
       } else {
-        blogFormRef.current.toggleVisibility();
+        innerRef.current.toggleVisibility();
         dispatch(newBlog(returnedBlog))
-        .then(() => {
-          dispatch(setGreenNotification(`new blog '${returnedBlog.title}' by '${returnedBlog.author}' was added`));
-        })
-        .catch((error) => {
-          handleErrorResponse(error, user);
-        });
+          .then(() => {
+            dispatch(
+              setGreenNotification(
+                `new blog '${returnedBlog.title}' by '${returnedBlog.author}' was added`
+              )
+            );
+          })
+          .catch((error) => {
+            handleErrorResponse(error, user);
+          });
       }
     } catch (exception) {
-      dispatch(setRedNotification(`error: something wrong happened ${exception}`));
+      dispatch(
+        setRedNotification(`error: something wrong happened ${exception}`)
+      );
     }
-  }
+  };
 
   return (
     <div className="blogform">
@@ -91,11 +116,12 @@ const BlogForm = ({ user, blogFormRef }) => {
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
 BlogForm.propTypes = {
-  createBlog: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  innerRef: PropTypes.object.isRequired,
 };
 
 export default BlogForm;

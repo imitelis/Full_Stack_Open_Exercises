@@ -8,18 +8,12 @@ const setToken = (newToken) => {
 };
 
 const getAll = async () => {
-  const config = {
-    headers: { authorization: token },
-  };
-  const response = await axios.get(baseUrl, config);
+  const response = await axios.get(baseUrl);
   return response.data;
 };
 
 const getOne = async (id) => {
-  const config = {
-    headers: { authorization: token },
-  };
-  const response = await axios.get(`${baseUrl}/${id}`, config);
+  const response = await axios.get(`${baseUrl}/${id}`);
   return response.data;
 };
 
@@ -47,4 +41,4 @@ const updateBlog = async (id, newObject) => {
   return response.data;
 };
 
-export default { getAll, getOne, createBlog, deleteBlog, updateBlog, setToken };
+export default { setToken, getAll, getOne, createBlog, deleteBlog, updateBlog };
