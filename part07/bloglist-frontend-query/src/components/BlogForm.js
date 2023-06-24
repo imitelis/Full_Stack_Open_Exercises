@@ -1,20 +1,14 @@
-import { useState, useQuery, useQueryClient } from "react";
-import { useMutation } from 'react-query'
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 import { useNotificationDispatchValue } from '../NotificationContext'
-import { createBlog } from "../requests/blogs"
 
-const BlogForm = ({ user, innerRef }) => {
+const BlogForm = ({ user, innerRef, newBlogMutation }) => {
   const [newTitle, setNewTitle] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
   const [newUrl, setNewUrl] = useState("");
 
   const notificationDispatch = useNotificationDispatchValue();
-
-  // const queryClient = useQueryClient();
-
-  const newBlogMutation = useMutation(createBlog );
 
   const handleErrorResponse = (error, user) => {
     if (error?.response?.status === 500) {
@@ -45,7 +39,6 @@ const BlogForm = ({ user, innerRef }) => {
         newBlogMutation.mutate(returnedBlog, {
           onSuccess: () => {
             notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `new blog '${returnedBlog.title}' by '${returnedBlog.author}' was added`})
-            // queryClient.invalidateQueries('blogs');
             setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
           },
           onError: (error) => {
@@ -108,10 +101,10 @@ const BlogForm = ({ user, innerRef }) => {
   );
 };
 
-/*
 BlogForm.propTypes = {
-  createBlog: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  innerRef: PropTypes.object.isRequired,
+  newBlogMutation: PropTypes.object.isRequired
 };
-*/
 
 export default BlogForm;

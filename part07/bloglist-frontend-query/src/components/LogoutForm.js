@@ -1,16 +1,18 @@
 import PropTypes from "prop-types";
 
 import { useNotificationDispatchValue } from '../NotificationContext'
+import { useUserDispatchValue } from '../UserContext'
 
 const LogoutForm = (props) => {
 
+  const userDispatch = useUserDispatchValue();
   const notificationDispatch = useNotificationDispatchValue();
 
   const handleLogout = () => {
     notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `good-bye ${props.user.name}!`})
-    window.localStorage.removeItem("loggedNoteappUser");
-    props.setUser(null);
-    // dispatch(endSession());
+    setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
+    window.localStorage.removeItem("loggedBlogUser");
+    userDispatch({ type: "CLEAR_USER", payload: null});
   };
   
   return(
@@ -28,7 +30,6 @@ const LogoutForm = (props) => {
 
 LogoutForm.propTypes = {
   user: PropTypes.object.isRequired,
-  setUser: PropTypes.func.isRequired
 };
 
 export default LogoutForm;

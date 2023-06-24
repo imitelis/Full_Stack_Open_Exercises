@@ -93,6 +93,7 @@ const BlogForm = ({ user, innerRef }) => {
           onChange={(event) => setNewTitle(event.target.value)}
           placeholder="Blog title..."
           id="blog-title"
+          required
         />{" "}
         <br />
         author:{" "}
@@ -109,6 +110,7 @@ const BlogForm = ({ user, innerRef }) => {
           onChange={(event) => setNewUrl(event.target.value)}
           placeholder="Blog url..."
           id="blog-url"
+          required
         />{" "}
         <br />
         <button type="submit" id="create-button">

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from 'react-query'
 
+import { UserContextProvider } from './UserContext'
 import { NotificationContextProvider } from './NotificationContext'
 import App from './App'
 import './index.css'
@@ -9,9 +10,11 @@ import './index.css'
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <NotificationContextProvider>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </NotificationContextProvider>
+  <UserContextProvider>
+    <NotificationContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </NotificationContextProvider>
+  </UserContextProvider>
 )

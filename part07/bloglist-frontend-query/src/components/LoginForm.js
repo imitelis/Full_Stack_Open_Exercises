@@ -2,17 +2,19 @@ import { useState } from "react";
 import { useMutation } from 'react-query'
 import PropTypes from "prop-types";
 
+import { useUserDispatchValue } from '../UserContext'
 import { useNotificationDispatchValue } from '../NotificationContext'
 
 import { setToken } from "../requests/blogs"
 
 import loginService from "../services/login";
 
-const LoginForm = (props) => {
+const LoginForm = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const userDispatch = useUserDispatchValue();
   const notificationDispatch = useNotificationDispatchValue();
 
   const setTokenMutation = useMutation(setToken)
@@ -23,28 +25,36 @@ const LoginForm = (props) => {
       const user = await loginService.login({
         username,
         password,
+      })
+      
+      await loginService.login({
+        username,
+        password,
+      }).then(user => {
+        userDispatch({ type: "PLACE_USER", payload: user });
+      }).catch(error => {
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error?.response?.data.error})`})
+        setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
       });
-
-      props.setUser(user);
+      
       setUsername("");
       setPassword("");
-      window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
-      setTokenMutation.mutate(user.token); 
-      // console.log(user.token);
+      window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
+      setTokenMutation.mutate(user.token);
       notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `welcome ${user.name}!`})
       setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
     } catch (error) {
       if (!username || !password) {
         notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: username (${username}) and password (*) are required`})
         setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
-      } else if (error.response.status === 500) {
+      } else if (error?.response?.status === 500) {
         notificationDispatch({ type: "RED_NOTIFICATION", payload: "fatal error: lost connection to blog"})
         setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
-      } else if (error.response.status === 401) {
+      } else if (error?.response?.status === 401) {
         notificationDispatch({ type: "RED_NOTIFICATION", payload: `wrong credentials or non-existing user (${username})`})
         setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
       } else {
-        notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error.response.data.error})`})
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error?.response?.data.error})`})
         setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
       }
     }
@@ -80,7 +90,6 @@ const LoginForm = (props) => {
 }
 
 LoginForm.propTypes = {
-  setUser: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

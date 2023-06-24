@@ -7,6 +7,7 @@ const loginSlice = createSlice({
   initialState: null,
   reducers: {
     placeUser: (state, action) => {
+      // console.log("here placeUser", action.payload)
       return action.payload;
     },
     clearUser: (state, action) => {

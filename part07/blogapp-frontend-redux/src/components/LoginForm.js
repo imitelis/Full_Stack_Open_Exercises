@@ -47,9 +47,8 @@ const LoginForm = ({ user }) => {
       } else {
         await dispatch(beginSession(username, password));
         const currentUser = store.getState().user;
-        // console.log("here login", currentUser);
+        // console.log("here currentUser", currentUser);
         if (currentUser) {
-          console.log("lookatme", currentUser.name);
           dispatch(setGreenNotification(`welcome ${currentUser.name}!`));
           dispatch(setBlogsToken(currentUser.token));
           setUsername("");
@@ -65,8 +64,12 @@ const LoginForm = ({ user }) => {
       console.log(error.response.data);
     }
   };
+
+  if (!user || user === null) {
   return (
+    <div className="loginform">
     <form onSubmit={handleLogin}>
+      <h2>Login an existing User</h2>
       <div>
         username
         <input
@@ -91,7 +94,15 @@ const LoginForm = ({ user }) => {
         login
       </button>
     </form>
+    </div>
   );
+  } else if (user.name) {
+    return (
+      <div className="loginform">
+        <em>{user.name} already logged in...</em>
+      </div>
+    )
+  }
 };
 
 LoginForm.propTypes = {

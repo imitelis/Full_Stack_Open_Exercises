@@ -20,80 +20,19 @@ import { initializeUsers } from "./reducers/usersReducer";
 
 import LoginForm from "./components/LoginForm";
 import LogoutForm from "./components/LogoutForm";
-import BlogForm from "./components/BlogForm";
+import LogupForm from "./components/LogupForm";
 import Notification from "./components/Notification";
 import Togglable from "./components/Togglable";
+import Blog from "./components/Blog";
 import BlogList from "./components/BlogList";
+import User from "./components/User";
+import UserList from "./components/UserList";
 
-const User = () => {
+const App = () => {
 
-  const dispatch = useDispatch();
-  
-  const users = useSelector((state) => {
-    return [...state.users];
-  });
-
-  useEffect(() => {
-    dispatch(initializeUsers());
-  }, [users]);
-
-  const id = useParams().id
-  const userInfo = users.find(n => n.id == id) 
-
-  if (!userInfo) {
-    return (
-      <div>
-        <em>no user...</em>
-      </div>
-    )
+  const padding = {
+    padding: 5
   }
-
-  return (
-    <div>
-      <h2>{userInfo.name}</h2>
-      <ol>
-      {userInfo.blogs.map((blog) => (
-        <li key={blog.id}>
-        <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-        </li>
-      ))}
-      </ol>
-    </div>
-  )
-}
-
-const UserList = () => {
-
-  const dispatch = useDispatch();
-
-  const users = useSelector((state) => {
-    return [...state.users];
-  });
-
-  useEffect(() => {
-    dispatch(initializeUsers());
-  }, [users]);
-
-  return (
-    <div>
-      <h2>Users List</h2>
-      <ol>
-      {users.map((user) => (
-        <li key={user.id}>
-        <Link to={`/users/${user.id}`}>{user.name}</Link> blogs created: <p>{user.blogs.length}</p>
-        </li>
-      ))}
-      </ol>
-    </div>
-  )
-};
-
-const BlogApp = () => {
-  const [successShown, setSuccessShown] = useState(false);
-
-  const blogFormRef = useRef();
-
-  const dispatch = useDispatch();
 
   const user = useSelector((state) => {
     return state.user;
@@ -103,9 +42,21 @@ const BlogApp = () => {
     return [...state.blogs];
   });
 
+  const users = useSelector((state) => {
+    return [...state.users];
+  });
+
   useEffect(() => {
     dispatch(initializeBlogs());
   }, [blogs]);
+
+  useEffect(() => {
+    dispatch(initializeUsers());
+  }, [users]);
+
+  const [successShown, setSuccessShown] = useState(false);
+
+  const dispatch = useDispatch();  
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -123,43 +74,40 @@ const BlogApp = () => {
       });
   }, [dispatch, setGreenNotification, setRedNotification, setSuccessShown]);
 
+  const usermatch = useMatch('/users/:id')
+
+  const userInfo = usermatch
+  ? users.find(user => user.id === usermatch.params.id)
+  : null
+
+  const blogmatch = useMatch('/blogs/:id')
+
+  const blogInfo = blogmatch
+  ? blogs.find(blog => blog.id === blogmatch.params.id)
+  : null
+
   return (
     <div>
       <h1>Blog app</h1>
-      {user == null && <Notification />}
-      {user == null && (
-        <Togglable buttonLabel="log in blog">
-          <LoginForm user={user} />
-        </Togglable>
-      )}
-      {user && <LogoutForm user={user} />}
-      <br />
-      {user && <Notification />}
-      {user && (
-        <Togglable buttonLabel="new blog" ref={blogFormRef}>
-          <BlogForm user={user} innerRef={blogFormRef} />
-        </Togglable>
-      )}
-      <br />
-      {user && <BlogList user={user} blogs={blogs} />}
-    </div>
-  );
-};
-
-const App = () => {
-  return (
-    <Router>
-      <div>
-        <Link to="/bloglist">Bloglist</Link>
-        <Link to="/users">Blogusers</Link>
+      <Notification />
+      <div className="navbar">
+        <Link to="/blogs">Blogs</Link>
+        <Link to="/users">Users</Link>
+        {user == null && <Link to="/logup">Logup</Link>}
+        {user == null && <Link to="/login">Login</Link>}
+        {user && <LogoutForm user={user} />}
       </div>
+
       <Routes>
+        <Route path="/" element={<BlogList user={user} blogs={blogs} />} />
+        <Route path="/blogs" element={<BlogList user={user} blogs={blogs} />} />
         <Route path="/users" element={<UserList />} />
-        <Route path="/users/:id" element={<User />} />
-        <Route path="/blogs/:id" element={<User />} />
-        <Route path="/bloglist" element={<BlogApp />} />
+        <Route path="/logup" element={<LogupForm user={user}/>} />
+        <Route path="/login" element={<LoginForm user={user}/>} />
+        <Route path="/users/:id" element={<User userInfo={userInfo} />} />
+        <Route path="/blogs/:id" element={<Blog blogInfo={blogInfo} user={user} />} />
       </Routes>
-    </Router>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
-PUT http://localhost:3001/api/blogs/64385f7a1fe33157b891b505
+PUT http://localhost:3003/api/blogs/6496fa0455231c6d9fe482c8
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NDM1ZmFiMDYyZDRhZTE0ZjlhMzkzMWEiLCJpYXQiOjE2ODE0MjMxMjYsImV4cCI6MTY4MTQyNjcyNn0.76qglvxDMfUOf3NAH4Mqx6WhRPLABkFtSJWNUjtqjCk
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NDk2ZjljYTU1MjMxYzZkOWZlNDgyYzIiLCJpYXQiOjE2ODc2MTU5NTgsImV4cCI6MTY4NzYxOTU1OH0.HP9N9K4tVmFHkDcBMKGF58qKuS9Ijb_hZywsqV4F70A
 
 {
     "title": "Hallo!",

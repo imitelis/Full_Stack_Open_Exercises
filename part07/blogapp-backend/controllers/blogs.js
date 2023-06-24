@@ -36,7 +36,8 @@ blogsRouter.post('/', async (req, res, next) => {
       url: body.url,
       author: body.author,
       likes: body.likes === undefined ? 0 : body.likes,
-      user: user.id
+      user: user.id,
+      //  likes === undefined ? 0 : body.likes
     })
 
     const decodedToken = jwt.verify(token, process.env.SECRET)

@@ -1,19 +1,12 @@
 // import { useState } from "react";
 
-import { useMutation, useQueryClient } from 'react-query'
 import { useNotificationDispatchValue } from '../NotificationContext'
 
 import Blog from "./Blog";
 
-import { deleteBlog, updateBlog } from "../requests/blogs"
-
-const BlogList = ({ blogs, user }) => {
+const BlogList = ({ blogs, user, removeBlogMutation, updateBlogMutation }) => {
 
     const notificationDispatch = useNotificationDispatchValue();
-
-    const removeBlogMutation = useMutation(deleteBlog);
-
-    const updateBlogMutation = useMutation(updateBlog);
 
     const handleErrorResponse = (error, user) => {
         if (error?.response?.status === 500) {
