@@ -15,13 +15,13 @@ const App = () => {
   const [redMessage, setRedMessage] = useState(null)
 
   useEffect(() => {
-    console.log('effect')
     personService.getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
       })
 
   }, [])
+
   console.log('render', persons.length, 'persons')
 
   const NotificationGreen = ({ message }) => {
