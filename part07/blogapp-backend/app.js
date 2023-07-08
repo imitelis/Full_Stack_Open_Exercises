@@ -36,6 +36,16 @@ app.use('/api/blogs', middleware.userExtractor, blogsRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 
+app.get('*', function(req, res){
+  res.sendFile('/blogapp-frontend-redux/public' + '/index.html');
+})
+
+/*
+app.get('*', function(req, res){
+  res.sendFile('/blogapp-frontend-query/public' + '/index.html');
+})
+*/
+
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
   app.use('/api/testing', testingRouter)

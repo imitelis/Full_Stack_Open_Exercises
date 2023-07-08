@@ -1,4 +1,4 @@
-h1, h2, h3 {
+h1, h2, h3, h4 {
   color: green;
   font-style: italic;
 }
@@ -43,4 +43,8 @@ h1, h2, h3 {
   padding: 5;
   background-color: lightgrey;
   color: black;
+}
+
+iframe {
+    display: none;
 }

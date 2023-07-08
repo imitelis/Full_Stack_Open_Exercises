@@ -15,9 +15,26 @@ const LogupForm = ({ user }) => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedup, setLoggedup] = useState(false);
 
   const dispatch = useDispatch();
+  
+  const handleErrorResponse = (error, username) => {
+    if (error?.response?.status === 500) {
+      dispatch(setRedNotification("fatal error: lost connection to blog"));
+    } else if (error?.response?.status === 400) {
+      dispatch(
+        setRedNotification(
+          `user log up failed: username (${username}) already exists`
+        )
+      );
+    } else if (error?.response?.data.error) {
+      dispatch(
+        setRedNotification(
+          `fatal error: something wrong happened (${error?.response?.data.error})`
+        )
+      );
+    };
+  };
 
   useEffect(() => {
     const fetchData = async (dispatch) => {
@@ -30,7 +47,7 @@ const LogupForm = ({ user }) => {
           // console.log("here localStorage", sessionUser);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     fetchData(dispatch);
@@ -51,26 +68,32 @@ const LogupForm = ({ user }) => {
             `error: username (${username}) minlength must be of three characters`
           )
         );
+      } else if (username.length < 3) {
+        dispatch(
+          setRedNotification(
+            `error: username (${username}) minlength must be of three characters`
+          )
+        );
       } else {
         const userObject = {
           name: name, username: username, password: password
         }
 
-        const logupUser = await dispatch(newUser(userObject));
-        if (logupUser) {
-          dispatch(setGreenNotification(`successfully logged up ${logupUser.name}!`));
-          // dispatch(setBlogsToken(currentUser.token));
+        await dispatch(newUser(userObject))
+        .then(() => {
+          dispatch(setGreenNotification(`successfully logged up ${username}! now you can log in`));
           setName("");
           setUsername("");
           setPassword("");
-        } else {
-          dispatch(
-            setRedNotification(`wrong credentials or existing user`)
-          );
-        }
+        })
+        .catch((error) => {
+          handleErrorResponse(error, username);
+          // console.log(error);
+        });
       }
     } catch (error) {
-      console.log(error.response.data);
+      handleErrorResponse(error, username);
+      // console.log(error.response.data);
     }
   };
 
@@ -78,9 +101,9 @@ const LogupForm = ({ user }) => {
     return(
       <div className="logupform">
         <form onSubmit={handleLogup}>
-        <h2>Logup a new User</h2>
+        <h2>Log up as a new User</h2>
         <div>
-        name
+        name:{" "}
           <input
             type="text"
             value={name}
@@ -90,7 +113,7 @@ const LogupForm = ({ user }) => {
           />
         </div>
         <div>
-        username
+        username:{" "}
           <input
             type="text"
             value={username}
@@ -100,7 +123,7 @@ const LogupForm = ({ user }) => {
           />
         </div>
         <div>
-        password
+        password:{" "}
           <input
             type="password"
             value={password}
@@ -110,7 +133,7 @@ const LogupForm = ({ user }) => {
           />
         </div>
         <button type="submit" id="logup-button">
-          logup
+          log up
         </button>
       </form>
     </div>

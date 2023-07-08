@@ -22,14 +22,14 @@ const LoginForm = ({ user }) => {
     const fetchData = async (dispatch) => {
       try {
         const loggedUserJSON = window.localStorage.getItem("loggedBlogUser");
-        const sessionUser = JSON.parse(loggedUserJSON).payload;
+        const sessionUser = loggedUserJSON ? JSON.parse(loggedUserJSON).payload : null;
         if (sessionUser) {
           dispatch(setUser(sessionUser));
           dispatch(setBlogsToken(sessionUser.token));
           // console.log("here localStorage", sessionUser);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     fetchData(dispatch);
@@ -56,12 +56,15 @@ const LoginForm = ({ user }) => {
         }
         if (!currentUser) {
           dispatch(
-            setRedNotification(`wrong credentials or non-existing user`)
+            setRedNotification(`error: wrong credentials or non-existing user`)
           );
         }
       }
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
+      dispatch(
+        setRedNotification(`fatal error: something wrong happened (${error})`)
+      );
     }
   };
 
@@ -69,9 +72,9 @@ const LoginForm = ({ user }) => {
   return (
     <div className="loginform">
     <form onSubmit={handleLogin}>
-      <h2>Login an existing User</h2>
+      <h2>Log in as an existing User</h2>
       <div>
-        username
+        username:{" "}
         <input
           type="text"
           value={username}
@@ -81,7 +84,7 @@ const LoginForm = ({ user }) => {
         />
       </div>
       <div>
-        password
+        password:{" "}
         <input
           type="password"
           value={password}
@@ -91,11 +94,12 @@ const LoginForm = ({ user }) => {
         />
       </div>
       <button type="submit" id="login-button">
-        login
+        log in
       </button>
     </form>
     </div>
   );
+  
   } else if (user.name) {
     return (
       <div className="loginform">

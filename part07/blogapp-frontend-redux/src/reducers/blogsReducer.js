@@ -50,7 +50,7 @@ export const destroyBlog = (id) => {
   };
 };
 
-export const likeBlog = (id, newObject) => {
+export const renewBlog = (id, newObject) => {
   return async (dispatch) => {
     const updatedBlog = await blogService.updateBlog(id, newObject);
     dispatch(refreshBlogs(updatedBlog));

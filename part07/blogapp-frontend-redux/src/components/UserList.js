@@ -1,21 +1,18 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import {
     Link
   } from "react-router-dom";
 
-import { initializeUsers } from "../reducers/usersReducer";
+const UserList = ({ user, users }) => {
 
-const UserList = () => {
-    const dispatch = useDispatch();
-  
-    const users = useSelector((state) => {
-      return [...state.users];
-    });
-  
-    useEffect(() => {
-      dispatch(initializeUsers());
-    }, [users]);
+    if (!user || user === null) {
+      return (
+        <div>
+          <h2>Users list</h2>
+          <em>please log in...</em>
+        </div>
+      );
+    };
   
     return (
       <div>
@@ -29,6 +26,11 @@ const UserList = () => {
         </ol>
       </div>
     )
+};
+
+UserList.propTypes = {
+  user: PropTypes.object,
+  users: PropTypes.array
 };
 
 export default UserList;

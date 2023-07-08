@@ -14,7 +14,9 @@ blogsRouter.get('/', async (req, res, next) => {
 
 blogsRouter.get('/:id', async (req, res, next) => {
   try {
-    const blog = await Blog.findById(req.params.id)
+    const blogId = req.params.id
+    const blog = await Blog.findById(blogId)
+    
     if (blog) {
       res.json(blog)
     } else {
@@ -36,8 +38,8 @@ blogsRouter.post('/', async (req, res, next) => {
       url: body.url,
       author: body.author,
       likes: body.likes === undefined ? 0 : body.likes,
-      user: user.id,
-      //  likes === undefined ? 0 : body.likes
+      comments: [],
+      user: user.id
     })
 
     const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -61,9 +63,9 @@ blogsRouter.post('/', async (req, res, next) => {
 
 blogsRouter.delete('/:id', async (req, res, next) => {
   try {
+    const blogId = req.params.id
     const token = req.token
     const user = req.user
-    const blogId = req.params.id
 
     const decodedToken = jwt.verify(token, process.env.SECRET)
 
@@ -98,10 +100,10 @@ blogsRouter.delete('/:id', async (req, res, next) => {
 
 blogsRouter.put('/:id', async (req, res, next) => {
   try {
+    const blogId = req.params.id
     const token = req.token
     const user = req.user
     const body = req.body
-    const blogId = req.params.id
 
     const decodedToken = jwt.verify(token, process.env.SECRET)
 
@@ -119,7 +121,8 @@ blogsRouter.put('/:id', async (req, res, next) => {
       title: body.title,
       author: body.author,
       url: body.url,
-      likes: body.likes
+      likes: body.likes,
+      comments: body.comments
     }
 
     if (!existingBlog) {

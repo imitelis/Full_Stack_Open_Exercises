@@ -16,4 +16,14 @@ const createUser = async (newUser) => {
   return response.data;
 };
 
-export default { getAll, getOne, createUser };
+const deleteUser = async (id) => {
+  const response = await axios.delete(`${baseUrl}/${id}`);
+  return response.data;
+};
+
+const updateUser = async (id, newObject) => {
+  const response = await axios.put(`${baseUrl}/${id}`, newObject);
+  return response.data;
+};
+
+export default { getAll, getOne, createUser, deleteUser, updateUser };

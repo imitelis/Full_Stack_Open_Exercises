@@ -8,7 +8,7 @@ import {
   useParams,
   Navigate,
   useNavigate,
-  useMatch,
+  useMatch
 } from "react-router-dom";
 
 import {
@@ -22,11 +22,11 @@ import LoginForm from "./components/LoginForm";
 import LogoutForm from "./components/LogoutForm";
 import LogupForm from "./components/LogupForm";
 import Notification from "./components/Notification";
-import Togglable from "./components/Togglable";
 import Blog from "./components/Blog";
 import BlogList from "./components/BlogList";
 import User from "./components/User";
 import UserList from "./components/UserList";
+import Account from "./components/Account";
 
 const App = () => {
 
@@ -93,19 +93,21 @@ const App = () => {
       <div className="navbar">
         <Link to="/blogs">Blogs</Link>
         <Link to="/users">Users</Link>
-        {user == null && <Link to="/logup">Logup</Link>}
-        {user == null && <Link to="/login">Login</Link>}
+        <Link to="/account">Account</Link>
+        {user == null && <Link to="/logup">Log up</Link>}
+        {user == null && <Link to="/login">Log in</Link>}
         {user && <LogoutForm user={user} />}
       </div>
 
       <Routes>
         <Route path="/" element={<BlogList user={user} blogs={blogs} />} />
         <Route path="/blogs" element={<BlogList user={user} blogs={blogs} />} />
-        <Route path="/users" element={<UserList />} />
+        <Route path="/users" element={<UserList user={user} users={users} />} />
+        <Route path="/account" element={<Account user={user} users={users} />} />
         <Route path="/logup" element={<LogupForm user={user}/>} />
         <Route path="/login" element={<LoginForm user={user}/>} />
-        <Route path="/users/:id" element={<User userInfo={userInfo} />} />
-        <Route path="/blogs/:id" element={<Blog blogInfo={blogInfo} user={user} />} />
+        <Route path="/users/:id" element={<User user={user} userInfo={userInfo} />} />
+        <Route path="/blogs/:id" element={<Blog user={user} blogInfo={blogInfo} />} />
       </Routes>
     </div>
   );

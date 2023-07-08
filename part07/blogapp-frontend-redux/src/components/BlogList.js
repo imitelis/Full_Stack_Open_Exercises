@@ -11,12 +11,23 @@ const BlogList = ({ user, blogs }) => {
 
   const blogFormRef = useRef();
 
+  if (!user || user === null) {
+    return (
+      <div>
+        <h2>Blog list</h2>
+        <em>please log in...</em>
+      </div>
+    );
+  };
+
   return (
-    <div>      
+    <div> 
       {user && (
-        <Togglable buttonLabel="new blog" ref={blogFormRef}>
-          <BlogForm user={user} innerRef={blogFormRef} />
-        </Togglable>
+        <div>
+          <Togglable buttonLabel="new blog" ref={blogFormRef}>
+            <BlogForm user={user} innerRef={blogFormRef} />
+          </Togglable>
+        </div>
       )}
       <h2>Blog list</h2>
       {blogs.map((blog) => (
@@ -30,7 +41,7 @@ const BlogList = ({ user, blogs }) => {
 
 BlogList.propTypes = {
   blogs: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
 };
 
 export default BlogList;

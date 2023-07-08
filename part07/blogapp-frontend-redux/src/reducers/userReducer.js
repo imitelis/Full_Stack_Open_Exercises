@@ -31,7 +31,7 @@ export const loginAsync = createAsyncThunk(
   "login/loginAsync",
   async (credentials) => {
     const user = await loginService.login(credentials);
-    console.log(user);
+    // console.log(user);
     return user;
   }
 );

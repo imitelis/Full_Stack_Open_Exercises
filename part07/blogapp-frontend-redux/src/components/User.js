@@ -3,34 +3,50 @@ import {
     Link
   } from "react-router-dom";
 
-const User = ({ userInfo }) => {
+const User = ({ user, userInfo }) => {
 
-    if (!userInfo) {
-       return (
-         <div>
-           <h2>User</h2>
-           <em>no user...</em>
-         </div>
-       )
-     }
-   
+  if (!user || user === null) {
+    return (
+      <div>
+        <h2>User</h2>
+        <em>please log in first...</em>
+      </div>
+    );
+  };
+
+  if (!userInfo) {
      return (
        <div>
          <h2>User</h2>
-         <h3>{userInfo.username} blogs:</h3>
-         <ul>
-         {userInfo.blogs.map((blog) => (
-           <li key={blog.id}>
-           <Link to={`/blogs/${blog.id}`}>{blog.title} by {blog.author}</Link>
-           </li>
-         ))}
-         </ul>
+         <em>no user...</em>
        </div>
      )
+  }
+   
+  return (
+    <div>
+      <h2>User</h2>
+      <h3>{userInfo.username} blogs:</h3>
+      <ul>
+      {userInfo.blogs.length === 0 ? (
+      <em>no blogs yet...</em>
+      ) : (
+      <ul>
+        {userInfo.blogs.map((blog) => (
+        <li key={blog.id}>
+          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+        </li>
+        ))}
+      </ul>
+      )}
+      </ul>
+    </div>
+  )
 }
 
 User.propTypes = {
-    userInfo: PropTypes.object
+  user: PropTypes.object,
+  userInfo: PropTypes.object
 };
-  
+
 export default User;

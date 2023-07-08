@@ -76,9 +76,9 @@ const BlogForm = ({ user, innerRef }) => {
             handleErrorResponse(error, user);
           });
       }
-    } catch (exception) {
+    } catch (error) {
       dispatch(
-        setRedNotification(`error: something wrong happened ${exception}`)
+        setRedNotification(`error: something wrong happened ${error}`)
       );
     }
   };

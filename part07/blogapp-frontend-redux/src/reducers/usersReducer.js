@@ -29,4 +29,20 @@ export const newUser = (newObject) => {
   };
 };
 
+export const destroyUser = (id) => {
+  return async (dispatch) => {
+    const deletedUser = await usersService.deleteUser(id);
+    const users = await usersService.getAll();
+    dispatch(setUsers(users));
+  };
+};
+
+export const renewUser = (id, newObject) => {
+  return async (dispatch) => {
+    const updatedUser = await usersService.updateUser(id, newObject);
+    const users = await usersService.getAll();
+    dispatch(setUsers(users));
+  };
+};
+
 export default usersSlice.reducer;
