@@ -22,7 +22,7 @@ const PasswordForm = ({ user, users, innerRef }) => {
   const dispatch = useDispatch();
 
   function getUserIdByUsername(users, username) {
-    const userFound = users.find((user) => user.username === username);
+    const userFound = users.find((user) => user.username === username)
     return userFound ? userFound.id : null;
   }
 
@@ -31,15 +31,11 @@ const PasswordForm = ({ user, users, innerRef }) => {
       dispatch(setRedNotification("fatal error: lost connection to blog"));
     } else if (error?.response?.status === 401) {
       dispatch(
-        setRedNotification(
-          `error: wrong credentials or session expired, ${user.name} please log and try again`
-        )
+        setRedNotification(`error: wrong credentials or session expired, ${user.name} please log and try again`)
       );
     } else if (error?.response?.data.error) {
       dispatch(
-        setRedNotification(
-          `fatal error: something wrong happened (${error?.response?.data.error})`
-        )
+        setRedNotification(`fatal error: something wrong happened (${error?.response?.data.error})`)
       );
     }
   };
@@ -50,7 +46,7 @@ const PasswordForm = ({ user, users, innerRef }) => {
       password: password,
       repeatedPassword: repeatedPassword,
       newPassword: newPassword,
-      newRepeatedPassword: newRepeatedPassword,
+      newRepeatedPassword: newRepeatedPassword
     });
 
     setPassword("");
@@ -61,42 +57,25 @@ const PasswordForm = ({ user, users, innerRef }) => {
 
   const changePassword = async (returnedForm) => {
     try {
-      if (
-        !returnedForm.password ||
-        !returnedForm.repeatedPassword ||
-        !returnedForm.newPassword ||
-        !returnedForm.newRepeatedPassword
-      ) {
+      if (!returnedForm.password || !returnedForm.repeatedPassword || !returnedForm.newPassword || !returnedForm.newRepeatedPassword) {
         dispatch(
-          setRedNotification(
-            `error: password (*), repeated password (*) and new password (*) are required`
-          )
+          setRedNotification(`error: password (*), repeated password (*) and new password (*) are required`)
         );
       } else if (returnedForm.password !== returnedForm.repeatedPassword) {
         dispatch(
-          setRedNotification(
-            `error: password (*) and repeated password (*) are not equal`
-          )
+          setRedNotification(`error: password (*) and repeated password (*) are not equal`)
         );
-      } else if (
-        returnedForm.newPassword !== returnedForm.newRepeatedPassword
-      ) {
+      } else if (returnedForm.newPassword !== returnedForm.newRepeatedPassword) {
         dispatch(
-          setRedNotification(
-            `error: new password (*) and repeated new password (*) are not equal`
-          )
+          setRedNotification(`error: new password (*) and repeated new password (*) are not equal`)
         );
       } else if (returnedForm.password === returnedForm.newPassword) {
         dispatch(
-          setRedNotification(
-            `error: password (*) and new password (*) are equal`
-          )
+          setRedNotification(`error: password (*) and new password (*) are equal`)
         );
       } else if (returnedForm.newPassword.length < 3) {
         dispatch(
-          setRedNotification(
-            `error: newpassword (*) minlength must be of three characters`
-          )
+          setRedNotification(`error: newpassword (*) minlength must be of three characters`)
         );
       } else {
         const currentUser = store.getState().user;
@@ -105,7 +84,7 @@ const PasswordForm = ({ user, users, innerRef }) => {
           const updatedUser = {
             username: user.username,
             name: user.name,
-            password: newPassword,
+            password: newPassword
           };
 
           try {
@@ -114,20 +93,14 @@ const PasswordForm = ({ user, users, innerRef }) => {
             dispatch(beginSession(user.username, returnedForm.password));
             dispatch(setBlogsToken(currentUser.token));
             dispatch(
-              setGreenNotification(
-                `${user.username} password successfully updated`
-              )
+              setGreenNotification(`${user.username} password successfully updated`)
             );
             innerRef.current.toggleVisibility();
           } catch (error) {
             handleErrorResponse(error, user);
           }
         } else {
-          dispatch(
-            setRedNotification(
-              `error: wrong credentials or session expired, ${user.name} please log and try again`
-            )
-          );
+          dispatch(setRedNotification(`error: wrong credentials or session expired, ${user.name} please log and try again`));
         }
       }
     } catch (error) {

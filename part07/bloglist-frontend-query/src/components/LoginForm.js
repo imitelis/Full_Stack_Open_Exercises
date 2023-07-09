@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from 'react-query'
 import PropTypes from "prop-types";
+import { useNavigate } from 'react-router-dom';
 
 import { useUserDispatchValue } from '../UserContext'
 import { useNotificationDispatchValue } from '../NotificationContext'
@@ -17,7 +18,8 @@ const LoginForm = () => {
   const userDispatch = useUserDispatchValue();
   const notificationDispatch = useNotificationDispatchValue();
 
-  const setTokenMutation = useMutation(setToken)
+  const setTokenMutation = useMutation(setToken);
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -31,7 +33,7 @@ const LoginForm = () => {
         username,
         password,
       }).then(user => {
-        userDispatch({ type: "PLACE_USER", payload: user });
+        userDispatch({ type: "BEGIN_SESSION", payload: user });
       }).catch(error => {
         notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error?.response?.data.error})`})
         setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
@@ -41,6 +43,7 @@ const LoginForm = () => {
       setPassword("");
       window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
       setTokenMutation.mutate(user.token);
+      navigate('/blogs');
       notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `welcome ${user.name}!`})
       setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
     } catch (error) {

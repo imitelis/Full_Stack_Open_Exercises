@@ -1,79 +1,44 @@
 // import { useState } from "react";
 
-import { useNotificationDispatchValue } from '../NotificationContext'
+import { useRef } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import Blog from "./Blog";
+import Togglable from "./Togglable";
+import BlogForm from "./BlogForm";
 
-const BlogList = ({ blogs, user, removeBlogMutation, updateBlogMutation }) => {
+const BlogList = ({ blogs, user, newBlogMutation }) => {
 
-    const notificationDispatch = useNotificationDispatchValue();
+  const blogFormRef = useRef();
 
-    const handleErrorResponse = (error, user) => {
-        if (error?.response?.status === 500) {
-          notificationDispatch({ type: "RED_NOTIFICATION", payload: "fatal error: lost connection to blog"})
-          setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
-        } else if (error?.response?.status === 401) {
-          notificationDispatch({ type: "RED_NOTIFICATION", payload: `session expired: ${user.name} please log and try again`})
-          setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
-        } else {
-          notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error?.response?.data.error})`})
-          setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
-        }
-    };
-
-    const deleteABlog = (returnedBlog) => {
-        try {
-          if (
-            window.confirm(
-              `remove blog '${returnedBlog.title}' by '${returnedBlog.author}'?`
-            )
-          ) {
-            removeBlogMutation.mutate(returnedBlog, {
-              onSuccess: () => {
-                notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `blog '${returnedBlog.title}' by '${returnedBlog.author}' was removed`})
-                setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
-              },
-              onError: (error) => {
-                handleErrorResponse(error, user);
-              }
-            })
-          }
-        } catch (exception) {
-          notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${exception})`})
-          setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
-        }
-      };
-    
-      const likeABlog = (returnedBlog) => {
-        try {
-          const likedBlog = { ...returnedBlog, likes: returnedBlog.likes + 1 };
-          updateBlogMutation.mutate(likedBlog, {
-            onError: (error) => {
-              handleErrorResponse(error, user);
-            }
-          })
-        } catch (exception) {
-          notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${exception})`})
-          setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
-        }
-      };
-
+  if (!user || user === null) {
     return (
+      <div>
+        <h2>Blog list</h2>
+        <em>please log in...</em>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {user && (
         <div>
-          <h2>Blog list</h2>
-          {blogs
-            .sort((a, b) => b.likes - a.likes)
-            .map((blog) => (
-              <Blog
-                key={blog.id}
-                blog={blog}
-                user={user}
-                removeBlog={deleteABlog}
-                likeBlog={likeABlog}
-              />
-            ))}
+          <Togglable buttonLabel="new blog" ref={blogFormRef}>
+            <BlogForm user={user} newBlogMutation={newBlogMutation} innerRef={blogFormRef} />
+          </Togglable>
         </div>
-    )
+      )}
+      <h2>Blog list</h2>
+      {blogs.map((blog) => (
+        <div className="blog" key={blog.id}>
+          <Link to={`/blogs/${blog.id}`}>
+            {blog.title} by {blog.author}
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default BlogList;

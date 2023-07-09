@@ -13,8 +13,8 @@ const LogoutForm = ({ user }) => {
   };
 
   return (
-    <div>
-      {user.name} logged in
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <em>{user.name} logged in </em>
       <button onClick={handleLogout} id="logout-button">
         logout
       </button>

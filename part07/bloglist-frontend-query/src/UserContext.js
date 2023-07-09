@@ -2,10 +2,10 @@ import { createContext, useReducer, useContext } from 'react'
 
 const userReducer = (state = null, action) => {
     switch (action.type) {
-      case "PLACE_USER":
+      case "BEGIN_SESSION":
         // console.log("userReducer here", action.payload)
         return action.payload;
-      case "CLEAR_USER":
+      case "END_SESSION":
         return null;
       default:
         return state

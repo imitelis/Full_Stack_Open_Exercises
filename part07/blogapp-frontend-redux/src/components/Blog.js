@@ -10,8 +10,7 @@ import {
 import { destroyBlog, renewBlog } from "../reducers/blogsReducer";
 
 const Blog = ({ user, blogInfo }) => {
-
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
 
   const dispatch = useDispatch();
 
@@ -20,16 +19,20 @@ const Blog = ({ user, blogInfo }) => {
       dispatch(setRedNotification("fatal error: lost connection to blog"));
     } else if (error?.response?.status === 401) {
       dispatch(
-        setRedNotification(`session expired: ${user.name} please log and try again`)
+        setRedNotification(
+          `session expired: ${user.name} please log and try again`
+        )
       );
     } else if (error?.response?.data.error) {
       dispatch(
-        setRedNotification(`fatal error: something wrong happened (${error?.response?.data.error})`)
+        setRedNotification(
+          `fatal error: something wrong happened (${error?.response?.data.error})`
+        )
       );
     }
   };
 
-  const removeABlog = (returnedBlog) => {
+  const deleteABlog = (returnedBlog) => {
     try {
       if (
         window.confirm(
@@ -39,7 +42,9 @@ const Blog = ({ user, blogInfo }) => {
         dispatch(destroyBlog(returnedBlog.id))
           .then(() => {
             dispatch(
-              setGreenNotification(`blog '${returnedBlog.title}' by '${returnedBlog.author}' was removed`)
+              setGreenNotification(
+                `blog '${returnedBlog.title}' by '${returnedBlog.author}' was removed`
+              )
             );
           })
           .catch((error) => {
@@ -63,7 +68,9 @@ const Blog = ({ user, blogInfo }) => {
       });
     } catch (exception) {
       dispatch(
-        setRedNotification(`fatal error: something wrong happened (${exception})`)
+        setRedNotification(
+          `fatal error: something wrong happened (${exception})`
+        )
       );
     }
   };
@@ -90,20 +97,18 @@ const Blog = ({ user, blogInfo }) => {
 
   const uncommentABlog = (returnedBlog, commentId) => {
     try {
-      if (
-        window.confirm(
-          `remove this comment?`
-        )
-      ) {
+      if (window.confirm(`remove this comment?`)) {
         const blogId = returnedBlog.id;
-        const updatedComments = returnedBlog.comments.filter((comment, index) => index !== commentId);
+        const updatedComments = returnedBlog.comments.filter(
+          (comment, index) => index !== commentId
+        );
         returnedBlog.comments = updatedComments;
-        const commentedBlog = { ...returnedBlog, comments: updatedComments };
+        const uncommentedBlog = { ...returnedBlog, comments: updatedComments };
 
-        dispatch(renewBlog(blogId, commentedBlog)).catch((error) => {
+        dispatch(renewBlog(blogId, uncommentedBlog)).catch((error) => {
           handleErrorResponse(error, user);
         });
-      }      
+      }
     } catch (exception) {
       dispatch(
         setRedNotification(
@@ -115,10 +120,10 @@ const Blog = ({ user, blogInfo }) => {
 
   const deleteBlog = (event) => {
     event.preventDefault();
-    removeABlog({ ...blogInfo });
+    deleteABlog({ ...blogInfo });
   };
 
-  const updatelikesBlog = (event) => {
+  const likeBlog = (event) => {
     event.preventDefault();
     likeABlog({ ...blogInfo });
   };
@@ -143,7 +148,7 @@ const Blog = ({ user, blogInfo }) => {
         <em>please log in first...</em>
       </div>
     );
-  };
+  }
 
   if (!blogInfo) {
     return (
@@ -151,16 +156,19 @@ const Blog = ({ user, blogInfo }) => {
         <h2>Blog</h2>
         <em>no blog...</em>
       </div>
-    )
+    );
   }
 
   return (
     <div>
       <h2>Blog</h2>
-      <h3>{blogInfo.title} by {blogInfo.author}</h3>
+      <h3>
+        {blogInfo.title} by {blogInfo.author}
+      </h3>
       <div>
         url: <a href={blogInfo.url}>{blogInfo.url}</a> <br />
-        likes: {blogInfo.likes} <button onClick={updatelikesBlog}>like</button>{" "} <br />
+        likes: {blogInfo.likes} <button onClick={likeBlog}>like</button>{" "}
+        <br />
         added by {blogInfo.user.username} <br />
         {user.username === blogInfo.user.username && (
           <button onClick={deleteBlog}>delete</button>
@@ -168,18 +176,20 @@ const Blog = ({ user, blogInfo }) => {
       </div>
       <h4>Comments:</h4>
       {blogInfo.comments.length === 0 ? (
-      <em>no comments yet...</em>
+        <em>no comments yet...</em>
       ) : (
-      <ul>
-        {blogInfo.comments.map((comment, id) => (
-        <li key={id}>
-          {comment}{" "}
-          {user.username === blogInfo.user.username && (
-          <button onClick={() => deleteCommentBlog(blogInfo, id)}>delete</button>
-          )}
-        </li>
-        ))}
-      </ul>
+        <ul>
+          {blogInfo.comments.map((comment, id) => (
+            <li key={id}>
+              {comment}{" "}
+              {user.username === blogInfo.user.username && (
+                <button onClick={() => deleteCommentBlog(blogInfo, id)}>
+                  delete
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
       )}
       <h4>Add a new comment:</h4>
       <form onSubmit={addCommentBlog}>
@@ -192,7 +202,7 @@ const Blog = ({ user, blogInfo }) => {
 
 Blog.propTypes = {
   blogInfo: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
 };
 
 export default Blog;

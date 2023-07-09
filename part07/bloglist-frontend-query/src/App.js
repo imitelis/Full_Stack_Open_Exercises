@@ -1,33 +1,39 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { Routes, Route, useMatch } from "react-router-dom";
 
 import { useUserValue, useUserDispatchValue } from './UserContext'
 import { useNotificationDispatchValue } from './NotificationContext'
 
-import BlogList from "./components/BlogList";
-import LoginForm from "./components/LoginForm";
-import LogoutForm from "./components/LogoutForm";
-import BlogForm from "./components/BlogForm";
+import NavigationBar from "./components/NavigationBar";
 import Notification from "./components/Notification";
-import Togglable from "./components/Togglable";
+// import LogupForm from "./components/LogupForm";
+import LoginForm from "./components/LoginForm";
+import BlogList from "./components/BlogList";
+import Blog from "./components/Blog";
+import UserList from "./components/UserList";
+import User from "./components/User";
+import Account from "./components/Account";
 
 import { setToken, getBlogs, createBlog, deleteBlog, updateBlog } from "./requests/blogs"
+import { getUsers, getUser, createUser, deleteUser, updateBlog } from "./requests/users"
 
 const App = () => {
 
   const [successShown, setSuccessShown] = useState(false);
-
-  const blogFormRef = useRef();
 
   const userDispatch = useUserDispatchValue();
   const notificationDispatch = useNotificationDispatchValue();
 
   const queryClient = useQueryClient();
 
-  let result = useQuery('blogs', getBlogs);
+  let blogsResult = useQuery('blogs', getBlogs);
+  let usersResult = useQuery('users', getUsers);
 
   const user = useUserValue();
-  const blogs = result.data;
+
+  const blogs = blogsResult.data;
+  const users = usersResult.data;
 
   const setTokenMutation = useMutation(setToken);
 
@@ -47,7 +53,13 @@ const App = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('blogs')
     }
-  });  
+  });
+
+  const newUserMutation = useMutation(createUser, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('users')
+    }
+  });
 
   useEffect(() => {
     if (blogs && !successShown) {
@@ -62,26 +74,77 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       // console.log("useEffect user", user)
-      userDispatch({ type: "PLACE_USER", payload: user })
+      userDispatch({ type: "BEGIN_SESSION", payload: user })
       setTokenMutation.mutate(user.token);
     }
-  }, []);
+  }, [userDispatch]);
 
-  if (result.isLoading) {
+  const blogmatch = useMatch("/blogs/:id");
+
+  const blogInfo = blogmatch
+    ? blogs.find((blog) => blog.id === blogmatch.params.id)
+    : null;
+
+  const usermatch = useMatch("/users/:id");
+
+  const userInfo =usermatch
+    ? users.find((user) => user.id === usermatch.params.id)
+    : null;
+
+  if (blogsResult.isLoading) {
     return (
       <div>
         <h1>Blog app</h1>
-        {user === null && <Notification />}
+        <NavigationBar user={user} />
+
+        <Notification />
         <em>loading data...</em>
       </div>
     )
-  }
+  }  
 
   return (
     <div>
       <h1>Blog app</h1>
-      {user === null && <Notification />}
-      {user === null && (
+      <Notification />
+      <NavigationBar user={user} />
+
+      <Routes>
+        <Route path="/" element={<BlogList user={user} blogs={blogs} />} />
+        <Route path="/blogs" element={<BlogList user={user} blogs={blogs} newBlogMutation={newBlogMutation} />} />
+        <Route path="/users" element={<UserList user={user} users={users} />} />
+        <Route path="/account" element={<Account user={user} users={users} />} />
+        <Route path="/logup" element={<LogupForm user={user} newUserMutation={newUserMutation} />} />
+        <Route path="/login" element={<LoginForm user={user} />} />
+        <Route path="/blogs/:id" element={<Blog user={user} blogInfo={blogInfo} removeBlogMutation={removeBlogMutation} updateBlogMutation={updateBlogMutation} />}/>
+        <Route path="/users/:id" element={<User user={user} userInfo={userInfo} />} />
+      </Routes>
+      
+    </div>
+  );
+};
+
+/*
+
+
+<Route path="/users" element={<UserList user={user} users={users} />} />
+        <Route
+          path="/account"
+          element={<Account user={user} users={users} />}
+        />
+        <Route path="/logup" element={<LogupForm user={user} />} />
+        <Route path="/login" element={<LoginForm user={user} />} />
+        <Route
+          path="/users/:id"
+          element={<User user={user} userInfo={userInfo} />}
+        />
+        <Route
+          path="/blogs/:id"
+          element={<Blog user={user} blogInfo={blogInfo} />}
+        />
+        
+
+        {user === null && (
         <Togglable buttonLabel="log in blog">
           <LoginForm/>
         </Togglable>
@@ -91,13 +154,11 @@ const App = () => {
       {user && <Notification user={user} />}
       {user && (
         <Togglable buttonLabel="new blog" ref={blogFormRef}>
-          <BlogForm user={user} innerRef={blogFormRef} newBlogMutation={newBlogMutation} />
+          <BlogForm user={user} innerRef={blogFormRef} />
         </Togglable>
       )}
       <br />
-      {user && <BlogList user={user} blogs={blogs} removeBlogMutation={removeBlogMutation} updateBlogMutation={updateBlogMutation} />}
-    </div>
-  );
-};
+
+*/
 
 export default App;

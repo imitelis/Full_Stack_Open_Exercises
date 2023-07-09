@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import {
   setGreenNotification,
@@ -23,7 +23,7 @@ const DeleteForm = ({ user, users, innerRef }) => {
   const navigate = useNavigate();
 
   function getUserIdByUsername(users, username) {
-    const userFound = users.find((user) => user.username === username);
+    const userFound = users.find((user) => user.username === username)
     return userFound ? userFound.id : null;
   }
 
@@ -32,15 +32,11 @@ const DeleteForm = ({ user, users, innerRef }) => {
       dispatch(setRedNotification("fatal error: lost connection to blog"));
     } else if (error?.response?.status === 401) {
       dispatch(
-        setRedNotification(
-          `error: wrong credentials or session expired, ${user.name} please log and try again`
-        )
+        setRedNotification(`error: wrong credentials or session expired, ${user.name} please log and try again`)
       );
     } else if (error?.response?.data.error) {
       dispatch(
-        setRedNotification(
-          `fatal error: something wrong happened (${error?.response?.data.error})`
-        )
+        setRedNotification(`fatal error: something wrong happened (${error?.response?.data.error})`)
       );
     }
   };
@@ -55,18 +51,18 @@ const DeleteForm = ({ user, users, innerRef }) => {
     if (markerClicked) {
       deleteUser({
         password: password,
-        repeatedPassword: repeatedPassword,
+        repeatedPassword: repeatedPassword
       });
     } else if (!markerClicked) {
       innerRef.current.toggleVisibility();
       setPassword("");
       setRepeatedPassword("");
-    }
+    }    
   };
 
   const deleteUser = async (returnedForm) => {
     const currentUser = store.getState().user;
-
+    
     if (currentUser.username === user.username) {
       try {
         const userId = getUserIdByUsername(users, user.username);
@@ -74,12 +70,10 @@ const DeleteForm = ({ user, users, innerRef }) => {
         const currentUser = store.getState().user;
         if (currentUser) {
           await dispatch(destroyUser(userId));
-          dispatch(
-            setGreenNotification(`${user.username} successfully deleted`)
-          );
+          dispatch(setGreenNotification(`${user.username} successfully deleted`));
           dispatch(endSession());
           dispatch(setBlogsToken(currentUser.token));
-          navigate("/login");
+          navigate('/login');
         } else if (!currentUser) {
           dispatch(
             setRedNotification(`error: wrong credentials or non-existing user`)
@@ -91,12 +85,9 @@ const DeleteForm = ({ user, users, innerRef }) => {
         handleErrorResponse(error, user);
       }
     } else {
-      dispatch(
-        setRedNotification(
-          `error: wrong credentials or session expired, ${user.name} please log and try again`
-        )
-      );
+      dispatch(setRedNotification(`error: wrong credentials or session expired, ${user.name} please log and try again`));
     }
+    
   };
 
   return (
@@ -122,11 +113,8 @@ const DeleteForm = ({ user, users, innerRef }) => {
         />{" "}
         <br />
         <label>
-          <input type="checkbox" onChange={handleMarkerClick} />{" "}
-          <em>
-            delete account and all its blogs (I understand that this action
-            cannot be undone)
-          </em>
+        <input type="checkbox" onChange={handleMarkerClick} />{" "}
+        <em>delete account and all its blogs (I understand that this action cannot be undone)</em>
         </label>
         <br />
         <button type="submit" id="delete-button">
@@ -140,7 +128,7 @@ const DeleteForm = ({ user, users, innerRef }) => {
 DeleteForm.propTypes = {
   user: PropTypes.object.isRequired,
   users: PropTypes.array.isRequired,
-  innerRef: PropTypes.object.isRequired,
+  innerRef: PropTypes.object.isRequired
 };
 
 export default DeleteForm;

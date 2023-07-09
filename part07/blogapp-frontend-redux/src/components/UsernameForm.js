@@ -13,8 +13,8 @@ import { renewUser } from "../reducers/usersReducer";
 
 import store from "../store";
 
-const NameForm = ({ user, users, innerRef }) => {
-  const [newName, setNewName] = useState("");
+const UsernameForm = ({ user, users, innerRef }) => {
+  const [newUsername, setNewUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
@@ -30,7 +30,13 @@ const NameForm = ({ user, users, innerRef }) => {
     } else if (error?.response?.status === 401) {
       dispatch(
         setRedNotification(
-          `error: wrong credentials or session expired, ${user.username} please log and try again`
+          `error: wrong credentials or session expired, ${user.name} please log and try again`
+        )
+      );
+    } else if (error?.response?.status === 400) {
+      dispatch(
+        setRedNotification(
+          `username update failed: username (${newUsername}) already exists`
         )
       );
     } else if (error?.response?.data.error) {
@@ -42,35 +48,35 @@ const NameForm = ({ user, users, innerRef }) => {
     }
   };
 
-  const handleName = (event) => {
+  const handleUsername = (event) => {
     event.preventDefault();
-    changeName({
-      newName: newName,
+    changeUsername({
+      newUsername: newUsername,
       password: password,
     });
   };
 
-  const changeName = async (returnedForm) => {
+  const changeUsername = async (returnedForm) => {
     try {
-      if (!returnedForm.password || !returnedForm.newName) {
+      if (!returnedForm.password || !returnedForm.newUsername) {
         dispatch(
           setRedNotification(
-            `error: password (*) and new name (${returnedForm.newName}) are required`
+            `error: password (*) and new username (${returnedForm.newUsername}) are required`
           )
         );
       } else if (user.username === returnedForm.newName) {
         dispatch(
           setRedNotification(
-            `error: name (${user.name}) and new name (${returnedForm.newName}) are equal`
+            `error: username (${user.username}) and new username (${returnedForm.newUsername}) are equal`
           )
         );
       } else {
         const currentUser = store.getState().user;
 
-        if (currentUser.username === user.username) {
+        if (currentUser.name === user.name) {
           const updatedUser = {
-            username: user.username,
-            name: newName,
+            username: newUsername,
+            name: user.name,
             password: password,
           };
 
@@ -80,10 +86,10 @@ const NameForm = ({ user, users, innerRef }) => {
             await dispatch(renewUser(userId, updatedUser));
             dispatch(setBlogsToken(currentUser.token));
             dispatch(
-              setGreenNotification(`${user.username} name successfully updated`)
+              setGreenNotification(`${user.name} username successfully updated`)
             );
             setPassword("");
-            setNewName("");
+            setNewUsername("");
             innerRef.current.toggleVisibility();
           } catch (error) {
             handleErrorResponse(error, user);
@@ -91,30 +97,30 @@ const NameForm = ({ user, users, innerRef }) => {
         } else {
           dispatch(
             setRedNotification(
-              `error: wrong credentials or session expired, ${user.username} please log and try again`
+              `error: wrong credentials or session expired, ${user.name} please log and try again`
             )
           );
           setPassword("");
-          setNewName("");
+          setNewUsername("");
           innerRef.current.toggleVisibility();
         }
       }
     } catch (error) {
       handleErrorResponse(error, user);
       setPassword("");
-      setNewName("");
+      setNewUsername("");
     }
   };
 
   return (
     <div className="name-form">
-      <h2>Change name</h2>
-      <form onSubmit={handleName}>
-        new name:{" "}
+      <h2>Change username</h2>
+      <form onSubmit={handleUsername}>
+        new username:{" "}
         <input
-          value={newName}
-          onChange={(event) => setNewName(event.target.value)}
-          id="new-name"
+          value={newUsername}
+          onChange={(event) => setNewUsername(event.target.value)}
+          id="new-username"
           required
         />
         <br />
@@ -135,10 +141,10 @@ const NameForm = ({ user, users, innerRef }) => {
   );
 };
 
-NameForm.propTypes = {
+UsernameForm.propTypes = {
   user: PropTypes.object.isRequired,
   users: PropTypes.array.isRequired,
   innerRef: PropTypes.object.isRequired,
 };
 
-export default NameForm;
+export default UsernameForm;

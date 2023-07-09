@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
 
 import {
   BrowserRouter as Router,
-  Routes, Route, Link, useMatch, useNavigate
+  Routes, Route, Link, useMatch, useNavigate, useParams
 } from 'react-router-dom'
 
 import { useField } from './hooks/index.js'
 
-const Menu = ({addNew, anecdotes}) => {
+const Menu = ({anecdotes, addNew, voteById, deleteById}) => {
   
   const padding = {
     paddingRight: 5
@@ -24,41 +26,39 @@ const Menu = ({addNew, anecdotes}) => {
         <Link style={padding} to='/createnew'>create new</Link>
         <Link style={padding} to='/about'>about</Link>
         <Routes>
-          <Route path="/anecdotes/:id" element={<Anecdote anecdote={anecdote} />} />
-          <Route path="/anecdotes" element={<AnecdoteList anecdotes={anecdotes}/>} />
+          <Route path="/anecdotes/:id" element={<Anecdote anecdote={anecdote} voteById={voteById}/>} />
+          <Route path="/anecdotes" element={<AnecdoteList anecdotes={anecdotes} deleteById={deleteById}/>} />
           <Route path="/" element={<AnecdoteList anecdotes={anecdotes}/>} />
-          <Route path="/createnew" element={<CreateNew addNew={addNew}/>} />
+          <Route path="/createnew" element={<CreateNew addNew={addNew} />} />
           <Route path="/about" element={<About/>} />
         </Routes>
       </div>
   )
 }
 
-const Anecdote = ({ anecdote }) => {
-  if (anecdote.content.value) {
-    return (
-      <div>
-        <h2>{anecdote.content.value} by <em>{anecdote.author.value}</em></h2>
-        <p>for more info see: <a href={anecdote.info.value}>{anecdote.info.value}</a></p>
-        <p>has {anecdote.votes} votes</p>
-      </div>
-    )
-  }
+const Anecdote = ({ anecdote, voteById }) => {
+
+  const { id } = useParams();
+
+  const handleVote = () => {
+    voteById(id);
+  };
 
   return(
     <div>
-      <h2>{anecdote.content} by <em>{anecdote.author}</em></h2>
-      <p>for more info see: <a href={anecdote.info}>{anecdote.info}</a></p>
-      <p>has {anecdote.votes} votes</p>
+      <h2>{anecdote?.content ?? " "} by <em>{anecdote?.author ?? " "}</em></h2>
+      <p>for more info see: <a href={anecdote?.info ?? " "}>{anecdote?.info ?? " "}</a></p>
+      <p>has {anecdote?.votes ?? 0} votes</p>
+      <button onClick={handleVote}>vote</button>
     </div>
   )
 }
 
-const AnecdoteList = ({ anecdotes }) => (
+const AnecdoteList = ({ anecdotes, deleteById }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id}><Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content.value ? anecdote.content.value : anecdote.content}</Link></li>)}
+      {anecdotes.map(anecdote => <li key={anecdote.id}><Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content.value ? anecdote.content.value : anecdote.content}</Link>{" "}<button onClick={() => deleteById(anecdote.id)}>delete</button></li>)}
     </ul>
   </div>
 )
@@ -90,7 +90,7 @@ const CreateNew = (props) => {
   const author = useField('author')
   const info = useField('info')
 
-  const navigate = useNavigate()  
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -157,7 +157,56 @@ const Notification = ({notification}) => {
   }
 }
 
+const useResource = (baseUrl) => {
+  const [resources, setResources] = useState([])
+
+  useEffect(() => {
+    axios.get(baseUrl)
+    .then(response => {
+      setResources(response.data)
+    })
+    .catch(err => {
+      setResources([])
+    })
+  }, [resources, setResources])
+  // console.log(resources)
+
+  const create = (resource) => {
+    const request = axios.post(baseUrl, resource)
+    return request.then((response) => {
+      return response.data
+    })
+  }
+
+  const update = (resource, id) => {
+    const request = axios.put(`${baseUrl}/${id}`, resource)
+    return request.then((response) => {
+      return response.data
+    })
+  }
+
+  const destroy = (id) => {
+    const request = axios.delete(`${baseUrl}/${id}`)
+    return request.then((response) => {
+      return response.data
+    })
+  }
+
+  const service = {
+    create,
+    update,
+    destroy
+  }
+
+  return [
+    resources, service
+  ]
+}
+
 const App = () => {
+  const [anecdotes, anecdotesService] = useResource('http://localhost:3003/anecdotes')
+
+  /*
   const [anecdotes, setAnecdotes] = useState([
     {
       content: 'If it hurts, do it more often',
@@ -174,12 +223,14 @@ const App = () => {
       id: 2
     }
   ])
+  */
 
   const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
-    setAnecdotes(anecdotes.concat(anecdote))
+    anecdotesService.create({ content: anecdote.content.value, author: anecdote.author.value, info: anecdote.info.value, votes: anecdote.votes, id: anecdote.id })
+    // setAnecdotes(anecdotes.concat(anecdote))
     setNotification(`anecdote '${anecdote.content.value}' was added`)
     setTimeout(() => {
       setNotification('')
@@ -187,8 +238,21 @@ const App = () => {
   }
 
   const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id)
+    anecdotes.find(a => a.id == id)
 
+  const voteById = (id) => {
+    const anecdote = anecdoteById(id)
+
+    const votedAnecdote = {
+      ...anecdote,
+      votes: anecdote.votes + 1
+    }
+
+    // console.log(anecdote)
+    anecdotesService.update(votedAnecdote, id)
+  }
+
+  /*
   const vote = (id) => {
     const anecdote = anecdoteById(id)
 
@@ -199,13 +263,21 @@ const App = () => {
 
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
+  */
+  
+  const deleteById = (id) => {
+    if (window.confirm(`Remove this anecdote?`)) {
+      anecdotesService.destroy(id)
+      // Perform any necessary actions after deletion
+    }
+  };
 
   return (
     <div>
       <Router>
       <h1>Software anecdotes</h1>
       <Notification notification={notification}/>
-      <Menu addNew={addNew} anecdotes={anecdotes}/>
+      <Menu anecdotes={anecdotes} addNew={addNew} voteById={voteById} deleteById={deleteById}/>
       <Footer/>
       </Router>
     </div>

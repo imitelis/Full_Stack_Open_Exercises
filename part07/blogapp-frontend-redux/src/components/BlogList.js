@@ -1,14 +1,11 @@
 import { useRef } from "react";
 import PropTypes from "prop-types";
-import {
-  Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Togglable from "./Togglable";
 import BlogForm from "./BlogForm";
 
 const BlogList = ({ user, blogs }) => {
-
   const blogFormRef = useRef();
 
   if (!user || user === null) {
@@ -18,10 +15,10 @@ const BlogList = ({ user, blogs }) => {
         <em>please log in...</em>
       </div>
     );
-  };
+  }
 
   return (
-    <div> 
+    <div>
       {user && (
         <div>
           <Togglable buttonLabel="new blog" ref={blogFormRef}>
@@ -32,7 +29,9 @@ const BlogList = ({ user, blogs }) => {
       <h2>Blog list</h2>
       {blogs.map((blog) => (
         <div className="blog" key={blog.id}>
-          <Link to={`/blogs/${blog.id}`}>{blog.title} by {blog.author}</Link>
+          <Link to={`/blogs/${blog.id}`}>
+            {blog.title} by {blog.author}
+          </Link>
         </div>
       ))}
     </div>

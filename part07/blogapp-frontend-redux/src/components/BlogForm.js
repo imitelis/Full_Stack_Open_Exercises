@@ -15,7 +15,7 @@ const BlogForm = ({ user, innerRef }) => {
 
   const dispatch = useDispatch();
 
-  const addBlog = (event) => {
+  const handleBlog = (event) => {
     event.preventDefault();
     createABlog({
       title: newTitle,
@@ -77,16 +77,14 @@ const BlogForm = ({ user, innerRef }) => {
           });
       }
     } catch (error) {
-      dispatch(
-        setRedNotification(`error: something wrong happened ${error}`)
-      );
+      dispatch(setRedNotification(`error: something wrong happened ${error}`));
     }
   };
 
   return (
-    <div className="blogform">
+    <div className="blog-form">
       <h2>Create a new Blog</h2>
-      <form onSubmit={addBlog}>
+      <form onSubmit={handleBlog}>
         title:{" "}
         <input
           value={newTitle}
@@ -94,7 +92,7 @@ const BlogForm = ({ user, innerRef }) => {
           placeholder="Blog title..."
           id="blog-title"
           required
-        />{" "}
+        />
         <br />
         author:{" "}
         <input
@@ -102,7 +100,7 @@ const BlogForm = ({ user, innerRef }) => {
           onChange={(event) => setNewAuthor(event.target.value)}
           placeholder="Blog author..."
           id="blog-author"
-        />{" "}
+        />
         <br />
         url:{" "}
         <input
@@ -111,7 +109,7 @@ const BlogForm = ({ user, innerRef }) => {
           placeholder="Blog url..."
           id="blog-url"
           required
-        />{" "}
+        />
         <br />
         <button type="submit" id="create-button">
           create

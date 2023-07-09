@@ -1,7 +1,14 @@
-h1,
-h2 {
+h1, h2, h3, h4 {
   color: green;
   font-style: italic;
+}
+
+a {
+  color: dimgray
+}
+
+a:visited {
+  color: darkgreen
 }
 
 .note {
@@ -38,4 +45,14 @@ h2 {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+}
+
+.navbar {
+  padding: 5;
+  background-color: lightgrey;
+  color: black;
+}
+
+iframe {
+    display: none;
 }

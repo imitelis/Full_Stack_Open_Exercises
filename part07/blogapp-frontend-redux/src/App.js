@@ -1,15 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useParams,
-  Navigate,
-  useNavigate,
-  useMatch
-} from "react-router-dom";
+import { Routes, Route, useMatch } from "react-router-dom";
 
 import {
   setGreenNotification,
@@ -18,21 +9,21 @@ import {
 import { initializeBlogs } from "./reducers/blogsReducer";
 import { initializeUsers } from "./reducers/usersReducer";
 
-import LoginForm from "./components/LoginForm";
-import LogoutForm from "./components/LogoutForm";
-import LogupForm from "./components/LogupForm";
+import NavigationBar from "./components/NavigationBar";
 import Notification from "./components/Notification";
-import Blog from "./components/Blog";
+import LogupForm from "./components/LogupForm";
+import LoginForm from "./components/LoginForm";
 import BlogList from "./components/BlogList";
-import User from "./components/User";
+import Blog from "./components/Blog";
 import UserList from "./components/UserList";
+import User from "./components/User";
 import Account from "./components/Account";
 
 const App = () => {
 
-  const padding = {
-    padding: 5
-  }
+  const [successShown, setSuccessShown] = useState(false);
+
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => {
     return state.user;
@@ -48,15 +39,11 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializeBlogs());
-  }, [blogs]);
+  }, [dispatch, blogs]);
 
   useEffect(() => {
     dispatch(initializeUsers());
-  }, [users]);
-
-  const [successShown, setSuccessShown] = useState(false);
-
-  const dispatch = useDispatch();  
+  }, [dispatch, users]);
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -72,42 +59,35 @@ const App = () => {
           setSuccessShown(false);
         }
       });
-  }, [dispatch, setGreenNotification, setRedNotification, setSuccessShown]);
+  }, [dispatch, setSuccessShown, successShown]);
 
-  const usermatch = useMatch('/users/:id')
+  const usermatch = useMatch("/users/:id");
 
   const userInfo = usermatch
-  ? users.find(user => user.id === usermatch.params.id)
-  : null
+    ? users.find((user) => user.id === usermatch.params.id)
+    : null;
 
-  const blogmatch = useMatch('/blogs/:id')
+  const blogmatch = useMatch("/blogs/:id");
 
   const blogInfo = blogmatch
-  ? blogs.find(blog => blog.id === blogmatch.params.id)
-  : null
+    ? blogs.find((blog) => blog.id === blogmatch.params.id)
+    : null;
 
   return (
     <div>
       <h1>Blog app</h1>
       <Notification />
-      <div className="navbar">
-        <Link to="/blogs">Blogs</Link>
-        <Link to="/users">Users</Link>
-        <Link to="/account">Account</Link>
-        {user == null && <Link to="/logup">Log up</Link>}
-        {user == null && <Link to="/login">Log in</Link>}
-        {user && <LogoutForm user={user} />}
-      </div>
+      <NavigationBar user={user} />
 
       <Routes>
         <Route path="/" element={<BlogList user={user} blogs={blogs} />} />
         <Route path="/blogs" element={<BlogList user={user} blogs={blogs} />} />
         <Route path="/users" element={<UserList user={user} users={users} />} />
         <Route path="/account" element={<Account user={user} users={users} />} />
-        <Route path="/logup" element={<LogupForm user={user}/>} />
-        <Route path="/login" element={<LoginForm user={user}/>} />
-        <Route path="/users/:id" element={<User user={user} userInfo={userInfo} />} />
+        <Route path="/logup" element={<LogupForm user={user} />} />
+        <Route path="/login" element={<LoginForm user={user} />} />
         <Route path="/blogs/:id" element={<Blog user={user} blogInfo={blogInfo} />} />
+        <Route path="/users/:id" element={<User user={user} userInfo={userInfo} />} />
       </Routes>
     </div>
   );

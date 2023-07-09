@@ -8,7 +8,7 @@ const usersSlice = createSlice({
   reducers: {
     setUsers: (state, action) => {
       return action.payload.sort((a, b) => b.blogs.length - a.blogs.length);
-    }
+    },
   },
 });
 
@@ -23,7 +23,7 @@ export const initializeUsers = () => {
 
 export const newUser = (newObject) => {
   return async (dispatch) => {
-    const newUser = await usersService.createUser(newObject);
+    await usersService.createUser(newObject);
     const users = await usersService.getAll();
     dispatch(setUsers(users));
   };
@@ -31,7 +31,7 @@ export const newUser = (newObject) => {
 
 export const destroyUser = (id) => {
   return async (dispatch) => {
-    const deletedUser = await usersService.deleteUser(id);
+    await usersService.deleteUser(id);
     const users = await usersService.getAll();
     dispatch(setUsers(users));
   };
@@ -39,7 +39,7 @@ export const destroyUser = (id) => {
 
 export const renewUser = (id, newObject) => {
   return async (dispatch) => {
-    const updatedUser = await usersService.updateUser(id, newObject);
+    await usersService.updateUser(id, newObject);
     const users = await usersService.getAll();
     dispatch(setUsers(users));
   };

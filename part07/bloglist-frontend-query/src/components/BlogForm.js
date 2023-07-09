@@ -3,12 +3,25 @@ import PropTypes from "prop-types";
 
 import { useNotificationDispatchValue } from '../NotificationContext'
 
-const BlogForm = ({ user, innerRef, newBlogMutation }) => {
+const BlogForm = ({ user, newBlogMutation, innerRef }) => {
   const [newTitle, setNewTitle] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
   const [newUrl, setNewUrl] = useState("");
 
   const notificationDispatch = useNotificationDispatchValue();
+
+  const handleBlog = (event) => {
+    event.preventDefault();
+    createABlog({
+      title: newTitle,
+      author: newAuthor,
+      url: newUrl,
+    });
+
+    setNewTitle("");
+    setNewAuthor("");
+    setNewUrl("");
+  };
 
   const handleErrorResponse = (error, user) => {
     if (error?.response?.status === 500) {
@@ -52,23 +65,10 @@ const BlogForm = ({ user, innerRef, newBlogMutation }) => {
     }
   }
 
-  const addBlog = (event) => {
-    event.preventDefault();
-    createABlog({
-      title: newTitle,
-      author: newAuthor,
-      url: newUrl,
-    });
-
-    setNewTitle("");
-    setNewAuthor("");
-    setNewUrl("");
-  };
-
   return (
     <div className="blogform">
       <h2>Create a new Blog</h2>
-      <form onSubmit={addBlog}>
+      <form onSubmit={handleBlog}>
         title:{" "}
         <input
           value={newTitle}

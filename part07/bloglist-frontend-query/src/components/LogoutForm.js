@@ -12,7 +12,7 @@ const LogoutForm = (props) => {
     notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `good-bye ${props.user.name}!`})
     setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
     window.localStorage.removeItem("loggedBlogUser");
-    userDispatch({ type: "CLEAR_USER", payload: null});
+    userDispatch({ type: "END_SESSION", payload: null});
   };
   
   return(

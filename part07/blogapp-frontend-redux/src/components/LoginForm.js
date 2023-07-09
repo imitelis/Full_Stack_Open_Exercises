@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 import {
   setGreenNotification,
@@ -17,12 +18,15 @@ const LoginForm = ({ user }) => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async (dispatch) => {
       try {
         const loggedUserJSON = window.localStorage.getItem("loggedBlogUser");
-        const sessionUser = loggedUserJSON ? JSON.parse(loggedUserJSON).payload : null;
+        const sessionUser = loggedUserJSON
+          ? JSON.parse(loggedUserJSON).payload
+          : null;
         if (sessionUser) {
           dispatch(setUser(sessionUser));
           dispatch(setBlogsToken(sessionUser.token));
@@ -51,14 +55,14 @@ const LoginForm = ({ user }) => {
         if (currentUser) {
           dispatch(setGreenNotification(`welcome ${currentUser.name}!`));
           dispatch(setBlogsToken(currentUser.token));
-          setUsername("");
-          setPassword("");
-        }
-        if (!currentUser) {
+          navigate("/blogs");
+        } else if (!currentUser) {
           dispatch(
             setRedNotification(`error: wrong credentials or non-existing user`)
           );
         }
+        setUsername("");
+        setPassword("");
       }
     } catch (error) {
       // console.log(error.response.data);
@@ -69,43 +73,41 @@ const LoginForm = ({ user }) => {
   };
 
   if (!user || user === null) {
-  return (
-    <div className="loginform">
-    <form onSubmit={handleLogin}>
-      <h2>Log in as an existing User</h2>
-      <div>
-        username:{" "}
-        <input
-          type="text"
-          value={username}
-          name="Username"
-          id="username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
+    return (
+      <div className="login-form">
+        <form onSubmit={handleLogin}>
+          <h2>Log in an existing User</h2>
+          username:{" "}
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            id="username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+          <br />
+          password:{" "}
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            id="password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+          <br />
+          <button type="submit" id="login-button">
+            log in
+          </button>
+        </form>
       </div>
-      <div>
-        password:{" "}
-        <input
-          type="password"
-          value={password}
-          name="Password"
-          id="password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit" id="login-button">
-        log in
-      </button>
-    </form>
-    </div>
-  );
-  
+    );
   } else if (user.name) {
     return (
       <div className="loginform">
+        <h2>Log in</h2>
         <em>{user.name} already logged in...</em>
       </div>
-    )
+    );
   }
 };
 

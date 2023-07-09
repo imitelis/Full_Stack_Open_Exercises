@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import {
   setGreenNotification,
   setRedNotification,
 } from "../reducers/notificationReducer";
 
-import { setBlogsToken } from "../reducers/blogsReducer";
-import { setUser } from "../reducers/userReducer";
-import { newUser } from "../reducers/usersReducer";
+// import { setBlogsToken } from "../reducers/blogsReducer";
+// import { setUser } from "../reducers/userReducer";
+// import { newUser } from "../reducers/usersReducer";
+
+// import { setToken } from "../requests/blogs"
 
 const LogupForm = ({ user }) => {
   const [name, setName] = useState("");
@@ -20,7 +22,7 @@ const LogupForm = ({ user }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   const handleErrorResponse = (error, username) => {
     if (error?.response?.status === 500) {
       dispatch(setRedNotification("fatal error: lost connection to blog"));
@@ -36,7 +38,7 @@ const LogupForm = ({ user }) => {
           `fatal error: something wrong happened (${error?.response?.data.error})`
         )
       );
-    }
+    };
   };
 
   useEffect(() => {
@@ -82,17 +84,11 @@ const LogupForm = ({ user }) => {
         setUsername("");
       } else {
         const userObject = {
-          name: name,
-          username: username,
-          password: password,
-        };
-        await dispatch(newUser(userObject));
-        dispatch(
-          setGreenNotification(
-            `successfully logged up ${username}! now you can log in`
-          )
-        );
-        navigate("/login");
+          name: name, username: username, password: password
+        }
+        await dispatch(newUser(userObject))
+        dispatch(setGreenNotification(`successfully logged up ${username}! now you can log in`));
+        navigate('/login');
         setName("");
         setUsername("");
         setPassword("");
@@ -105,11 +101,11 @@ const LogupForm = ({ user }) => {
   };
 
   if (!user || user === null) {
-    return (
+    return(
       <div className="logup-form">
         <form onSubmit={handleLogup}>
-          <h2>Log up a new User</h2>
-          name:{" "}
+        <h2>Log up a new User</h2>
+        name:{" "}
           <input
             type="text"
             value={name}
@@ -117,7 +113,7 @@ const LogupForm = ({ user }) => {
             onChange={({ target }) => setName(target.value)}
           />
           <br />
-          username:{" "}
+        username:{" "}
           <input
             type="text"
             value={username}
@@ -125,7 +121,7 @@ const LogupForm = ({ user }) => {
             onChange={({ target }) => setUsername(target.value)}
           />
           <br />
-          password:{" "}
+        password:{" "}
           <input
             type="password"
             value={password}
@@ -133,7 +129,7 @@ const LogupForm = ({ user }) => {
             onChange={({ target }) => setPassword(target.value)}
           />
           <br />
-          repeat password:{" "}
+        repeat password:{" "}
           <input
             type="password"
             value={repeatedPassword}
@@ -141,19 +137,19 @@ const LogupForm = ({ user }) => {
             onChange={({ target }) => setRepeatedPassword(target.value)}
           />
           <br />
-          <button type="submit" id="logup-button">
-            log up
-          </button>
-        </form>
-      </div>
-    );
+        <button type="submit" id="logup-button">
+          log up
+        </button>
+      </form>
+    </div>
+    )
   } else if (user.name) {
-    return (
+    return(
       <div className="logupform">
         <h2>Log up</h2>
         <em>{user.name} already logged up...</em>
       </div>
-    );
+    )
   }
 };
 
