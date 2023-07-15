@@ -6,9 +6,9 @@
   *  0.1: HTML
   *  0.2: CSS
   *  0.3: HTML forms
-  *  0.4: New note diagram
-  *  0.5: Single page app diagram
-  *  0.6: New note in Single page app diagram
+  *  0.4: Page notes diagram
+  *  0.5: Page spa diagram
+  *  0.6: Page singlepage diagram
 
 
 ## Part 1 - Introduction to React - Exercises 1.1.-1.14.
@@ -174,25 +174,54 @@
   *  7.6: Anecdotes hooks step3
   *  7.7: Country hooks step1
   *  7.8: Ultimate hooks step1
-  *  7.9: Bloglist prettier step1
-  *  7.10: Bloglist redux step1
-  *  7.11: Bloglist redux step2
-  *  7.12: Bloglist redux step3
-  *  7.13: Bloglist redux step4
-  *  7.14: (7.10) Bloglist query step1
-  *  7.15: (7.11) Bloglist query step2
-  *  7.16: (7.12) Bloglist query step3
-  *  7.17: (7.13) Bloglist query step4
-  *  7.18: (7.14) Bloglist views step1
-  *  7.19: (7.15) Bloglist views step2
-  *  7.20: (7.16) Bloglist views step3
-  *  7.21: (7.17) Bloglist navigation step1
-  *  7.22: (7.18) Bloglist comments step1
-  *  7.23: (7.19) Bloglist comments step2
-  *  7.24: (7.20) Bloglist styles step1
-  *  7.25: (7.21) Bloglist styles step2
+  *  7.9: Blog prettier step1
+  *  7.10: Blog redux step1
+  *  7.11: Blog redux step2
+  *  7.12: Blog redux step3
+  *  7.13: Blog redux step4
+  *  7.14: (7.10) Blog query step1
+  *  7.15: (7.11) Blog query step2
+  *  7.16: (7.12) Blog query step3
+  *  7.17: (7.13) Blog query step4
+  *  7.18: (7.14) Blog views step1
+  *  7.19: (7.15) Blog views step2
+  *  7.20: (7.16) Blog views step3
+  *  7.21: (7.17) Blog navigation step1
+  *  7.22: (7.18) Blog comments step1
+  *  7.23: (7.19) Blog comments step2
+  *  7.24: (7.20) Blog styles step1
+  *  7.25: (7.21) Blog styles step2
 
 
-## Part 8 - GraphQL - Exercises 8.1.-7.25.
+## Part 8 - GraphQL - Exercises 8.1.-8.26.
 
+  *  8.1: Library backend step1
+  *  8.2: Library backend step2
+  *  8.3: Library backend step3
+  *  8.4: Library backend step4
+  *  8.5: Library backend step5
+  *  8.6: Library backend step6
+  *  8.7: Library backend step7
+  *  8.8: Library frontend step1
+  *  8.9: Library frontend step2
+  *  8.10: Library frontend step3
+  *  8.11: Library frontend step4
+  *  8.12: Library frontend step5
+  *  8.13: Library database step1
+  *  8.14: Library database step2
+  *  8.15: Library database step3
+  *  8.16: Library database step4
+  *  8.17: Library views step1
+  *  8.18: Library views step2
+  *  8.19: Library views step3
+  *  8.20: Library views step4
+  *  8.21: Library views step5
+  *  8.22: Library views step6
+  *  8.23: Library subscriptions step1
+  *  8.24: Library subscriptions step2
+  *  8.25: Library subscriptions step3
+  *  8.26: Library n+1 problem step1
+
+
+## Part 9 - TypeScript - Exercises 9.1.-9.31.
 
