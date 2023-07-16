@@ -1,5 +1,9 @@
-
-h1, h2, h3, h4, h5, em {
+h1,
+h2,
+h3,
+h4,
+h5,
+em {
   padding: 15px;
 }
 
@@ -7,50 +11,34 @@ a {
   text-decoration: none;
 }
 
-.note {
-  color: grey;
-  padding-top: 5px;
-  font-size: 15px;
-}
-
-.error {
-  color: red;
-  background: lightgrey;
-  font-size: 20px;
-  border-style: solid;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.success {
-  color: green;
-  background: lightgrey;
-  font-size: 20px;
-  border-style: solid;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.blog-form, .login-form, .logup-form, .name-form, .username-form, .password-form, .delete-form {
+.blog-form,
+.login-form,
+.logup-form,
+.name-form,
+.username-form,
+.password-form,
+.delete-form,
+.comment-form,
+.blog-list,
+.user-list,
+.blog-view,
+.user-view,
+.notification {
   padding: 15px;
 }
 
-.props-button, .cancel-button, .newblog-button, .login-button, .logup-button, .change-button, .delete-button {
+.props-button,
+.cancel-button,
+.newblog-button,
+.login-button,
+.logup-button,
+.change-button,
+.delete-button,
+.add-button,
+.back-button {
   left: 15px;
 }
 
-.blog {
-  color: dodgerblue;
-  background: white;
-  font-size: 20px;
-  border-style: solid;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
 iframe {
-    display: none;
+  display: none;
 }

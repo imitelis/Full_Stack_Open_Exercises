@@ -1,46 +1,86 @@
-import {
-    Link
-  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Card, Button, Table } from "react-bootstrap";
 
 const User = ({ user, userInfo }) => {
+  const navigate = useNavigate();
 
   if (!user || user === null) {
     return (
-      <div>
+      <div className="user-view">
         <h2>User</h2>
-        <em>please log in first...</em>
+        <Card>
+          <Card.Body>
+            <em>please log in first...</em>
+          </Card.Body>
+        </Card>
       </div>
     );
-  };
+  }
 
   if (!userInfo) {
-     return (
-       <div>
-         <h2>User</h2>
-         <em>no user...</em>
-       </div>
-     )
+    return (
+      <div className="user-view">
+        <h2>User</h2>
+        <Card>
+          <Card.Body>
+            <em>no user...</em>
+            <br />
+            <Button
+              className="back-button"
+              variant="primary"
+              onClick={() => {
+                navigate("/users");
+              }}
+            >
+              back to users
+            </Button>
+          </Card.Body>
+        </Card>
+      </div>
+    );
   }
-   
+
   return (
-    <div>
+    <div className="user-view">
       <h2>User</h2>
-      <h3>{userInfo.username} blogs:</h3>
-      <ul>
-      {userInfo.blogs.length === 0 ? (
-      <em>no blogs yet...</em>
-      ) : (
-      <ul>
-        {userInfo.blogs.map((blog) => (
-        <li key={blog.id}>
-          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-        </li>
-        ))}
-      </ul>
-      )}
-      </ul>
+      <Card>
+        <Card.Body>
+          <Card.Title>{userInfo.username} blogs:</Card.Title>
+          <Table striped>
+            <thead>
+              <tr>
+                <th>
+                  <h3>title:</h3>
+                </th>
+                <th>
+                  <h3>likes:</h3>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {userInfo.blogs.map((blog) => (
+                <tr key={blog.id}>
+                  <td>
+                    <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                  </td>
+                  <td>{blog.likes}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Button
+            className="back-button"
+            variant="primary"
+            onClick={() => {
+              navigate("/users");
+            }}
+          >
+            back to users
+          </Button>
+        </Card.Body>
+      </Card>
     </div>
-  )
-}
+  );
+};
 
 export default User;

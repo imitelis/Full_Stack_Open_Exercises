@@ -1,5 +1,5 @@
 {
-  "name": "bloglist-frontend-redux",
+  "name": "blog-frontend-redux",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

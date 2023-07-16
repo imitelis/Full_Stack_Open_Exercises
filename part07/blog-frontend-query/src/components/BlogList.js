@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
 
 import Togglable from "./Togglable";
 import BlogForm from "./BlogForm";
 
 const BlogList = ({ blogs, user, newBlogMutation }) => {
-
   const blogFormRef = useRef();
 
   if (!user || user === null || !blogs || blogs === null) {
@@ -19,22 +19,35 @@ const BlogList = ({ blogs, user, newBlogMutation }) => {
   }
 
   return (
-    <div>
+    <div className="blog-list">
       {user && (
         <div>
-          <Togglable className="props-button" buttonLabel="new blog" ref={blogFormRef}>
-            <BlogForm user={user} newBlogMutation={newBlogMutation} innerRef={blogFormRef} />
+          <Togglable
+            className="props-button"
+            buttonLabel="new blog"
+            ref={blogFormRef}
+          >
+            <BlogForm
+              user={user}
+              newBlogMutation={newBlogMutation}
+              innerRef={blogFormRef}
+            />
           </Togglable>
         </div>
       )}
       <h2>Blog list</h2>
-      {blogs.map((blog) => (
-        <div className="blog" key={blog.id}>
-          <Link to={`/blogs/${blog.id}`}>
-            {blog.title} by {blog.author}
-          </Link>
-        </div>
-      ))}
+      <Table striped>
+        <tbody>
+          {blogs.map((blog) => (
+            <tr key={blog.id}>
+              <td>
+                <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+              </td>
+              <td>{blog.author}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 };
@@ -42,7 +55,7 @@ const BlogList = ({ blogs, user, newBlogMutation }) => {
 BlogList.propTypes = {
   // user: PropTypes.object,
   blogs: PropTypes.array,
-  newBlogMutation: PropTypes.object
+  newBlogMutation: PropTypes.object,
 };
 
 export default BlogList;

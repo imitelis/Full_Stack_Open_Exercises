@@ -8,7 +8,7 @@
   *  0.3: HTML forms
   *  0.4: Page notes diagram
   *  0.5: Page spa diagram
-  *  0.6: Page singlepage diagram
+  *  0.6: Page single-page diagram
 
 
 ## Part 1 - Introduction to React - Exercises 1.1.-1.14.
