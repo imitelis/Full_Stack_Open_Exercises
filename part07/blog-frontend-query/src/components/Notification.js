@@ -1,8 +1,23 @@
-import { useNotificationValue } from '../NotificationContext'
+import { useEffect } from 'react';
+
+import { useNotificationValue, useNotificationDispatchValue } from '../NotificationContext';
 
 const Notification = () => {
 
-  const notification = useNotificationValue()
+  const notification = useNotificationValue();
+  const notificationDispatch = useNotificationDispatchValue();
+
+  useEffect(() => {
+    if (notification.message && notification.color) {
+      const timeout = setTimeout(() => {
+        setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
+      }, 5000);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [notification, notificationDispatch]);
 
   const successStyle = {
     color: 'green',

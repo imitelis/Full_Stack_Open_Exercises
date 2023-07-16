@@ -75,7 +75,7 @@ const DeleteForm = ({ user, users, innerRef }) => {
         if (currentUser) {
           await dispatch(destroyUser(userId));
           dispatch(
-            setGreenNotification(`${user.username} successfully deleted`)
+            setGreenNotification(`${user.username} user successfully deleted`)
           );
           dispatch(endSession());
           dispatch(setBlogsToken(currentUser.token));

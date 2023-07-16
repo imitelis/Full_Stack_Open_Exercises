@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
 import {
     Link
   } from "react-router-dom";
 
 const UserList = ({ user, users }) => {
 
-    if (!user || user === null) {
+    if (!user || user === null || !users || users === null) {
       return (
         <div>
           <h2>User list</h2>
@@ -18,13 +17,18 @@ const UserList = ({ user, users }) => {
       <div>
         <h2>User list</h2>
         <table>
-          <thead><td>{<h3>User</h3>}</td> <td>{<h3>Blogs created</h3>}</td></thead>
+          <thead>
+            <tr>
+              <th><h3>User</h3></th>
+              <th><h3>Blogs created</h3></th>
+            </tr>
+          </thead>
           <tbody>
             {users.map((user) => (
               <tr key={user.id}>
                 <td>
                   <Link to={`/users/${user.id}`}>
-                   {user.name} as {user.username}
+                    {user.name} as {user.username}
                   </Link>
                 </td>
                 <td>{user.blogs.length}</td>
@@ -34,11 +38,6 @@ const UserList = ({ user, users }) => {
         </table>
       </div>
     )
-};
-
-UserList.propTypes = {
-  user: PropTypes.object,
-  users: PropTypes.array
 };
 
 export default UserList;

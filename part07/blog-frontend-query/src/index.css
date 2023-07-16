@@ -1,14 +1,10 @@
-h1, h2, h3, h4 {
-  color: green;
-  font-style: italic;
+
+h1, h2, h3, h4, h5, em {
+  padding: 15px;
 }
 
 a {
-  color: dimgray
-}
-
-a:visited {
-  color: darkgreen
+  text-decoration: none;
 }
 
 .note {
@@ -37,20 +33,22 @@ a:visited {
   margin-bottom: 10px;
 }
 
+.blog-form, .login-form, .logup-form, .name-form, .username-form, .password-form, .delete-form {
+  padding: 15px;
+}
+
+.props-button, .cancel-button, .newblog-button, .login-button, .logup-button, .change-button, .delete-button {
+  left: 15px;
+}
+
 .blog {
-  color: black;
+  color: dodgerblue;
   background: white;
   font-size: 20px;
   border-style: solid;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-}
-
-.navbar {
-  padding: 5;
-  background-color: lightgrey;
-  color: black;
 }
 
 iframe {

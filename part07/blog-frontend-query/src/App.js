@@ -7,7 +7,7 @@ import { useNotificationDispatchValue } from './NotificationContext'
 
 import NavigationBar from "./components/NavigationBar";
 import Notification from "./components/Notification";
-// import LogupForm from "./components/LogupForm";
+import LogupForm from "./components/LogupForm";
 import LoginForm from "./components/LoginForm";
 import BlogList from "./components/BlogList";
 import Blog from "./components/Blog";
@@ -16,7 +16,7 @@ import User from "./components/User";
 import Account from "./components/Account";
 
 import { setToken, getBlogs, createBlog, deleteBlog, updateBlog } from "./requests/blogs"
-import { getUsers, getUser, createUser, deleteUser, updateBlog } from "./requests/users"
+import { getUsers, createUser, deleteUser, updateUser } from "./requests/users"
 
 const App = () => {
 
@@ -61,10 +61,21 @@ const App = () => {
     }
   });
 
+  const removeUserMutation = useMutation(deleteUser, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('users')
+    }
+  });
+
+  const updateUserMutation = useMutation(updateUser, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('users')
+    }
+  });
+
   useEffect(() => {
     if (blogs && !successShown) {
       notificationDispatch({ type: "GREEN_NOTIFICATION", payload: "successfully connected to blog" })
-      setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
       setSuccessShown(true);
     }
   }, []);
@@ -91,10 +102,10 @@ const App = () => {
     ? users.find((user) => user.id === usermatch.params.id)
     : null;
 
-  if (blogsResult.isLoading) {
+  if (blogsResult.isLoading || !blogs) {
     return (
       <div>
-        <h1>Blog app</h1>
+        <h1>Blog</h1>
         <NavigationBar user={user} />
 
         <Notification />
@@ -105,7 +116,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Blog app</h1>
+      <h1>Blog</h1>
       <Notification />
       <NavigationBar user={user} />
 
@@ -113,7 +124,7 @@ const App = () => {
         <Route path="/" element={<BlogList user={user} blogs={blogs} />} />
         <Route path="/blogs" element={<BlogList user={user} blogs={blogs} newBlogMutation={newBlogMutation} />} />
         <Route path="/users" element={<UserList user={user} users={users} />} />
-        <Route path="/account" element={<Account user={user} users={users} />} />
+        <Route path="/account" element={<Account user={user} users={users} removeUserMutation={removeUserMutation} updateUserMutation={updateUserMutation} />} />
         <Route path="/logup" element={<LogupForm user={user} newUserMutation={newUserMutation} />} />
         <Route path="/login" element={<LoginForm user={user} />} />
         <Route path="/blogs/:id" element={<Blog user={user} blogInfo={blogInfo} removeBlogMutation={removeBlogMutation} updateBlogMutation={updateBlogMutation} />}/>
@@ -123,42 +134,5 @@ const App = () => {
     </div>
   );
 };
-
-/*
-
-
-<Route path="/users" element={<UserList user={user} users={users} />} />
-        <Route
-          path="/account"
-          element={<Account user={user} users={users} />}
-        />
-        <Route path="/logup" element={<LogupForm user={user} />} />
-        <Route path="/login" element={<LoginForm user={user} />} />
-        <Route
-          path="/users/:id"
-          element={<User user={user} userInfo={userInfo} />}
-        />
-        <Route
-          path="/blogs/:id"
-          element={<Blog user={user} blogInfo={blogInfo} />}
-        />
-        
-
-        {user === null && (
-        <Togglable buttonLabel="log in blog">
-          <LoginForm/>
-        </Togglable>
-      )}
-      {user && <LogoutForm user={user} />}
-      <br />
-      {user && <Notification user={user} />}
-      {user && (
-        <Togglable buttonLabel="new blog" ref={blogFormRef}>
-          <BlogForm user={user} innerRef={blogFormRef} />
-        </Togglable>
-      )}
-      <br />
-
-*/
 
 export default App;

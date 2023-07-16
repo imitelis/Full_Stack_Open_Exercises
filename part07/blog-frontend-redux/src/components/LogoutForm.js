@@ -1,5 +1,5 @@
-import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 
 import { setGreenNotification } from "../reducers/notificationReducer";
 import { endSession } from "../reducers/userReducer";

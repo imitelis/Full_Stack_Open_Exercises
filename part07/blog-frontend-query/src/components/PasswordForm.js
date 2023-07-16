@@ -1,25 +1,24 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
+import { useMutation } from 'react-query';
+import { Form, Button } from 'react-bootstrap';
 
-import {
-  setGreenNotification,
-  setRedNotification,
-} from "../reducers/notificationReducer";
+import { useUserDispatchValue } from '../UserContext'
+import { useNotificationDispatchValue } from '../NotificationContext';
 
-import { setBlogsToken } from "../reducers/blogsReducer";
-import { beginSession } from "../reducers/userReducer";
-import { renewUser } from "../reducers/usersReducer";
+import { setToken } from "../requests/blogs";
 
-import store from "../store";
+import loginService from "../services/login";
 
-const PasswordForm = ({ user, users, innerRef }) => {
+const PasswordForm = ({ user, users, updateUserMutation, innerRef }) => {
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRepeatedPassword, setNewRepeatedPassword] = useState("");
 
-  const dispatch = useDispatch();
+  const setTokenMutation = useMutation(setToken);
+  
+  const userDispatch = useUserDispatchValue();  
+  const notificationDispatch = useNotificationDispatchValue();
 
   function getUserIdByUsername(users, username) {
     const userFound = users.find((user) => user.username === username)
@@ -28,15 +27,11 @@ const PasswordForm = ({ user, users, innerRef }) => {
 
   const handleErrorResponse = (error, user) => {
     if (error?.response?.status === 500) {
-      dispatch(setRedNotification("fatal error: lost connection to blog"));
+      notificationDispatch({ type: "RED_NOTIFICATION", payload: "fatal error: lost connection to blog"})
     } else if (error?.response?.status === 401) {
-      dispatch(
-        setRedNotification(`error: wrong credentials or session expired, ${user.name} please log and try again`)
-      );
+      notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: wrong credentials or session expired, ${user.name} please log and try again`})
     } else if (error?.response?.data.error) {
-      dispatch(
-        setRedNotification(`fatal error: something wrong happened (${error?.response?.data.error})`)
-      );
+      notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error?.response?.data.error})`})
     }
   };
 
@@ -58,49 +53,57 @@ const PasswordForm = ({ user, users, innerRef }) => {
   const changePassword = async (returnedForm) => {
     try {
       if (!returnedForm.password || !returnedForm.repeatedPassword || !returnedForm.newPassword || !returnedForm.newRepeatedPassword) {
-        dispatch(
-          setRedNotification(`error: password (*), repeated password (*) and new password (*) are required`)
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: password (*), repeated password (*) and new password (*) are required`})
       } else if (returnedForm.password !== returnedForm.repeatedPassword) {
-        dispatch(
-          setRedNotification(`error: password (*) and repeated password (*) are not equal`)
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: password (*) and repeated password (*) are not equal`})
       } else if (returnedForm.newPassword !== returnedForm.newRepeatedPassword) {
-        dispatch(
-          setRedNotification(`error: new password (*) and repeated new password (*) are not equal`)
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: new password (*) and repeated new password (*) are not equal`})
       } else if (returnedForm.password === returnedForm.newPassword) {
-        dispatch(
-          setRedNotification(`error: password (*) and new password (*) are equal`)
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: password (*) and new password (*) are equal`})
       } else if (returnedForm.newPassword.length < 3) {
-        dispatch(
-          setRedNotification(`error: newpassword (*) minlength must be of three characters`)
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: newpassword (*) minlength must be of three characters`})
       } else {
-        const currentUser = store.getState().user;
+
+        const currentUser = user;
 
         if (currentUser.username === user.username) {
+
+          const userId = getUserIdByUsername(users, user.username);
+
           const updatedUser = {
             username: user.username,
             name: user.name,
-            password: newPassword
+            password: newPassword,
+            id: userId
           };
 
           try {
-            const userId = getUserIdByUsername(users, user.username);
-            dispatch(renewUser(userId, updatedUser));
-            dispatch(beginSession(user.username, returnedForm.password));
-            dispatch(setBlogsToken(currentUser.token));
-            dispatch(
-              setGreenNotification(`${user.username} password successfully updated`)
-            );
+
+            await loginService.login({
+              username: user.username,
+              password: returnedForm.password
+            }).then(user => {
+              userDispatch({ type: "BEGIN_SESSION", payload: user });
+            }).catch(error => {
+              handleErrorResponse(error, user);
+            });
+
+            updateUserMutation.mutate(updatedUser, {
+              onSuccess: () => {
+                notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `${user.username} password successfully updated`})
+              },
+              onError: (error) => {
+                handleErrorResponse(error, user);
+              }
+            })
+            
+            setTokenMutation.mutate(currentUser.token);
             innerRef.current.toggleVisibility();
           } catch (error) {
             handleErrorResponse(error, user);
           }
         } else {
-          dispatch(setRedNotification(`error: wrong credentials or session expired, ${user.name} please log and try again`));
+          notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: wrong credentials or session expired, ${user.name} please log and try again`})
         }
       }
     } catch (error) {
@@ -110,56 +113,53 @@ const PasswordForm = ({ user, users, innerRef }) => {
 
   return (
     <div className="password-form">
-      <h2>Change password</h2>
-      <form onSubmit={handlePassword}>
-        password:{" "}
-        <input
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          id="password"
-          type="password"
-          required
+      <h3>Change password</h3>
+      <Form onSubmit={handlePassword}>
+      <Form.Group>
+        <Form.Label>password:</Form.Label>
+        <Form.Control
+            type="password"
+            name="password"
+            id="password"
+            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
         />
-        <br />
-        repeat password:{" "}
-        <input
-          value={repeatedPassword}
-          onChange={(event) => setRepeatedPassword(event.target.value)}
-          id="repeat-password"
-          type="password"
-          required
+        <Form.Label>repeat password:</Form.Label>
+        <Form.Control
+            type="password"
+            name="repeat-password"
+            id="repeat-password"
+            required
+            value={repeatedPassword}
+            onChange={(event) => setRepeatedPassword(event.target.value)}
         />
-        <br />
-        new password:{" "}
-        <input
-          value={newPassword}
-          onChange={(event) => setNewPassword(event.target.value)}
-          id="new-password"
-          type="password"
-          required
+        <Form.Label>new password:</Form.Label>
+        <Form.Control
+            type="password"
+            name="new-password"
+            id="new-password"
+            required
+            value={newPassword}
+            onChange={(event) => setNewPassword(event.target.value)}
         />
-        <br />
-        repeat new password:{" "}
-        <input
-          value={newRepeatedPassword}
-          onChange={(event) => setNewRepeatedPassword(event.target.value)}
-          id="repeat-new-password"
-          type="password"
-          required
+        <Form.Label>new password:</Form.Label>
+        <Form.Control
+            type="password"
+            name="repeatnew-password"
+            id="repeatnew-password"
+            required
+            value={newRepeatedPassword}
+            onChange={(event) => setNewRepeatedPassword(event.target.value)}
         />
-        <br />
-        <button type="submit" id="change-button">
+      </Form.Group>
+      <br />
+        <Button variant="primary" type="submit" className="change-button">
           change
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
-};
-
-PasswordForm.propTypes = {
-  user: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired,
-  innerRef: PropTypes.object.isRequired,
 };
 
 export default PasswordForm;

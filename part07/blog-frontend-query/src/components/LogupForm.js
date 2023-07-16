@@ -1,94 +1,78 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
+import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom';
+import { Form, Button } from 'react-bootstrap';
 
-import {
-  setGreenNotification,
-  setRedNotification,
-} from "../reducers/notificationReducer";
+import { useUserDispatchValue } from '../UserContext'
+import { useNotificationDispatchValue } from '../NotificationContext';
 
-// import { setBlogsToken } from "../reducers/blogsReducer";
-// import { setUser } from "../reducers/userReducer";
-// import { newUser } from "../reducers/usersReducer";
+import { setToken } from "../requests/blogs";
 
-// import { setToken } from "../requests/blogs"
-
-const LogupForm = ({ user }) => {
+const LogupForm = ({ user, newUserMutation }) => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
 
-  const dispatch = useDispatch();
+  const setTokenMutation = useMutation(setToken);
+
+  const userDispatch = useUserDispatchValue();
+  const notificationDispatch = useNotificationDispatchValue();
+
   const navigate = useNavigate();
   
   const handleErrorResponse = (error, username) => {
     if (error?.response?.status === 500) {
-      dispatch(setRedNotification("fatal error: lost connection to blog"));
+      notificationDispatch({ type: "RED_NOTIFICATION", payload: "fatal error: lost connection to blog"})
     } else if (error?.response?.status === 400) {
-      dispatch(
-        setRedNotification(
-          `user log up failed: username (${username}) already exists`
-        )
-      );
+      notificationDispatch({ type: "RED_NOTIFICATION", payload: `user log up failed: username (${username}) already exists`})
     } else if (error?.response?.data.error) {
-      dispatch(
-        setRedNotification(
-          `fatal error: something wrong happened (${error?.response?.data.error})`
-        )
-      );
+      notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error?.response?.data.error})`})
     };
   };
 
   useEffect(() => {
-    const fetchData = async (dispatch) => {
+    const fetchData = async (userDispatch) => {
       try {
         const loggedUserJSON = window.localStorage.getItem("loggedBlogUser");
         const sessionUser = JSON.parse(loggedUserJSON).payload;
         if (sessionUser) {
-          dispatch(setUser(sessionUser));
-          dispatch(setBlogsToken(sessionUser.token));
+          userDispatch({ type: "BEGIN_SESSION", payload: sessionUser });
+          setTokenMutation.mutate(sessionUser.token);
           // console.log("here localStorage", sessionUser);
         }
       } catch (error) {
         // console.log(error);
       }
     };
-    fetchData(dispatch);
-  }, [dispatch]);
+    fetchData(userDispatch);
+  }, [userDispatch, setTokenMutation]);
 
   const handleLogup = async (event) => {
     event.preventDefault();
     try {
       if (!name || !username || !password) {
-        dispatch(
-          setRedNotification(
-            `error: username (${username}), name (${name}) and password (*) are required`
-          )
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: username (${username}), name (${name}) and password (*) are required`})
       } else if (password !== repeatedPassword) {
-        dispatch(
-          setRedNotification(
-            `error: password (*) and repeated password (*) are not equal`
-          )
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: password (*) and repeated password (*) are not equal`})
         setPassword("");
         setRepeatedPassword("");
       } else if (username.length < 3) {
-        dispatch(
-          setRedNotification(
-            `error: username (${username}) minlength must be of three characters`
-          )
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: username (${username}) minlength must be of three characters`})
         setUsername("");
       } else {
         const userObject = {
           name: name, username: username, password: password
         }
-        await dispatch(newUser(userObject))
-        dispatch(setGreenNotification(`successfully logged up ${username}! now you can log in`));
-        navigate('/login');
+        newUserMutation.mutate(userObject, {
+          onSuccess: () => {
+            notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `successfully logged up ${username}! now you can log in`})
+            navigate('/login');
+          },
+          onError: (error) => {
+            handleErrorResponse(error, username);
+          }
+        })
         setName("");
         setUsername("");
         setPassword("");
@@ -103,58 +87,61 @@ const LogupForm = ({ user }) => {
   if (!user || user === null) {
     return(
       <div className="logup-form">
-        <form onSubmit={handleLogup}>
         <h2>Log up a new User</h2>
-        name:{" "}
-          <input
+        <Form onSubmit={handleLogup}>
+        <Form.Group>
+          <Form.Label>name:</Form.Label>
+          <Form.Control
             type="text"
-            value={name}
+            name="name"
             id="name"
+            value={name}            
             onChange={({ target }) => setName(target.value)}
-          />
-          <br />
-        username:{" "}
-          <input
+            required
+        />
+        <Form.Label>username:</Form.Label>
+          <Form.Control
             type="text"
-            value={username}
+            name="username"
             id="username"
+            value={username}
             onChange={({ target }) => setUsername(target.value)}
-          />
-          <br />
-        password:{" "}
-          <input
+            required
+        />
+        <Form.Label>password:</Form.Label>
+          <Form.Control
             type="password"
-            value={password}
+            name="password"
             id="password"
+            value={password}
             onChange={({ target }) => setPassword(target.value)}
-          />
-          <br />
-        repeat password:{" "}
-          <input
+            required
+        />
+        <Form.Label>repeat password:</Form.Label>
+          <Form.Control
             type="password"
-            value={repeatedPassword}
+            name="repeat-password"
             id="repeat-password"
+            value={repeatedPassword}            
             onChange={({ target }) => setRepeatedPassword(target.value)}
-          />
-          <br />
-        <button type="submit" id="logup-button">
+            required
+        />
+        </Form.Group>
+        <br/>
+        <Button variant="primary" type="submit" create-button="logup-button">
           log up
-        </button>
-      </form>
+        </Button>
+        </Form>
     </div>
     )
   } else if (user.name) {
     return(
-      <div className="logupform">
+      <div className="logup-form">
         <h2>Log up</h2>
         <em>{user.name} already logged up...</em>
       </div>
     )
   }
-};
-
-LogupForm.propTypes = {
-  user: PropTypes.object,
 };
 
 export default LogupForm;

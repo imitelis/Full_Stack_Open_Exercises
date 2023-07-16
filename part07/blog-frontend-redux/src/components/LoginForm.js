@@ -103,7 +103,7 @@ const LoginForm = ({ user }) => {
     );
   } else if (user.name) {
     return (
-      <div className="loginform">
+      <div className="login-form">
         <h2>Log in</h2>
         <em>{user.name} already logged in...</em>
       </div>

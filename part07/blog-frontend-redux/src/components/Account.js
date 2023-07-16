@@ -1,5 +1,5 @@
-import { useRef } from "react";
 import PropTypes from "prop-types";
+import { useRef } from "react";
 
 import Togglable from "./Togglable";
 import NameForm from "./NameForm";

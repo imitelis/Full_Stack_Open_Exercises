@@ -1,5 +1,6 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import { Form, Button } from 'react-bootstrap'
 
 import { useNotificationDispatchValue } from '../NotificationContext'
 
@@ -26,13 +27,10 @@ const BlogForm = ({ user, newBlogMutation, innerRef }) => {
   const handleErrorResponse = (error, user) => {
     if (error?.response?.status === 500) {
       notificationDispatch({ type: "RED_NOTIFICATION", payload: "fatal error: lost connection to blog"})
-      setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
     } else if (error?.response?.status === 401) {
       notificationDispatch({ type: "RED_NOTIFICATION", payload: `session expired: ${user.name} please log and try again`})
-      setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
     } else {
       notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error?.response?.data.error})`})
-      setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
     }
   }
 
@@ -40,19 +38,15 @@ const BlogForm = ({ user, newBlogMutation, innerRef }) => {
     try {
       if (!returnedBlog.title && !returnedBlog.url) {
         notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: title (${returnedBlog.title}) and url (${returnedBlog.url}) are required`})
-        setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
       } else if (!returnedBlog.title) {
         notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: title (${returnedBlog.title}) is required`})
-        setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
       } else if (!returnedBlog.url) {
         notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: url (${returnedBlog.url}) is required`})
-        setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
       } else {
         innerRef.current.toggleVisibility()
         newBlogMutation.mutate(returnedBlog, {
           onSuccess: () => {
             notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `new blog '${returnedBlog.title}' by '${returnedBlog.author}' was added`})
-            setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
           },
           onError: (error) => {
             handleErrorResponse(error, user);
@@ -61,50 +55,58 @@ const BlogForm = ({ user, newBlogMutation, innerRef }) => {
       }
     } catch (exception) {
       notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: something wrong happened ${exception}`})
-      setTimeout(() => {notificationDispatch({ type: "CLEAR_NOTIFICATION" })}, 5000)
     }
   }
 
   return (
-    <div className="blogform">
+    <div className="blog-form">
       <h2>Create a new Blog</h2>
-      <form onSubmit={handleBlog}>
-        title:{" "}
-        <input
-          value={newTitle}
-          onChange={(event) => setNewTitle(event.target.value)}
-          placeholder="Blog title..."
-          id="blog-title"
-        />{" "}
-        <br />
-        author:{" "}
-        <input
-          value={newAuthor}
-          onChange={(event) => setNewAuthor(event.target.value)}
-          placeholder="Blog author..."
-          id="blog-author"
-        />{" "}
-        <br />
-        url:{" "}
-        <input
-          value={newUrl}
-          onChange={(event) => setNewUrl(event.target.value)}
-          placeholder="Blog url..."
-          id="blog-url"
-        />{" "}
-        <br />
-        <button type="submit" id="create-button">
+      <Form onSubmit={handleBlog}>
+      <Form.Group>
+      <Form.Label>title:</Form.Label>
+        <Form.Control
+            type="text"
+            name="title"
+            id="blog-title"
+            placeholder="Blog title..."
+            value={newTitle}
+            onChange={(event) => setNewTitle(event.target.value)}
+            required            
+        />
+        <Form.Label>author:</Form.Label>
+        <Form.Control
+            type="text"
+            name="author"
+            id="blog-author"
+            placeholder="Blog author..."
+            value={newAuthor}
+            onChange={(event) => setNewAuthor(event.target.value)}
+            required
+          />
+        <Form.Label>url:</Form.Label>
+        <Form.Control
+            type="text"
+            name="url"
+            id="blog-url"
+            placeholder="Blog url..."
+            value={newUrl}
+            onChange={(event) => setNewUrl(event.target.value)}
+            required
+        />
+        </Form.Group>
+        <br/>
+        <Button variant="primary" type="submit" className="create-button">
           create
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 };
 
 BlogForm.propTypes = {
-  user: PropTypes.object.isRequired,
+  // user: PropTypes.object.isRequired,
   innerRef: PropTypes.object.isRequired,
-  newBlogMutation: PropTypes.object.isRequired
+  newBlogMutation: PropTypes.object
 };
 
 export default BlogForm;

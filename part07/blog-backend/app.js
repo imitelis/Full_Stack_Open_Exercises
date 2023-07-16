@@ -37,16 +37,16 @@ app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 
 app.get('*', function(req, res){
-  res.sendFile('./blogapp-frontend-query/public' + '/index.html');
+  res.sendFile('./blog-frontend-query/public' + '/index.html');
 })
 
 /*
 app.get('*', function(req, res){
-  res.sendFile('./blogapp-frontend-redux/public' + '/index.html');
+  res.sendFile('./blog-frontend-redux/public' + '/index.html');
 })
 
 app.get('*', function(req, res){
-  res.sendFile('./blogapp-frontend-query/public' + '/index.html');
+  res.sendFile('./blog-frontend-query/public' + '/index.html');
 })
 */
 

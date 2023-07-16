@@ -1,44 +1,37 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
+import { useMutation } from 'react-query'
+import { Form, Button } from 'react-bootstrap';
 
-import {
-  setGreenNotification,
-  setRedNotification,
-} from "../reducers/notificationReducer";
+import { useUserDispatchValue } from '../UserContext'
+import { useNotificationDispatchValue } from '../NotificationContext';
 
-import { setBlogsToken } from "../reducers/blogsReducer";
-import { beginSession } from "../reducers/userReducer";
-import { renewUser } from "../reducers/usersReducer";
+import { setToken } from "../requests/blogs";
 
-import store from "../store";
+import loginService from "../services/login";
 
-const UsernameForm = ({ user, users, innerRef }) => {
+const UsernameForm = ({ user, users, updateUserMutation, innerRef }) => {
     const [newUsername, setNewUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const setTokenMutation = useMutation(setToken);
   
-    const dispatch = useDispatch();
+    const userDispatch = useUserDispatchValue();  
+    const notificationDispatch = useNotificationDispatchValue();
   
     function getUserIdByUsername(users, username) {
       const userFound = users.find((user) => user.username === username)
       return userFound ? userFound.id : null;
     }
-  
+
     const handleErrorResponse = (error, user) => {
       if (error?.response?.status === 500) {
-        dispatch(setRedNotification("fatal error: lost connection to blog"));
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: "fatal error: lost connection to blog"})
       } else if (error?.response?.status === 401) {
-        dispatch(
-          setRedNotification(`error: wrong credentials or session expired, ${user.name} please log and try again`)
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: wrong credentials or session expired, ${user.name} please log and try again`})
       } else if (error?.response?.status === 400) {
-        dispatch(
-          setRedNotification(`username update failed: username (${newUsername}) already exists`)
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `username update failed: username (${newUsername}) already exists`})
       } else if (error?.response?.data.error) {
-        dispatch(
-          setRedNotification(`fatal error: something wrong happened (${error?.response?.data.error})`)
-        );
+        notificationDispatch({ type: "RED_NOTIFICATION", payload: `fatal error: something wrong happened (${error?.response?.data.error})`})
       }
     };
   
@@ -53,32 +46,44 @@ const UsernameForm = ({ user, users, innerRef }) => {
     const changeUsername = async (returnedForm) => {
       try {
         if (!returnedForm.password || !returnedForm.newUsername) {
-          dispatch(
-            setRedNotification(`error: password (*) and new username (${returnedForm.newUsername}) are required`)
-          );
+          notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: password (*) and new username (${returnedForm.newUsername}) are required`})
         } else if (user.username === returnedForm.newName) {
-            dispatch(
-              setRedNotification(`error: username (${user.username}) and new username (${returnedForm.newUsername}) are equal`)
-            );
+          notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: username (${user.username}) and new username (${returnedForm.newUsername}) are equal`})
         } else {
-          const currentUser = store.getState().user;
+          const currentUser = user;
 
           if (currentUser.name === user.name) {
             
+            const userId = getUserIdByUsername(users, user.username);
+
             const updatedUser = {
               username: newUsername,
               name: user.name,
-              password: password
+              password: password,
+              id: userId
             };
   
             try {
-              const userId = getUserIdByUsername(users, user.username);
-              await dispatch(beginSession(user.username, returnedForm.password))
-              await dispatch(renewUser(userId, updatedUser));
-              dispatch(setBlogsToken(currentUser.token));
-              dispatch(
-                setGreenNotification(`${user.name} username successfully updated`)
-              );
+              
+              await loginService.login({
+                username: user.username,
+                password: returnedForm.password
+              }).then(user => {
+                userDispatch({ type: "BEGIN_SESSION", payload: user });
+              }).catch(error => {
+                handleErrorResponse(error, user);
+              });
+              
+              updateUserMutation.mutate(updatedUser, {
+                onSuccess: () => {
+                  notificationDispatch({ type: "GREEN_NOTIFICATION", payload: `${user.name} username successfully updated`})
+                },
+                onError: (error) => {
+                  handleErrorResponse(error, user);
+                }
+              })
+
+              setTokenMutation.mutate(currentUser.token);
               setPassword("");
               setNewUsername("");
               innerRef.current.toggleVisibility();
@@ -86,7 +91,7 @@ const UsernameForm = ({ user, users, innerRef }) => {
               handleErrorResponse(error, user);
             }
           } else {
-            dispatch(setRedNotification(`error: wrong credentials or session expired, ${user.name} please log and try again`));
+            notificationDispatch({ type: "RED_NOTIFICATION", payload: `error: wrong credentials or session expired, ${user.name} please log and try again`})
             setPassword("");
             setNewUsername("");
             innerRef.current.toggleVisibility();
@@ -100,38 +105,36 @@ const UsernameForm = ({ user, users, innerRef }) => {
     };
   
     return (
-      <div className="name-form">
-        <h2>Change username</h2>
-        <form onSubmit={handleUsername}>
-          new username:{" "}
-          <input
+      <div className="username-form">
+        <h3>Change username</h3>
+        <Form onSubmit={handleUsername}>
+        <Form.Group>
+          <Form.Label>new username:</Form.Label>
+          <Form.Control
+            type="text"
+            name="new-name"
+            id="new-username"
             value={newUsername}
             onChange={(event) => setNewUsername(event.target.value)}
-            id="new-username"
             required
-          />
-          <br />
-          password:{" "}
-          <input
+        />
+        <Form.Label>password:</Form.Label>
+        <Form.Control
+            type="password"
+            name="password"
+            id="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            id="repeat-password"
-            type="password"
             required
-          />
-          <br />
-          <button type="submit" id="change-button">
-            change
-          </button>
-        </form>
+        />
+        </Form.Group>
+        <br />
+        <Button variant="primary" type="submit" className="change-button">
+          change
+        </Button>
+        </Form>
       </div>
     );
   };
 
-UsernameForm.propTypes = {
-    user: PropTypes.object.isRequired,
-    users: PropTypes.array.isRequired,
-    innerRef: PropTypes.object.isRequired,
-};
-  
 export default UsernameForm;
