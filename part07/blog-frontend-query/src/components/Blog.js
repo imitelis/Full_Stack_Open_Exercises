@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Card, Form, Button } from "react-bootstrap";
 
 import { useNotificationDispatchValue } from "../NotificationContext";
@@ -192,7 +192,11 @@ const Blog = ({ user, blogInfo, removeBlogMutation, updateBlogMutation }) => {
               Like
             </Button>
             <br />
-            Added by {blogInfo.user.username} <br />
+            Added by{" "}
+            <Link to={`/users/${blogInfo.user.id}`}>
+              {blogInfo.user.username}
+            </Link>{" "}
+            <br />
             {user.username === blogInfo.user.username && (
               <Button
                 className="delete-button"

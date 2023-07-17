@@ -36,10 +36,6 @@ app.use('/api/blogs', middleware.userExtractor, blogsRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 
-app.get('*', function(req, res){
-  res.sendFile('./blog-frontend-query/public' + '/index.html');
-})
-
 /*
 app.get('*', function(req, res){
   res.sendFile('./blog-frontend-redux/public' + '/index.html');

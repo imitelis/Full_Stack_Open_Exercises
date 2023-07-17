@@ -1,3 +1,4 @@
+// import PropTypes from "prop-types";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -118,5 +119,11 @@ const LoginForm = ({ user }) => {
     );
   }
 };
+
+/*
+LoginForm.propTypes = {
+  user: PropTypes.object
+};
+*/
 
 export default LoginForm;

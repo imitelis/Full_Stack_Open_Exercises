@@ -37,10 +37,16 @@ const App = () => {
 
   const user = useUserValue();
 
-  const blogs = blogsResult.data.sort((a, b) => b.likes - a.likes);
-  const users = usersResult.data.sort(
-    (a, b) => b.blogs.length - a.blogs.length
-  );
+  const blogs = blogsResult.data;
+  const users = usersResult.data;
+
+  if (blogs) {
+    blogs.sort((a, b) => b.likes - a.likes);
+  }
+
+  if (users) {
+    users.sort((a, b) => b.blogs.length - a.blogs.length);
+  }
 
   const setTokenMutation = useMutation(setToken);
 

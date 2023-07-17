@@ -179,7 +179,10 @@ const DeleteForm = ({ user, users, removeUserMutation, innerRef }) => {
 };
 
 DeleteForm.propTypes = {
-  // user, users, removeUserMutation, innerRef
+  // user: PropTypes.object,
+  users: PropTypes.array,
+  removeUserMutation: PropTypes.object,
+  innerRef: PropTypes.object,
 };
 
 export default DeleteForm;

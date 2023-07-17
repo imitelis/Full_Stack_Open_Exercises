@@ -33,8 +33,10 @@ const LogoutForm = (props) => {
   );
 };
 
+/*
 LogoutForm.propTypes = {
-  // user: PropTypes.object.isRequired,
+  user: PropTypes.object
 };
+*/
 
 export default LogoutForm;

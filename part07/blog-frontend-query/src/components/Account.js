@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 import Togglable from "./Togglable";
 import NameForm from "./NameForm";
@@ -13,6 +15,8 @@ const Account = ({ user, users, removeUserMutation, updateUserMutation }) => {
   const passwordFormRef = useRef();
   const deleteFormRef = useRef();
 
+  const navigate = useNavigate();
+
   if (!user || user === null) {
     return (
       <div>
@@ -22,9 +26,26 @@ const Account = ({ user, users, removeUserMutation, updateUserMutation }) => {
     );
   }
 
+  function getUserIdByUsername(users, username) {
+    const userFound = users.find((user) => user.username === username);
+    return userFound ? userFound.id : null;
+  }
+
+  const userId = getUserIdByUsername(users, user.username);
+
   return (
     <div>
       <h2>Account</h2>
+      <h3>Blogs:</h3>
+      <Button
+        className="back-button"
+        variant="primary"
+        onClick={() => {
+          navigate(`/users/${userId}`);
+        }}
+      >
+        {user.username}'s blogs
+      </Button>
       <h3>Name: {user.name}</h3>
       {user && (
         <Togglable buttonLabel="change name" ref={nameFormRef}>
@@ -76,6 +97,8 @@ const Account = ({ user, users, removeUserMutation, updateUserMutation }) => {
 Account.propTypes = {
   // user: PropTypes.object,
   users: PropTypes.array,
+  removeUserMutation: PropTypes.object,
+  updateUserMutation: PropTypes.object,
 };
 
 export default Account;

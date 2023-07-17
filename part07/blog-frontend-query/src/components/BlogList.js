@@ -36,18 +36,34 @@ const BlogList = ({ blogs, user, newBlogMutation }) => {
         </div>
       )}
       <h2>Blog list</h2>
-      <Table striped>
-        <tbody>
-          {blogs.map((blog) => (
-            <tr key={blog.id}>
-              <td>
-                <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-              </td>
-              <td>{blog.author}</td>
+      {blogs.length === 0 ? (
+        <div>
+          <em>no blogs yet...</em>
+        </div>
+      ) : (
+        <Table striped>
+          <thead>
+            <tr>
+              <th>
+                <h3>title:</h3>
+              </th>
+              <th>
+                <h3>author:</h3>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {blogs.map((blog) => (
+              <tr key={blog.id}>
+                <td>
+                  <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                </td>
+                <td>{blog.author}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </div>
   );
 };

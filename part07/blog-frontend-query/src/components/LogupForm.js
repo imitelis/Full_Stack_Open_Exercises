@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -165,6 +166,11 @@ const LogupForm = ({ user, newUserMutation }) => {
       </div>
     );
   }
+};
+
+LogupForm.propTypes = {
+  // user: PropTypes.object,
+  newUserMutation: PropTypes.object,
 };
 
 export default LogupForm;

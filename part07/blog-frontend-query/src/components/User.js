@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Button, Table } from "react-bootstrap";
 
@@ -40,12 +41,26 @@ const User = ({ user, userInfo }) => {
     );
   }
 
+  if (userInfo.blogs.length === 0) {
+    return (
+      <div className="user-view">
+        <h2>User</h2>
+        <Card>
+          <Card.Body>
+            <Card.Title>{userInfo.username}'s blogs:</Card.Title>
+            <em>no blogs yet...</em>
+          </Card.Body>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="user-view">
       <h2>User</h2>
       <Card>
         <Card.Body>
-          <Card.Title>{userInfo.username} blogs:</Card.Title>
+          <Card.Title>{userInfo.username}'s blogs:</Card.Title>
           <Table striped>
             <thead>
               <tr>
@@ -58,14 +73,16 @@ const User = ({ user, userInfo }) => {
               </tr>
             </thead>
             <tbody>
-              {userInfo.blogs.map((blog) => (
-                <tr key={blog.id}>
-                  <td>
-                    <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-                  </td>
-                  <td>{blog.likes}</td>
-                </tr>
-              ))}
+              {userInfo.blogs
+                .sort((a, b) => b.likes - a.likes)
+                .map((blog) => (
+                  <tr key={blog.id}>
+                    <td>
+                      <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                    </td>
+                    <td>{blog.likes}</td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
           <Button
@@ -81,6 +98,11 @@ const User = ({ user, userInfo }) => {
       </Card>
     </div>
   );
+};
+
+User.propTypes = {
+  // user: PropTypes.object,
+  userInfo: PropTypes.object,
 };
 
 export default User;

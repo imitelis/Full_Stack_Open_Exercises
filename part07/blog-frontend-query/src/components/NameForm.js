@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { Form, Button } from "react-bootstrap";
@@ -67,7 +68,6 @@ const NameForm = ({ user, users, updateUserMutation, innerRef }) => {
 
         if (currentUser.username === user.username) {
           const userId = getUserIdByUsername(users, user.username);
-
           const updatedUser = {
             username: user.username,
             name: newName,
@@ -158,6 +158,13 @@ const NameForm = ({ user, users, updateUserMutation, innerRef }) => {
       </Form>
     </div>
   );
+};
+
+NameForm.propTypes = {
+  // user: PropTypes.object,
+  users: PropTypes.array,
+  updateUserMutation: PropTypes.object,
+  innerRef: PropTypes.object,
 };
 
 export default NameForm;

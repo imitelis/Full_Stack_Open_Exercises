@@ -128,9 +128,9 @@ const BlogForm = ({ user, newBlogMutation, innerRef }) => {
 };
 
 BlogForm.propTypes = {
-  // user: PropTypes.object.isRequired,
-  innerRef: PropTypes.object.isRequired,
+  // user: PropTypes.object,
   newBlogMutation: PropTypes.object,
+  innerRef: PropTypes.object,
 };
 
 export default BlogForm;

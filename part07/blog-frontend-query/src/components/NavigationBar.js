@@ -1,14 +1,10 @@
+// import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 
 import LogoutForm from "./LogoutForm";
 
 const NavigationBar = ({ user }) => {
-  const padding = {
-    padding: 5,
-    flex: 1,
-  };
-
   if (!user || user === null) {
     return (
       <div className="navbar d-flex">
@@ -89,5 +85,11 @@ const NavigationBar = ({ user }) => {
     </div>
   );
 };
+
+/*
+NavigationBar.propTypes = {
+  user: PropTypes.object
+};
+*/
 
 export default NavigationBar;

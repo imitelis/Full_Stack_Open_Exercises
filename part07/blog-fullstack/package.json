@@ -24,6 +24,7 @@
     "supertest": "^6.3.3"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.3.3",
     "eslint": "^8.37.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
