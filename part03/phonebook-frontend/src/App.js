@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
+
 import Filter from './components/Filter'
 import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
+
 import personService from './services/persons'
+
 import './index.css'
 
 const App = () => {
@@ -22,7 +25,7 @@ const App = () => {
 
   }, [])
 
-  console.log('render', persons.length, 'persons')
+  // console.log('render', persons.length, 'persons')
 
   const NotificationGreen = ({ message }) => {
     if (message === null) {
@@ -172,9 +175,10 @@ const App = () => {
       <h1>Phonebook</h1>
       <NotificationGreen message={greenMessage} />
       <NotificationRed message={redMessage} />
-      <Filter newSearch={newSearch} handleSearch={handleSearch} />
       <h2>Add a new</h2>
       <PersonForm addPerson={addPerson} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
+      <h2>Filter name</h2>
+      <Filter newSearch={newSearch} handleSearch={handleSearch} />
       <h2>Numbers</h2>
       <Persons personsToShow={personsToShow} deletePerson={deletePerson} />
     </div>
