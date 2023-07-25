@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for quiet-water-5313 on 2023-07-17T11:29:53-05:00
+# fly.toml app configuration file generated for quiet-water-5313 on 2023-07-25T15:18:43-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -6,11 +6,11 @@
 app = "quiet-water-5313"
 primary_region = "ord"
 
-[env]
-  PORT = "8080"
-
 [experimental]
   auto_rollback = true
+
+[env]
+  PORT = "8080"
 
 [http_service]
   internal_port = 8080
