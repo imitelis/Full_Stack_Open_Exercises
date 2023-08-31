@@ -3,12 +3,11 @@
 
 ## Exercises 8.1.-8.7.
 
-Through the exercises, we will implement a GraphQL backend for a small library. Start with this file. Remember to npm init and to install dependencies!
-
+Through the exercises, we will implement a GraphQL backend for a small library. Start with [this file](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js). Remember to `npm init` and to install dependencies!
 
 ### 8.1: The number of books and authors
 
-Implement queries bookCount and authorCount which return the number of books and the number of authors.
+Implement queries `bookCount` and `authorCount` which return the number of books and the number of authors.
 
 The query
 
@@ -32,7 +31,7 @@ should return
 
 ### 8.2: All books
 
-Implement query allBooks, which returns the details of all books.
+Implement query `allBooks`, which returns the details of all books.
 
 In the end, the user should be able to do the following query:
 
@@ -49,7 +48,7 @@ query {
 
 ### 8.3: All authors
 
-Implement query allAuthors, which returns the details of all authors. The response should include a field bookCount containing the number of books the author has written.
+Implement query `allAuthors`, which returns the details of all authors. The response should include a field `bookCount` containing the number of books the author has written.
 
 For example the query
 
@@ -95,7 +94,7 @@ should return
 
 ### 8.4: Books of an author
 
-Modify the allBooks query so that a user can give an optional parameter author. The response should include only books written by that author.
+Modify the `allBooks` query so that a user can give an optional parameter <em>author</em>. The response should include only books written by that author.
 
 For example query
 
@@ -126,7 +125,7 @@ should return
 
 ### 8.5: Books by genre
 
-Modify the query allBooks so that a user can give an optional parameter genre. The response should include only books of that genre.
+Modify the query `allBooks` so that a user can give an optional parameter <em>genre</em>. The response should include only books of that genre.
 
 For example query
 
@@ -179,7 +178,7 @@ query {
 
 ### 8.6: Adding a book
 
-Implement mutation addBook, which can be used like this:
+Implement mutation `addBook`, which can be used like this:
 
 ```
 mutation {
@@ -242,7 +241,7 @@ returns
 
 ### 8.7: Updating the birth year of an author
 
-Implement mutation editAuthor, which can be used to set a birth year for an author. The mutation is used like so:
+Implement mutation `editAuthor`, which can be used to set a birth year for an author. The mutation is used like so:
 
 ```
 mutation {
@@ -266,7 +265,7 @@ If the correct author is found, the operation returns the edited author:
 }
 ```
 
-If the author is not in the system, null is returned:
+If the author is not in the system, <em>null</em> is returned:
 
 ```
 {
@@ -281,9 +280,9 @@ If the author is not in the system, null is returned:
 
 Through these exercises, we'll implement a frontend for the GraphQL library.
 
-Take this project as a start for your application.
+Take [this project](https://github.com/fullstack-hy2020/library-frontend) as a start for your application.
 
-Note if you want, you can also use React router to implement the application's navigation!
+**Note:** if you want, you can also use [React router](https://fullstackopen.com/en/part7/react_router) to implement the application's navigation!
 
 ### 8.8: Authors view
 
@@ -319,7 +318,7 @@ Make sure that the Authors view is kept up to date after setting a birth year.
 
 ### 8.12: Authors birth year advanced
 
-Change the birth year form so that a birth year can be set only for an existing author. Use select tag, react select, or some other mechanism.
+Change the birth year form so that a birth year can be set only for an existing author. Use [select tag](https://legacy.reactjs.org/docs/forms.html#the-select-tag), [react select](https://github.com/JedWatson/react-select), or some other mechanism.
 
 A solution using the react select library looks as follows:
 
@@ -332,7 +331,7 @@ The following exercises are quite likely to break your frontend. Do not worry ab
 
 ### 8.13: Database, part 1
 
-Change the library application so that it saves the data to a database. You can find the mongoose schema for books and authors from here.
+Change the library application so that it saves the data to a database. You can find the <em>mongoose schema</em> for books and authors from [here](https://github.com/fullstack-hy/misc/blob/main/library-schema.md).
 
 Let's change the book graphql schema a little
 
@@ -353,12 +352,12 @@ You can assume that the user will not try to add faulty books or authors, so you
 
 The following things do not have to work just yet:
 
-  *  allBooks query with parameters
-  *  bookCount field of an author object
-  *  author field of a book
-  *  editAuthor mutation
+  *  `allBooks` query with parameters
+  *  `bookCount` field of an author object
+  *  `author` field of a book
+  *  `editAuthor` mutation
 
-Note: despite the fact that author is now an object within a book, the schema for adding a book can remain same, only the name of the author is given as a parameter
+**Note:** despite the fact that author is now an object within a book, the schema for adding a book can remain same, only the name of the author is given as a parameter
 
 ```
 type Mutation {
@@ -375,13 +374,13 @@ type Mutation {
 
 ### 8.14: Database, part 2
 
-Complete the program so that all queries (to get allBooks working with the parameter author and bookCount field of an author object is not required) and mutations work.
+Complete the program so that all queries (to get `allBooks` working with the parameter `author` and `bookCount` field of an author object is not required) and mutations work.
 
-Regarding the genre parameter of the all books query, the situation is a bit more challenging. The solution is simple, but finding it can be a headache. You might benefit from this.
+Regarding the <em>genre</em> parameter of the all books query, the situation is a bit more challenging. The solution is simple, but finding it can be a headache. You might benefit from [this](https://www.mongodb.com/docs/manual/tutorial/query-array-of-documents/).
 
 ### 8.15: Database, part 3
 
-Complete the program so that database validation errors (e.g. book title or author name being too short) are handled sensibly. This means that they cause GraphQLError with a suitable error message to be thrown.
+Complete the program so that database validation errors (e.g. book title or author name being too short) are handled sensibly. This means that they cause [GraphQLError](https://www.apollographql.com/docs/apollo-server/data/errors/#custom-errors) with a suitable error message to be thrown.
 
 ### 8.16: user and logging in
 
@@ -416,9 +415,9 @@ type Mutation {
 }
 ```
 
-Create resolvers for query me and the new mutations createUser and login. Like in the course material, you can assume all users have the same hardcoded password.
+Create resolvers for query `me` and the new mutations `createUser` and `login`. Like in the course material, you can assume all users have the same hardcoded password.
 
-Make the mutations addBook and editAuthor possible only if the request includes a valid token.
+Make the mutations `addBook` and `editAuthor` possible only if the request includes a valid token.
 
 (Don't worry about fixing the frontend for the moment.)
 
@@ -467,24 +466,24 @@ Implement a view which shows all the books based on the logged-in user's favouri
 
 In the previous two exercises, the filtering could have been done using just React. To complete this exercise, you should redo the filtering the books based on a selected genre (that was done in exercise 8.19) using a GraphQL query to the server. If you already did so then you do not have to do anything.
 
-This and the next exercises are quite challenging like it should be this late in the course. You might want to complete first the easier ones in the next part.
+This and the next exercises are quite **challenging** like it should be this late in the course. You might want to complete first the easier ones in the [next part](https://fullstackopen.com/en/part8/fragments_and_subscriptions).
 
 ### 8.22: Up-to-date cache and book recommendations
 
-If you did the previous exercise, that is, fetch the books in a genre with GraphQL, ensure somehow that the books view is kept up to date. So when a new book is added, the books view is updated at least when a genre selection button is pressed.
+If you did the previous exercise, that is, fetch the books in a genre with GraphQL, ensure somehow that the books view is kept up to date. So when a new book is added, the books view is updated **at least** when a genre selection button is pressed.
 
-When new genre selection is not done, the view does not have to be updated.
+<em>When new genre selection is not done, the view does not have to be updated.</em>
 
 
 ## Exercises 8.23.-8.26.
 
 ### 8.23: Subscriptions - server
 
-Do a backend implementation for subscription bookAdded, which returns the details of all new books to its subscribers.
+Do a backend implementation for subscription `bookAdded`, which returns the details of all new books to its subscribers.
 
 ### 8.24: Subscriptions - client, part 1
 
-Start using subscriptions in the client, and subscribe to bookAdded. When new books are added, notify the user. Any method works. For example, you can use the window.alert function.
+Start using subscriptions in the client, and subscribe to bookAdded. When new books are added, notify the user. Any method works. For example, you can use the [window.alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) function.
 
 ### 8.25: Subscriptions - client, part 2
 
@@ -505,13 +504,13 @@ query {
 
 ### Submitting exercises and getting the credits
 
-Exercises of this part are submitted via the submissions system just like in the previous parts, but unlike previous parts, the submission goes to different "course instance". Remember that you have to finish at least 22 exercises to pass this part!
+Exercises of this part are submitted via [the submissions system](https://studies.cs.helsinki.fi/stats/courses/fs-graphql) just like in the previous parts, but unlike previous parts, the submission goes to different "course instance". Remember that you have to finish at least 22 exercises to pass this part!
 
 Once you have completed the exercises and want to get the credits, let us know through the exercise submission system that you have completed the course:
 
 ![plot](./exercises-data/21a.png)
 
-Note that you need a registration to the corresponding course part for getting the credits registered, see here for more information.
+**Note:** that you need a registration to the corresponding course part for getting the credits registered, see [here](https://fullstackopen.com/en/part0/general_info#parts-and-completion) for more information.
 
 You can download the certificate for completing this part by clicking one of the flag icons. The flag icon corresponds to the certificate's language.
 

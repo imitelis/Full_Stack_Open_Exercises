@@ -10,7 +10,7 @@ a {
   color: dimgray;
 }
 
-a:visited {
+b, th, a:visited {
   color: darkgreen;
 }
 
@@ -38,22 +38,6 @@ a:visited {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-}
-
-.blog {
-  color: black;
-  background: white;
-  font-size: 20px;
-  border-style: solid;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.navbar {
-  padding: 5;
-  background-color: lightgrey;
-  color: black;
 }
 
 iframe {

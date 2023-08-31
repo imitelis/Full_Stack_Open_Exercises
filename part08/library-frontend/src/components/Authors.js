@@ -4,15 +4,11 @@ import { ALL_AUTHORS } from '../queries'
 
 import SetBirthyear from './SetBirthyear'
 
-const Authors = (props) => {
+const Authors = () => {
 
   const result = useQuery(ALL_AUTHORS, {
     refetchQueries: [ { query: ALL_AUTHORS } ]
   })
-
-  if (!props.show) {
-    return null
-  }
 
   if (result.loading) {
     return (
@@ -31,7 +27,7 @@ const Authors = (props) => {
       <table>
         <tbody>
           <tr>
-            <th></th>
+            <th>name</th>
             <th>born</th>
             <th>books</th>
           </tr>

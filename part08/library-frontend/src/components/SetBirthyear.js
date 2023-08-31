@@ -14,17 +14,14 @@ const SetBirthyear = ({ authors }) => {
 
   const submit = async (event) => {
     event.preventDefault()
-
     editAuthor({  variables: { name, setBornTo: Number(born) } })
-
     setBorn('')
   }
 
   const nameOptions = authors.map((a) => ({ value: a.name, label: a.name }))
 
   useEffect(() => {
-    setName(nameOptions[0].value)
-    // eslint-disable-next-line
+    setName(nameOptions[0].value) // eslint-disable-next-line
   }, [])
 
   const handleChange = (selectedOption) => {
