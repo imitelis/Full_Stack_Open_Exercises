@@ -19,27 +19,32 @@ const resolvers = {
     },
     Author: {    
       bookCount: async (root, args) => {
+        // console.log("Book.countDocuments")
         const authorId = root._id
-        let authorCount = await Book.countDocuments({ author: authorId })
-        return authorCount;
+        let foundAuthor = await Author.findOne({ _id: authorId })
+        const bookCount = foundAuthor.books.length
+        return bookCount;
       }
     },
     Query: {
       authorCount: async (root, args) => Author.collection.countDocuments(),
       bookCount: async (root, args) => Book.collection.countDocuments(),
       allBooks: async (root, args) => {
-        let books = await Book.find({})
         if (!args.author && !args.genre) {
+          // console.log('Book.find')
+          let books = await Book.find({})
           return books;
         } else if (args.author) {
           let foundAuthor = await Author.findOne({ name: args.author })
           if (foundAuthor) {
+            // console.log('Book.find')
             const booksByAuthor = await Book.find({ author: foundAuthor._id })
             return booksByAuthor;
           } else {
             return null;
           }
         } else if (args.genre) {
+          // console.log('Book.find')
           let foundBooks = await Book.find({ genres: { $in: [args.genre] } })
           if (foundBooks) {
             return foundBooks;
@@ -49,6 +54,7 @@ const resolvers = {
         } else if (args.author && args.genre) {
           let foundAuthor = await Author.findOne({ name: args.author })
           if (foundAuthor) {
+            // console.log('Book.find')
             const booksByAuthorAndGenre = await Book.find({ author: foundAuthor._id, genres: { $in: [args.genre] } })
             if (booksByAuthorAndGenre) {
               return booksByAuthorAndGenre;
@@ -70,7 +76,7 @@ const resolvers = {
         addBook: async (root, args, { currentUser }) => {
  
           if (!currentUser) {        
-            throw new GraphQLError('not authenticated', {          
+            throw new GraphQLError(`error: not authenticated, please log in and try again`, {          
               extensions: {            
                 code: 'BAD_USER_INPUT',          
               }        
@@ -84,11 +90,13 @@ const resolvers = {
               }
               const newBook = new Book({ title: args.title, published: args.published, genres: args.genres, author: foundAuthor._id })
               await newBook.save()
+              foundAuthor.books.push(newBook._id)
+              await foundAuthor.save()
               pubsub.publish('BOOK_ADDED', { bookAdded: newBook })
               return newBook;
           } catch(error) {
             if (args.author.length < 4) {
-              throw new GraphQLError('Author name too short (less than 4 characters long)', {
+              throw new GraphQLError(`error: author (${args.author}) is shorter than the minimum allowed length (4)`, {
                 extensions: {
                   code: 'BAD_USER_INPUT',
                   invalidArgs: args.name,
@@ -96,7 +104,7 @@ const resolvers = {
                 }
               })
             } else if (args.title.length < 5) {
-              throw new GraphQLError('Book title too short (less than 5 characters long)', {
+              throw new GraphQLError(`error: title (${args.title}) is shorter than the minimum allowed length (5)`, {
                 extensions: {
                   code: 'BAD_USER_INPUT',
                   invalidArgs: args.name,
@@ -104,7 +112,7 @@ const resolvers = {
                 }
               })
             } else {
-              throw new GraphQLError('Saving book failed', {
+              throw new GraphQLError(`${error}`, {
                 extensions: {
                   code: 'BAD_USER_INPUT',
                   invalidArgs: args.name,
@@ -117,7 +125,7 @@ const resolvers = {
         editAuthor: async (root, args, { currentUser }) => {
           
           if (!currentUser) {        
-            throw new GraphQLError('not authenticated', {          
+            throw new GraphQLError(`error: not authenticated, please log in and try again`, {          
               extensions: {            
                 code: 'BAD_USER_INPUT',          
               }        
@@ -125,20 +133,20 @@ const resolvers = {
           }
   
           try {
-            let foundAuthor = await Author.findOne({ name: args.name })
-            if (!foundAuthor) {
+            let updatedAuthor = await Author.findOne({ name: args.name })
+            if (!updatedAuthor) {
               return null;
             } 
             
             if (args.setBornTo !== undefined) {
-              foundAuthor.born = args.setBornTo
-              let updatedAuthor = await foundAuthor.save()
+              updatedAuthor.born = args.setBornTo
+              await updatedAuthor.save()
               return updatedAuthor;
             }
   
             return foundAuthor;
           } catch(error) {
-            throw new GraphQLError('Editing author failed', {
+            throw new GraphQLError(`${error}`, {
               extensions: {
                 code: 'BAD_USER_INPUT',
                 invalidArgs: args.name,
@@ -153,7 +161,7 @@ const resolvers = {
             await newUser.save()
             return newUser;
           } catch(error) {
-            throw new GraphQLError('Creating user failed', {
+            throw new GraphQLError(`error: adding ${args.username} information failed`, {
               extensions: {
                 code: 'BAD_USER_INPUT',
                 invalidArgs: args.name,
@@ -167,7 +175,7 @@ const resolvers = {
             const user = await User.findOne({ username: args.username })
             
             if ( !user || args.password !== 'secret' ) {
-              throw new GraphQLError('Wrong credentials', {
+              throw new GraphQLError(`error: wrong credentials or non-existing user`, {
                 extensions: {
                   code: 'BAD_USER_INPUT'
                 }
@@ -181,7 +189,7 @@ const resolvers = {
         
             return { value: jwt.sign(userForToken, process.env.JWT_SECRET) };
           } catch (error) {
-            throw new GraphQLError('Login user failed', {
+            throw new GraphQLError(`${error}`, {
               extensions: {
                 code: 'BAD_USER_INPUT',
                 invalidArgs: args.name,

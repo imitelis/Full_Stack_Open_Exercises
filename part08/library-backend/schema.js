@@ -7,6 +7,7 @@ const typeDefs = `
     id: ID!
     name: String!
     born: Int
+    books: [String!]!
     bookCount: Int
   }
 

@@ -34,6 +34,8 @@ mongoose.connect(MONGODB_URI)
     console.log('Error connection to MongoDB:', error.message)
   })
 
+// mongoose.set('debug', true)
+
 const start = async () => {
   const app = express()
   const httpServer = http.createServer(app)
@@ -86,7 +88,7 @@ const start = async () => {
   const PORT = 4000
 
   httpServer.listen(PORT, () => 
-  console.log(`Server is now running on http://localhost:${PORT}`)
+    console.log(`Server is now running on http://localhost:${PORT}`)
   )
 }
 

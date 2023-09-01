@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
 // you must install this library
 const uniqueValidator = require('mongoose-unique-validator')
 
+const Book = require('./Book')
+
 /*
 let authors = [
   {
@@ -42,6 +44,12 @@ const schema = new mongoose.Schema({
   born: {
     type: Number,
   },
+  books: [
+    {      
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'Book'    
+    }
+  ]
 })
 
 schema.plugin(uniqueValidator)

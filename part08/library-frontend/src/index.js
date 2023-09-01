@@ -1,55 +1,60 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, split } from '@apollo/client'
-import { setContext } from '@apollo/client/link/context'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+  split,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
-import { getMainDefinition } from '@apollo/client/utilities'
-import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
-import { createClient } from 'graphql-ws'
+import { getMainDefinition } from "@apollo/client/utilities";
+import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
+import { createClient } from "graphql-ws";
 
-import App from './App'
-import './index.css'
+import App from "./App";
+import "./index.css";
 
-const authLink = setContext((_, { headers }) => {  
-  const token = localStorage.getItem('loggedLibraryToken')  
-  return {    
-    headers: {      
-      ...headers,      
-      authorization: token ? `Bearer ${token}` : null,    
-    }  
-  }})
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("loggedLibraryToken");
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : null,
+    },
+  };
+});
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000',
-})
+  uri: "http://localhost:4000",
+});
 
-const wsLink = new GraphQLWsLink(  
-  createClient({ url: 'ws://localhost:4000' })
-)
+const wsLink = new GraphQLWsLink(createClient({ url: "ws://localhost:4000" }));
 
-const splitLink = split(  
-  ({ query }) => {    
-    const definition = getMainDefinition(query)    
-    return (      
-      definition.kind === 'OperationDefinition' &&      
-      definition.operation === 'subscription'    
-      )  
-    },  
-    wsLink,  
-    authLink.concat(httpLink)
-)
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  authLink.concat(httpLink),
+);
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: splitLink
-})
+  link: splitLink,
+});
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
-    <ApolloProvider client={client}>    
-        <App />
+    <ApolloProvider client={client}>
+      <App />
     </ApolloProvider>
-  </Router>
-)
+  </Router>,
+);

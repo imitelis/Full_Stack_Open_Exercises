@@ -10,14 +10,10 @@ a {
   color: dimgray;
 }
 
-b, th, a:visited {
+b,
+th,
+a:visited {
   color: darkgreen;
-}
-
-.note {
-  color: grey;
-  padding-top: 5px;
-  font-size: 15px;
 }
 
 .error {
