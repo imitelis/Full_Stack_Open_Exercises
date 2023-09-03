@@ -26,13 +26,13 @@ part2
 
 See this [example submission repository](https://github.com/fullstack-hy2020/example-submission-repository)!
 
-For each part of the course, there is a directory, which further branches into directories containing a series of exercises, like "unicafe" for part 1.
+For each part of the course, there is a directory, which further branches into directories containing a series of exercises, like "unicafe" for Part 1.
 
 Most of the exercises of the course build a larger application, eg. courseinfo, unicafe and anecdotes in this part, bit by bit. It is enough to submit the completed application. You can make a commit after each exercise, but that is not compulsory. For example the course info app is built in exercises 1.1.-1.5. It is just the end result after 1.5 that you need to submit!
 
 For each web application for a series of exercises, it is recommended to submit all files relating to that application, except for the directory <em>node_modules</em>.
 
-### 1.1: course information, step1
+### 1.1: Course information, step1
 
 <em>The application that we will start working on in this exercise will be further developed in a few of the following exercises. In this and other upcoming exercise sets in this course, it is enough to only submit the final state of the application. If desired, you may also create a commit for each exercise of the series, but this is entirely optional.</em>
 
@@ -105,13 +105,13 @@ const App = () => {
 
 Careful, small-step progress may seem slow, but it is actually <em>by far the fastest</em> way to progress. Famous software developer Robert "Uncle Bob" Martin has stated
 
-<blockquote>"The only way to go fast, is to go well"</blockquote>
+	<em>"The only way to go fast, is to go well"</em>
 
 that is, according to Martin, careful progress with small steps is even the only way to be fast.
 
-**WARNING 2:** create-react-app automatically makes the project a git repository unless the application is created within an already existing repository. Most likely you do not want the project to become a repository, so run the command rm -rf .git in the root of the project.
+**WARNING 2:** `create-react-app` automatically makes the project a git repository unless the application is created within an already existing repository. Most likely you do not want the project to become a repository, so run the command `rm -rf .git` in the root of the project.
 
-### 1.2: course information, step2
+### 1.2: Course information, step2
 
 Refactor the <em>Content</em> component so that it does not render any names of parts or their number of exercises by itself. Instead, it only renders three <em>Part</em> components of which each renders the name and number of exercises of one part.
 
@@ -127,7 +127,7 @@ const Content = ... {
 }
 ```
 
-Our application passes on information in quite a primitive way at the moment, since it is based on individual variables. We shall fix that in [part 2](https://fullstackopen.com/en/part2), but before that, let's go to part1b to learn about JavaScript.
+Our application passes on information in quite a primitive way at the moment, since it is based on individual variables. We shall fix that in [Part 2](https://fullstackopen.com/en/part2), but before that, let's go to part1b to learn about JavaScript.
 
 
 ## Exercises 1.3.-1.5.
@@ -144,11 +144,11 @@ const Header = (props) => {
 
 If and when you encounter an error message
 
-<blockquote>Objects are not valid as a React child</blockquote>
+	<em>Objects are not valid as a React child</em>
 
 keep in mind the things told [here](https://fullstackopen.com/en/part1/introduction_to_react#do-not-render-objects).
 
-### 1.3: course information step3
+### 1.3: Course information, step3
 
 Let's move forward to using objects in our application. Modify the variable definitions of the <em>App</em> component as follows and also refactor the application so that it still works:
 
@@ -176,7 +176,7 @@ const App = () => {
 }
 ```
 
-### 1.4: course information step4
+### 1.4: Course information, step4
 
 And then place the objects into an array. Modify the variable definitions of <em>App</em> into the following form and modify the other parts of the application accordingly:
 
@@ -206,7 +206,7 @@ const App = () => {
 }
 ```
 
-**NB:** at this point you <em>can assume that there are always three items</em>, so there is no need to go through the arrays using loops. We will come back to the topic of rendering components based on items in arrays with a more thorough exploration in the [next part of the course](https://fullstackopen.com/en/part2).
+**NB:** At this point you <em>can assume that there are always three items</em>, so there is no need to go through the arrays using loops. We will come back to the topic of rendering components based on items in arrays with a more thorough exploration in the [next part of the course](https://fullstackopen.com/en/part2).
 
 However, do not pass different objects as separate props from the <em>App</em> component to the components <em>Content</em> and <em>Total</em>. Instead, pass them directly as an array:
 
@@ -224,7 +224,7 @@ const App = () => {
 }
 ```
 
-### 1.5: course information step5
+### 1.5: Course information, step5
 
 Let's take the changes one step further. Change the course and its parts into a single JavaScript object. Fix everything that breaks.
 
@@ -265,7 +265,7 @@ Remember, submit **all** the exercises of one part in a **single submission**. O
 
 <em>Some of the exercises work on the same application. In these cases, it is sufficient to submit just the final version of the application. If you wish, you can make a commit after every finished exercise, but it is not mandatory.</em>
 
-**WARNING:** create-react-app will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the rm -rf .git command at the root of your application.
+**WARNING:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the `rm -rf .git` command at the root of your application.
 
 In some situations you may also have to run the command below from the root of the project:
 
@@ -275,17 +275,17 @@ rm -rf node_modules/ && npm i
 
 If and when you encounter an error message
 
-<blockquote>Objects are not valid as a React child</blockquote>
+	<em>Objects are not valid as a React child</em>
 
 keep in mind the things told [here](https://fullstackopen.com/en/part1/introduction_to_react#do-not-render-objects).
 
-### 1.6: unicafe step1
+### 1.6: Unicafe, step1
 
 Like most companies, the student restaurant of the University of Helsinki [Unicafe](https://www.unicafe.fi) collects feedback from its customers. Your task is to implement a web application for collecting customer feedback. There are only three options for feedback: <em>good</em>, <em>neutral</em>, and <em>bad</em>.
 
 The application must display the total number of collected feedback for each category. Your final application could look like this:
 
-![plot](./exercises-data/13e.png)
+![plot](./exercises-media/13e.png)
 
 Note that your application needs to work only during a single browser session. Once you refresh the page, the collected feedback is allowed to disappear.
 
@@ -321,13 +321,13 @@ const App = () => {
 export default App
 ```
 
-### 1.7: unicafe step2
+### 1.7: Unicafe, step2
 
 Expand your application so that it shows more statistics about the gathered feedback: the total number of collected feedback, the average score (good: 1, neutral: 0, bad: -1) and the percentage of positive feedback.
 
-![plot](./exercises-data/14e.png)
+![plot](./exercises-media/14e.png)
 
-### 1.8: unicafe step3
+### 1.8: Unicafe, step3
 
 Refactor your application so that displaying the statistics is extracted into its own <em>Statistics</em> component. The state of the application should remain in the <em>App</em> root component.
 
@@ -355,13 +355,13 @@ const App = () => {
 }
 ```
 
-### 1.9: unicafe step4
+### 1.9: Unicafe, step4
 
 Change your application to display statistics only once feedback has been gathered.
 
-![plot](./exercises-data/15e.png)
+![plot](./exercises-media/15e.png)
 
-### 1.10: unicafe step5
+### 1.10: Unicafe, step5
 
 Let's continue refactoring the application. Extract the following two components:
 
@@ -386,15 +386,15 @@ const Statistics = (props) => {
 
 The application's state should still be kept in the root App component.
 
-### 1.11*: unicafe step6
+### 1.11*: Unicafe, step6
 
 Display the statistics in an HTML [table](https://developer.mozilla.org/en-US/docs/Learn/HTML/Tables/Basics), so that your application looks roughly like this:
 
-![plot](./exercises-data/16e.png)
+![plot](./exercises-media/16e.png)
 
 Remember to keep your console open at all times. If you see this warning in your console:
 
-![plot](./exercises-data/17a.png)
+![plot](./exercises-media/17a.png)
 
 Then perform the necessary actions to make the warning disappear. Try pasting the error message into a search engine if you get stuck.
 
@@ -402,7 +402,7 @@ Then perform the necessary actions to make the warning disappear. Try pasting th
 
 **Make sure that from now on you don't see any warnings in your console!**
 
-### 1.12*: anecdotes step1
+### 1.12*: Anecdotes, step1
 
 The world of software engineering is filled with [anecdotes](www.comp.nus.edu.sg/~damithch/pages/SE-quotes.htm) that distill timeless truths from our field into short one-liners.
 
@@ -441,17 +441,17 @@ Find out how to generate random numbers in JavaScript, eg. via a search engine o
 
 Your finished application could look something like this:
 
-![plot](./exercises-data/18a.png)
+![plot](./exercises-media/18a.png)
 
-**WARNING:** create-react-app will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the rm -rf .git command at the root of your application.
+**WARNING:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the `rm -rf .git` command at the root of your application.
 
-### 1.13*: anecdotes step2
+### 1.13*: Anecdotes, step2
 
 Expand your application so that you can vote for the displayed anecdote.
 
-![plot](./exercises-data/19a.png)
+![plot](./exercises-media/19a.png)
 
-**NB:** store the votes of each anecdote into an array or object in the component's state. Remember that the correct way of updating state stored in complex data structures like objects and arrays is to make a copy of the state.
+**NB:** Store the votes of each anecdote into an array or object in the component's state. Remember that the correct way of updating state stored in complex data structures like objects and arrays is to make a copy of the state.
 
 You can create a copy of an object like this:
 
@@ -475,11 +475,11 @@ copy[2] += 1
 
 Using an array might be the simpler choice in this case. Searching the Internet will provide you with lots of hints on how to [create a zero-filled array of the desired length](https://stackoverflow.com/questions/20222501/how-to-create-a-zero-filled-javascript-array-of-arbitrary-length/22209781).
 
-### 1.14*: anecdotes step3
+### 1.14*: Anecdotes, step3
 
 Now implement the final version of the application that displays the anecdote with the largest number of votes:
 
-![plot](./exercises-data/20a.png)
+![plot](./exercises-media/20a.png)
 
 If multiple anecdotes are tied for first place it is sufficient to just show one of them.
 
