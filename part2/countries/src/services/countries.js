@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'https://restcountries.com/v3.1/all'
+const baseUrl = 'https://studies.cs.helsinki.fi/restcountries/api/all'
 
 const getAll = () => {
     const request = axios.get(baseUrl)

@@ -52,7 +52,7 @@ const Countries = ({countries, newSearch}) => {
                 <>
                 <h3>Weather in {chosenCountry.capital[0]}</h3>
                 <p>Temperature: {(weatherData.main.temp -273).toFixed(2)} Celsius</p>
-                <img src={"https://openweathermap.org/img/wn/"+ weatherData.weather[0].icon +"@2x.png"}></img>
+                <img src={"https://openweathermap.org/img/wn/"+ weatherData.weather[0].icon +"@2x.png"} alt={"https://openweathermap.org/img/wn/"+ weatherData.weather[0].icon +"@2x.png"}></img>
                 <p>Wind speed: {weatherData.wind.speed} m/s</p>
                 </>
             )}
@@ -89,7 +89,7 @@ const Countries = ({countries, newSearch}) => {
         )
     }
 
-    if (countriesToShow.length == 1) {
+    if (countriesToShow.length === 1) {
         const choiceCountry = String(countriesToShow.map(c => c.name.common))
         return(
             <>
@@ -98,8 +98,7 @@ const Countries = ({countries, newSearch}) => {
         )
     }
 
-    if (countriesToShow.length == 0) {
-        const choiceCountry = String(countriesToShow.map(c => c.name.common))
+    if (countriesToShow.length === 0) {
         return(
             <>
             No country was found, please try again
