@@ -105,7 +105,7 @@ const App = () => {
 
 Careful, small-step progress may seem slow, but it is actually <em>by far the fastest</em> way to progress. Famous software developer Robert "Uncle Bob" Martin has stated
 
-	<em>"The only way to go fast, is to go well"</em>
+<blockquote><em>"The only way to go fast, is to go well"</em></blockquote>
 
 that is, according to Martin, careful progress with small steps is even the only way to be fast.
 
@@ -144,7 +144,7 @@ const Header = (props) => {
 
 If and when you encounter an error message
 
-	<em>Objects are not valid as a React child</em>
+<blockquote><em>Objects are not valid as a React child</em></blockquote>
 
 keep in mind the things told [here](https://fullstackopen.com/en/part1/introduction_to_react#do-not-render-objects).
 
@@ -275,7 +275,7 @@ rm -rf node_modules/ && npm i
 
 If and when you encounter an error message
 
-	<em>Objects are not valid as a React child</em>
+<blockquote><em>Objects are not valid as a React child</em></blockquote>
 
 keep in mind the things told [here](https://fullstackopen.com/en/part1/introduction_to_react#do-not-render-objects).
 
