@@ -15,7 +15,7 @@ Note that this part has more exercises than the ones before, so <em>do not submi
 
 ### 2.1: Course information, step6
 
-Let's finish the code for rendering course contents from exercises 1.1 - 1.5. You can start with the code from the model answers. The model answers for part 1 can be found by going to the [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen), clicking on <em>my submissions</em> at the top, and in the row corresponding to part 1 under the <em>solutions</em> column clicking on <em>show</em>. To see the solution to the course info exercise, click on `index.js` under <em>kurssitiedot</em> ("kurssitiedot" means "course info").
+Let's finish the code for rendering course contents from exercises 1.1 - 1.5. You can start with the code from the model answers. The model answers for Part 1 can be found by going to the [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen), clicking on <em>my submissions</em> at the top, and in the row corresponding to Part 1 under the <em>solutions</em> column clicking on <em>show</em>. To see the solution to the course info exercise, click on `index.js` under <em>kurssitiedot</em> ("kurssitiedot" means "course info").
 
 **Note that if you copy a project from one place to another, you might have to delete the <em>node_modules</em> directory and install the dependencies again with the command `npm install` before you can start the application.**
 
@@ -445,7 +445,7 @@ If the person's information is already in the phonebook, the application can ask
 
 ### 2.16: Phonebook, step11
 
-Use the [improved error message](https://fullstackopen.com/en/part2/adding_styles_to_react_app#improved-error-message) example from part 2 as a guide to show a notification that lasts for a few seconds after a successful operation is executed (a person is added or a number is changed):
+Use the [improved error message](https://fullstackopen.com/en/part2/adding_styles_to_react_app#improved-error-message) example from Part 2 as a guide to show a notification that lasts for a few seconds after a successful operation is executed (a person is added or a number is changed):
 
 ![plot](./exercises-media/27e.png)
 
