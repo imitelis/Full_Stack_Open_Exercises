@@ -1,7 +1,7 @@
 # Full Stack Open - Part 9 - TypeScript - Exercises
 
 
-## Exercises 9.1-9.3
+## Exercises 9.1.-9.3.
 
 ### setup
 
@@ -125,7 +125,7 @@ Another note: somehow surprisingly TypeScript does not allow to define the same 
 This is actually not quite true. This rule applies only to files that are treated as "scripts". A file is a script if it does not contain any export or import statements. If a file has those, then the file is treated as a [module](https://www.typescriptlang.org/docs/handbook/modules.html), <em>and</em> the variables do not get defined in the block-scope.
 
 
-## Exercises 9.4-9.5
+## Exercises 9.4.-9.5.
 
 ### 9.4: Express
 
@@ -182,7 +182,7 @@ If the query parameters of the request are of the wrong type or missing, a respo
 Do not copy the calculator code to file <em>index.ts</em>; instead, make it a [TypeScript module](https://www.typescriptlang.org/docs/handbook/modules.html) that can be imported into <em>index.ts</em>.
 
 
-## Exercises 9.6-9.7
+## Exercises 9.6.-9.7.
 
 ### 9.6: Eslint
 
@@ -242,7 +242,7 @@ You might also get in trouble with rules `no-unsafe-member-access` and `no-unsaf
 Note that you need to have a correct setup to get the request body; see [Part 3](https://fullstackopen.com/en/part3/node_js_and_express#receiving-data).
 
 
-## Exercises 9.8-9.9
+## Exercises 9.8.-9.9.
 
 ### Before you start the exercises
 
@@ -285,7 +285,7 @@ Check the developer tools to make sure it works:
 You might also want to have a look at the console tab. If something fails, [Part 3](https://fullstackopen.com/en/part3) of the course shows how the problem can be solved.
 
 
-## Exercises 9.10-9.11
+## Exercises 9.10.-9.11.
 
 Similarly to Ilari's flight service, we do not use a real database in our app but instead use hardcoded data that is in the files [diagnoses.ts](https://github.com/fullstack-hy2020/misc/blob/master/diagnoses.ts) and [patients.ts](https://github.com/fullstack-hy2020/misc/blob/master/patients.ts). Get the files and store those in a directory called <em>data</em> in your project. All data modification can be done in runtime memory, so during this part, it is <em>not necessary to write to a file</em>.
 
@@ -312,7 +312,7 @@ After creating the endpoint, ensure that the frontend shows the list of patients
 ![plot](./exercises-media/23a.png)
 
 
-## Exercises 9.12-9.13
+## Exercises 9.12.-9.13.
 
 ### 9.12: Patientor backend, step5
 
@@ -330,7 +330,7 @@ Set up safe parsing, validation and type predicate to the POST `/api/patients` r
 Refactor the `gender` field to use an [enum type](https://www.typescriptlang.org/docs/handbook/enums.html).
 
 
-## Exercise 9.14
+## Exercise 9.14.
 
 ### 9.14: Course information, step1
 
@@ -413,7 +413,7 @@ const App = () => {
 ```
 
 
-## Exercise 9.15
+## Exercise 9.15.
 
 ### 9.15: Course information, step2
 
@@ -503,11 +503,11 @@ The result might look like the following:
 ![plot](./exercises-media/45a.png)
 
 
-## Exercises 9.16-9.19
+## Exercises 9.16.-9.19.
 
 Let us now build a frontend for the Ilari's flight diaries that was developed in the [previous section](https://fullstackopen.com/en/part9/typing_an_express_app). The source code of the backend can be found in this [GitHub repository](https://github.com/fullstack-hy2020/flight-diary).
 
-### 9.16: Flight diary, step
+### 9.16: Flight diary, step1
 
 Create a TypeScript React app with similar configurations as the apps of this section. Fetch the diaries from the backend and render those to screen. Do all the required typing and ensure that there are no Eslint errors.
 
@@ -515,11 +515,11 @@ Remember to keep the network tab open. It might give you a valuable hint...
 
 You can decide how the diary entries are rendered. If you wish, you may take inspiration from the figure below. Note that the backend API does not return the diary comments, you may modify it to return also those on a GET request.
 
-### 9.17: Flight diary, step
+### 9.17: Flight diary, step2
 
 Make it possible to add new diary entries from the frontend. In this exercise you may skip all validations and assume that the user just enters the data in a correct form.
 
-### 9.18: Flight diary, step
+### 9.18: Flight diary, step3
 
 Notify the user if the the creation of a diary entry fails in the backend, show also the reason for the failure.
 
@@ -529,7 +529,7 @@ Your solution may look like this:
 
 ![plot](./exercises-media/71e.png)
 
-### 9.19: Flight diary, step
+### 9.19: Flight diary, step4
 
 Addition of a diary entry is now very error prone since user can type anything to the input fields. The situation must be improved.
 
@@ -542,15 +542,17 @@ Your solution could look like this:
 ![plot](./exercises-media/72e.png)
 
 
-## Exercises 9.20-9.21
+## Exercises 9.20.-9.21.
 
-We will soon add a new type for our app, Entry, which represents a lightweight patient journal entry. It consists of a journal text, i.e. a description, a creation date, information regarding the specialist who created it and possible diagnosis codes. Diagnosis codes map to the ICD-10 codes returned from the /api/diagnoses endpoint. Our naive implementation will be that a patient has an array of entries.
+We will soon add a new type for our app, `Entry`, which represents a lightweight patient journal entry. It consists of a journal text, i.e. a `description`, a creation date, information regarding the specialist who created it and possible diagnosis codes. Diagnosis codes map to the ICD-10 codes returned from the <em>/api/diagnoses</em> endpoint. Our naive implementation will be that a patient has an array of entries.
 
 Before going into this, let us do some preparatory work.
-9.20: Patientor, step1
 
-Create an endpoint /api/patients/:id to the backend that returns all of the patient information for one patient, including the array of patient entries that is still empty for all the patients. For the time being, expand the backend types as follows:
+### 9.20: Patientor, step1
 
+Create an endpoint <em>/api/patients/:id</em> to the backend that returns all of the patient information for one patient, including the array of patient entries that is still empty for all the patients. For the time being, expand the backend types as follows:
+
+```
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Entry {
 }
@@ -565,10 +567,13 @@ export interface Patient {
   entries: Entry[]}
 
 export type NonSensitivePatient = Omit<Patient, 'ssn' | 'entries'>;
+```
 
 The response should look as follows:
-browser showing entries blank array when accessing patient
-9.21: Patientor, step2
+
+![plot](./exercises-media/38a.png)
+
+### 9.21: Patientor, step2
 
 Create a page for showing a patient's full information in the frontend.
 
@@ -576,61 +581,73 @@ The user should be able to access a patient's information by clicking the patien
 
 Fetch the data from the endpoint created in the previous exercise.
 
-You may use MaterialUI for the new components but that is up to you since our main focus now is TypeScript.
+You may use [MaterialUI](https://mui.com/material-ui/) for the new components but that is up to you since our main focus now is TypeScript.
 
-You might want to have a look at Part 7 if you don't yet have a grasp on how the React Router works.
+You might want to have a look at [Part 7](https://fullstackopen.com/en/part7/react_router) if you don't yet have a grasp on how the [React Router](https://reactrouter.com/en/main/start/tutorial) works.
 
 The result could look like this:
-browser showing patientor with one patient
 
-The example uses Material UI Icons to represent genders.
+![plot](./exercises-media/39a.png)
 
-Exercises 9.22-9.29
+The example uses [Material UI Icons](https://mui.com/material-ui/material-icons/) to represent genders.
+
+## Exercises 9.22.-9.29.
 
 Now we are ready to put the finishing touches to the app!
-9.22: Patientor, step3
 
-Define the types OccupationalHealthcareEntry and HospitalEntry so that those conform with the example data. Ensure that your backend returns the entries properly when you go to an individual patient's route:
-browser shoiwing entries json data properly for patient
+### 9.22: Patientor, step3
 
-Use types properly in the backend! For now, there is no need to do a proper validation for all the fields of the entries in the backend, it is enough e.g. to check that the field type has a correct value.
-9.23: Patientor, step4
+Define the types `OccupationalHealthcareEntry` and `HospitalEntry` so that those conform with the example data. Ensure that your backend returns the entries properly when you go to an individual patient's route:
 
-Extend a patient's page in the frontend to list the date, description and diagnoseCodes of the patient's entries.
+![plot](./exercises-media/40a.png)
 
-You can use the same type definition for an Entry in the frontend. For these exercises, it is enough to just copy/paste the definitions from the backend to the frontend.
+Use types properly in the backend! For now, there is no need to do a proper validation for all the fields of the entries in the backend, it is enough e.g. to check that the field `type` has a correct value.
+
+### 9.23: Patientor, step4
+
+Extend a patient's page in the frontend to list the `date`, `description` and `diagnoseCodes` of the patient's entries.
+
+You can use the same type definition for an `Entry` in the frontend. For these exercises, it is enough to just copy/paste the definitions from the backend to the frontend.
 
 Your solution could look like this:
-browser showing list of diagnosis codes for patient
-9.24: Patientor, step5
 
-Fetch and add diagnoses to the application state from the /api/diagnoses endpoint. Use the new diagnosis data to show the descriptions for patient's diagnosis codes:
-browser showing list of codes and their descriptions for patient
-9.25: Patientor, step6
+![plot](./exercises-media/41a.png)
+
+### 9.24: Patientor, step5
+
+Fetch and add diagnoses to the application state from the <em>/api/diagnoses</em> endpoint. Use the new diagnosis data to show the descriptions for patient's diagnosis codes:
+
+![plot](./exercises-media/42a.png)
+
+### 9.25: Patientor, step6
 
 Extend the entry listing on the patient's page to include the Entry's details with a new component that shows the rest of the information of the patient's entries distinguishing different types from each other.
 
-You could use eg. Icons or some other Material UI component to get appropriate visuals for your listing.
+You could use eg. [Icons](https://mui.com/material-ui/material-icons/) or some other [Material UI](https://mui.com/) component to get appropriate visuals for your listing.
 
-You should use a switch case-based rendering and exhaustive type checking so that no cases can be forgotten.
+You should use a `switch case`-based rendering and exhaustive type checking so that no cases can be forgotten.
 
 Like this:
-vscode showing error for healthCheckEntry not being assignable to type never
+
+![plot](./exercises-media/35a.png)
 
 The resulting entries in the listing could look something like this:
-browser showing list of entries and their details in a nicer format
-9.26: Patientor, step7
+
+![plot](./exercises-media/36a.png)
+
+### 9.26: Patientor, step7
 
 We have established that patients can have different kinds of entries. We don't yet have any way of adding entries to patients in our app, so, at the moment, it is pretty useless as an electronic medical record.
 
-Your next task is to add endpoint /api/patients/:id/entries to your backend, through which you can POST an entry for a patient.
+Your next task is to add endpoint <em>/api/patients/:id/entries</em> to your backend, through which you can POST an entry for a patient.
 
 Remember that we have different kinds of entries in our app, so our backend should support all those types and check that at least all required fields are given for each type.
 
-In this exercise you quite likely need to remember this trick.
+In this exercise you quite likely need to remember this [trick](https://fullstackopen.com/en/part9/grande_finale_patientor#omit-with-unions).
 
 You may assume that the diagnostic codes are sent in a correct form and use eg. the following kind of parser to extract those from the request body:
 
+```
 const parseDiagnosisCodes = (object: unknown): Array<Diagnosis['code']> =>  {
   if (!object || typeof object !== 'object' || !('diagnosisCodes' in object)) {
     // we will just trust the data to be in correct form
@@ -639,8 +656,9 @@ const parseDiagnosisCodes = (object: unknown): Array<Diagnosis['code']> =>  {
 
   return object.diagnosisCodes as Array<Diagnosis['code']>;
 };
+```
 
-9.27: Patientor, step8
+### 9.27: Patientor, step8
 
 Now that our backend supports adding entries, we want to add the corresponding functionality to the frontend. In this exercise, you should add a form for adding an entry to a patient. An intuitive place for accessing the form would be on a patient's page.
 
@@ -649,42 +667,55 @@ In this exercise, it is enough to support one entry type. All the fields in the 
 Upon a successful submit, the new entry should be added to the correct patient and the patient's entries on the patient page should be updated to contain the new entry.
 
 Your form might look something like this:
-Patientor new healthcheck entry form
+
+![plot](./exercises-media/74e.png)
 
 If user enters invalid values to the form and backend rejects the addition, show a proper error message to user
-browser showing healthCheckRating incorrect 15 error
-9.28: Patientor, step9
 
-Extend your solution so that it supports all the entry types
-9.29: Patientor, step10
+![plot](./exercises-media/75e.png)
+
+### 9.28: Patientor, step9
+
+Extend your solution so that it supports <em>all the entry types</em>.
+
+### 9.29: Patientor, step10
 
 Improve the entry creation forms so that it makes hard to enter incorrect dates, diagnosis codes and health rating.
 
 Your improved form might look something like this:
-patientor showing fancy calendar ui
 
-Diagnosis codes are now set with Material UI multiple select and dates with Input elements with type date.
-Submitting exercises and getting the credits
+![plot](./exercises-media/76e.png)
 
-Exercises of this part are submitted via the submissions system just like in the previous parts, but unlike previous parts, the submission goes to a different "course instance". Remember that you have to finish at least 24 exercises to pass this part!
+Diagnosis codes are now set with Material UI [multiple select](https://mui.com/material-ui/react-select/#multiple-select) and dates with [Input](https://mui.com/material-ui/api/input/) elements with type [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date).
 
-Once you have completed the exercises and want to get the credits, let us know through the exercise submission system that you have completed the course:
-Submissions
+### Submitting exercises and getting the credits
 
-Note that you need a registration to the corresponding course part for getting the credits registered, see here for more information.
+Exercises of this part are submitted via the [submissions system](https://studies.cs.helsinki.fi/stats/courses/fs-typescript) just like in the previous parts, but unlike previous parts, the submission goes to a different "course instance". Remember that you have to finish at least 24 exercises to pass this part!
+
+Once you have completed the exercises and want to get the credits, let us know through the exercise submissions system that you have completed the course:
+
+![plot](./exercises-media/21a.png)
+
+**NOTE:** that you need a registration to the corresponding course part for getting the credits registered, see [here](https://fullstackopen.com/en/part0/general_info#parts-and-completion) for more information.
 
 You can download the certificate for completing this part by clicking one of the flag icons. The flag icon corresponds to the certificate's language.
 
 
-Exercises 9.20-9.22
+## Exercises 9.20.-9.22. (the old material)
 
-We will soon add a new type for our app, Entry, which represents a lightweight patient journal entry. It consists of a journal text, i.e. a description, a creation date, information regarding the specialist who created it and possible diagnosis codes. Diagnosis codes map to the ICD-10 codes returned from the /api/diagnoses endpoint. Our naive implementation will be that a patient has an array of entries.
+**NOTE:** This is the old section about Patientor frontend that was replaced 12th February 2023, with this [chapter](https://fullstackopen.com/en/part9/grande_finale_patientor). In the change, the Patientor frontend structure was refactored to a simpler form that makes it much easier to focus on learning TypeScript.
+
+If you have started doing the exercises with the old Patientor, you may continue with this section. If not, then it is recommended to use the "new" patientor. This section remains here for a couple of weeks.
+
+We will soon add a new type for our app, `Entry`, which represents a lightweight patient journal entry. It consists of a journal text, i.e. a `description`, a creation date, information regarding the specialist who created it and possible diagnosis codes. Diagnosis codes map to the ICD-10 codes returned from the <em>/api/diagnoses</em> endpoint. Our naive implementation will be that a patient has an array of entries.
 
 Before going into this, let us do some preparatory work.
-9.20: patientor, step1
 
-Create an endpoint /api/patients/:id that returns all of the patient information for one patient, including the array of patient entries that is still empty for all the patients. For the time being, expand the backend types as follows:
+### 9.20: Patientor, step1
 
+Create an endpoint <em>/api/patients/:id</em> that returns all of the patient information for one patient, including the array of patient entries that is still empty for all the patients. For the time being, expand the backend types as follows:
+
+```
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Entry {
 }
@@ -699,10 +730,13 @@ export interface Patient {
   entries: Entry[]}
 
 export type PublicPatient = Omit<Patient, 'ssn' | 'entries'>;
+```
 
 The response should look as follows:
-browser showing entries blank array when accessing patient
-9.21: patientor, step2
+
+![plot](./exercises-media/38a.png)
+
+### 9.21: Patientor, step2
 
 Create a page for showing a patient's full information in the frontend.
 
@@ -712,95 +746,113 @@ Fetch the data from the endpoint created in the previous exercise. After fetchin
 
 Since we now have the state in the context, you'll need to define a new action type for updating an individual patient's data.
 
-The Application uses MaterialUI for styling, which we covered in Part 7. You may also use it for the new components but that is up to you since our main focus now is TypeScript.
+The Application uses [Material UI](https://mui.com/material-ui/) for styling, which we covered in [Part 7](https://fullstackopen.com/en/part7/more_about_styles). You may also use it for the new components but that is up to you since our main focus now is TypeScript.
 
-The Application also uses React Router to control which view is visible in the frontend. You might want to have a look at Part 7 if you don't yet have a grasp on how the router works.
+The Application also uses [React Router](https://reactrouter.com/en/main/start/tutorial) to control which view is visible in the frontend. You might want to have a look at [Part 7](https://fullstackopen.com/en/part7/more_about_styles) if you don't yet have a grasp on how the router works.
 
 The result could look like this:
-browser showing patientor with one patient
 
-Example uses Material UI Icons to represent genders.
+![plot](./exercises-media/39a.png)
 
-Note that to access the id in the URL, you need to give useParams a proper type argument:
+Example uses [Material UI Icons](https://mui.com/material-ui/material-icons/) to represent genders.
 
+Note that to access the id in the URL, you need to give [useParams](https://reactrouter.com/en/main/hooks/use-params) a proper type argument:
+
+```
 const { id } = useParams<{ id: string }>();
+```
 
-9.22: Patientor, step3
+### 9.22: Patientor, step3
 
-Currently, we create action objects wherever we dispatch actions, e.g. the App component has the following:
+Currently, we create `action` objects wherever we dispatch actions, e.g. the `App` component has the following:
 
+```
 dispatch({
   type: "SET_PATIENT_LIST", payload: patientListFromApi
 });
+```
 
-Define action creator functions in the file src/state/reducer.ts and refactor the code to use them.
+Define [action creator functions](https://fullstackopen.com/en/part6/flux_architecture_and_redux#action-creators) in the file <em>src/state/reducer.ts</em> and refactor the code to use them.
 
-For example, the App should become like the following:
+For example, the `App` should become like the following:
 
+```
 import { useStateValue, setPatientList } from "./state";
 
 // ...
 
 dispatch(setPatientList(patientListFromApi));
+```
 
 
+## Exercises 9.23.-9.26. (the old material)
 
-Exercises 9.23-9.26
-9.23: Patientor, step4
+### 9.23: Patientor, step4
 
-Define the types OccupationalHealthcareEntry and HospitalEntry so that those conform with the example data. Ensure that your backend returns the entries properly when you go to an individual patient's route:
-browser shoiwing entries json data properly for patient
+Define the types `OccupationalHealthcareEntry` and `HospitalEntry` so that those conform with the example data. Ensure that your backend returns the entries properly when you go to an individual patient's route:
 
-Use types properly in the backend! For now, there is no need to do a proper validation for all the fields of the entries in the backend, it is enough e.g. to check that the field type has a correct value.
-9.24: Patientor, step5
+![plot](./exercises-media/40a.png)
 
-Extend a patient's page in the frontend to list the date, description and diagnoseCodes of the patient's entries.
+Use types properly in the backend! For now, there is no need to do a proper validation for all the fields of the entries in the backend, it is enough e.g. to check that the field `type` has a correct value.
 
-You can use the same type definition for an Entry in the frontend. For these exercises, it is enough to just copy/paste the definitions from the backend to the frontend.
+### 9.24: Patientor, step5
+
+Extend a patient's page in the frontend to list the `date`, `description` and `diagnoseCodes` of the patient's entries.
+
+You can use the same type definition for an `Entry` in the frontend. For these exercises, it is enough to just copy/paste the definitions from the backend to the frontend.
 
 Your solution could look like this:
-browser showing list of diagnosis codes for patient
-9.25: Patientor, step6
 
-Fetch and add diagnoses to the application state from the /api/diagnoses endpoint. Use the new diagnosis data to show the descriptions for patient's diagnosis codes:
-browser showing list of codes and their descriptions for patient
-9.26: Patientor, step7
+![plot](./exercises-media/41a.png)
+
+### 9.25: Patientor, step6
+
+Fetch and add diagnoses to the application state from the <em>/api/diagnoses</em> endpoint. Use the new diagnosis data to show the descriptions for patient's diagnosis codes:
+
+![plot](./exercises-media/42a.png)
+
+### 9.26: Patientor, step7
 
 Extend the entry listing on the patient's page to include the Entry's details with a new component that shows the rest of the information of the patient's entries distinguishing different types from each other.
 
-You could use eg. Icons or some other Material UI component to get appropriate visuals for your listing.
+You could use eg. [Icons](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js) or some other [Material UI](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js) component to get appropriate visuals for your listing.
 
-You should use a switch case-based rendering and exhaustive type checking so that no cases can be forgotten.
+You should use a `switch case`-based rendering and <em>exhaustive type checking</em> so that no cases can be forgotten.
 
 Like this:
-vscode showing error for healthCheckEntry not being assignable to type never
+
+![plot](./exercises-media/35a.png)
 
 The resulting entries in the listing could look something like this:
-browser showing list of entries and their details in a nicer format 
+
+![plot](./exercises-media/36a.png)
 
 
-Exercises 9.27-9.31
-9.27: Patientor, step8
+## Exercises 9.27.-9.31. (the old material)
+
+### 9.27: Patientor, step8
 
 We have established that patients can have different kinds of entries. We don't yet have any way of adding entries to patients in our app, so, at the moment, it is pretty useless as an electronic medical record.
 
-Your next task is to add endpoint /api/patients/:id/entries to your backend, through which you can POST an entry for a patient.
+Your next task is to add endpoint <em>/api/patients/:id/entries</em> to your backend, through which you can POST an entry for a patient.
 
 Remember that we have different kinds of entries in our app, so our backend should support all those types and check that at least all required fields are given for each type.
-9.28: Patientor, step9
+
+### 9.28: Patientor, step9
 
 Now that our backend supports adding entries, we want to add the corresponding functionality to the frontend. In this exercise, you should add a form for adding an entry to a patient. An intuitive place for accessing the form would be on a patient's page.
 
-In this exercise, it is enough to support one entry type, and you do not have to handle any errors. It is enough if a new entry can be created when the form is filled with valid data.
+In this exercise, it is enough to **support one entry type**, and you do not have to handle any errors. It is enough if a new entry can be created when the form is filled with valid data.
 
 Upon a successful submit, the new entry should be added to the correct patient and the patient's entries on the patient page should be updated to contain the new entry.
 
 If you like, you can re-use some of the code from the Add patient form for this exercise, but this is not a requirement.
 
-Note that the file FormField.tsx has a ready-made component called DiagnosisSelection that can be used for setting the field diagnoses.
+Note that the file [FormField.tsx](https://github.com/fullstack-hy2020/patientor/blob/main/src/AddPatientModal/FormField.tsx#L58) has a ready-made component called `DiagnosisSelection` that can be used for setting the field `diagnoses`.
 
 It can be used as follows:
 
+```
 const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
   const [{ diagnoses }] = useStateValue()
   return (
@@ -826,19 +878,23 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
   </Formik>
   );
 };
+```
 
-With small tweaks on types, the readily made component SelectField can be used for the health check rating.
-9.29: Patientor, step10
+With small tweaks on types, the readily made component `SelectField` can be used for the health check rating.
+
+### 9.29: Patientor, step10
 
 Extend your solution so that it displays an error message if some required values are missing or formatted incorrectly.
-9.30: Patientor, step11
+
+### 9.30: Patientor, step11
 
 Extend your solution so that it supports two entry types and displays an error message if some required values are missing or formatted incorrectly. You do not need to care about possible errors in the server's response.
 
 The easiest but surely not the most elegant way to do this exercise is to have a separate form for each different entry type. Getting the types to work properly might be a slight challenge if you use just a single form.
 
-Note that if you need to alter the shown form based on user selections, you can access the form values using the parameter values of the rendering function:
+Note that if you need to alter the shown form based on user selections, you can access the form `values` using the parameter values of the rendering function:
 
+```
 <Formik
   initialValues={}
   onSubmit={onSubmit}
@@ -850,10 +906,10 @@ Note that if you need to alter the shown form based on user selections, you can 
     );
   }}
 </Formik>
+```
 
-9.31: Patientor, step12
+### 9.31: Patientor, step12
 
-Extend your solution so that it supports all the entry types and displays an error message if some required values are missing or formatted incorrectly. You do not need to care about possible errors in the server's response.
-
+Extend your solution so that it supports <em>all the entry types</em> and displays an error message if some required values are missing or formatted incorrectly. You do not need to care about possible errors in the server's response.
 
 
