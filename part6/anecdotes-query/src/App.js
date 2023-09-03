@@ -1,9 +1,11 @@
 import { useQuery, useQueryClient, useMutation } from 'react-query'
 
+import { useDispatchValue } from './NotificationContext'
+
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
+
 import { getAnecdotes, voteAnecdote } from './requests'
-import { useDispatchValue } from './NotificationContext'
 
 const App = () => {
 
