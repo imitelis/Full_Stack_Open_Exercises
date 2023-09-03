@@ -3,12 +3,12 @@
 
 ## Part 0 - Fundamentals of Web apps - Exercises 0.1.-0.6.
 
-  *  0.1: HTML
-  *  0.2: CSS
-  *  0.3: HTML forms
-  *  0.4: Page notes diagram
-  *  0.5: Page spa diagram
-  *  0.6: Page single-page diagram
+  *  0.1: Review HTML step1
+  *  0.2: Review CSS step2
+  *  0.3: Review HTML forms step3
+  *  0.4: Diagram Page notes step1
+  *  0.5: Diagram Page spa step2
+  *  0.6: Diagram Page single-page step3
 
 
 ## Part 1 - Introduction to React - Exercises 1.1.-1.14.
@@ -232,7 +232,12 @@
   *  9.5: WebBMI
   *  9.6: Eslint
   *  9.7: WebExercises
-
-
+  *  9.8: Patientor backend step1
+  *  9.9: Patientor backend step2
+  *  9.10: Patientor backend step3
+  *  9.11: Patientor backend step4
+  *  9.12: Patientor backend step5
+  *  9.13: Patientor backend step6
+  
 ## Part 10 - React Native - Exercises 10.1.-10.26.
 
