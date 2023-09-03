@@ -1,7 +1,7 @@
 # Full Stack Open - Part 6 - Advanced state management - Exercises
 
 
-## Exercises 6.1-6.2
+## Exercises 6.1.-6.2.
 
 Let's make a simplified version of the unicafe exercise from Part 1. Let's handle the state management with Redux.
 
@@ -183,7 +183,7 @@ export default App
 ```
 
 
-## Exercise 6.9
+## Exercise 6.9.
 
 ### 6.9: Better anecdotes, step7
 
@@ -215,7 +215,7 @@ export default Filter
 ```
 
 
-## Exercises 6.10-6.13
+## Exercises 6.10.-6.13.
 
 Let's continue working on the anecdote application using Redux that we started in exercise 6.3.
 
@@ -282,7 +282,7 @@ Extend the application so that it uses the <em>Notification</em> component to di
 It's recommended to create separate [action creators](https://redux-toolkit.js.org/api/createSlice#reducers) for setting and removing notifications.
 
 
-## Exercises 6.14-6.15
+## Exercises 6.14.-6.15.
 
 ### 6.14: Anecdotes and the backend, step1
 
@@ -295,7 +295,7 @@ As the initial backend data, you can use, e.g. [this](https://github.com/fullsta
 Modify the creation of new anecdotes, so that the anecdotes are stored in the backend.
 
 
-## Exercises 6.16-6.19
+## Exercises 6.16.-6.19.
 
 ### 6.16: Anecdotes and the backend, step3
 
@@ -331,7 +331,7 @@ The first parameter is the text to be rendered and the second parameter is the t
 Implement the use of this improved notification in your application.
 
 
-## Exercises 6.20-6.22
+## Exercises 6.20.-6.22.
 
 Now let's make a new version of the anecdote application that uses the React Query library. Take this [project](https://github.com/fullstack-hy2020/query-anecdotes) as your starting point. The project has a ready-installed JSON Server, the operation of which has been slightly modified. Start the server with <em>npm run server</em>.
 
@@ -376,7 +376,7 @@ Implement adding new anecdotes to the server using React Query. The application 
 Implement voting for anecdotes using again the React Query. The application should automatically render the increased number of votes for the voted anecdote.
 
 
-## Exercises 6.23-6.24
+## Exercises 6.23.-6.24.
 
 ### 6.23: Anecdotes and React Query, step4
 
@@ -399,7 +399,7 @@ The error condition should be handled in the callback function registered for it
 This was the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your completed exercises to the exercise [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
 
-## Exercises 6.19-6.21 (the old part)
+## Exercises 6.19.-6.21. (the old part)
 
 **NOTE:** This is the old ending section of the Part 6 that has 30th January 2023 been replaced with material about [React Query, useReducer and context](https://fullstackopen.com/en/part6/react_query_use_reducer_and_the_context). This section remains here for a couple of weeks.
 
