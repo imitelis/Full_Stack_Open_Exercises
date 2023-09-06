@@ -3,7 +3,7 @@
 
 ## Exercises 2.1.-2.5.
 
-The exercises are submitted via GitHub, and by marking the exercises as done in the [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
+The exercises are submitted via GitHub, and by marking the exercises as done in the [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
 You can submit all of the exercises into the same repository, or use multiple different repositories. If you submit exercises from different parts into the same repository, name your directories well.
 
@@ -15,7 +15,7 @@ Note that this part has more exercises than the ones before, so <em>do not submi
 
 ### 2.1: Course information, step6
 
-Let's finish the code for rendering course contents from exercises 1.1 - 1.5. You can start with the code from the model answers. The model answers for Part 1 can be found by going to the [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen), clicking on <em>my submissions</em> at the top, and in the row corresponding to Part 1 under the <em>solutions</em> column clicking on <em>show</em>. To see the solution to the course info exercise, click on `index.js` under <em>kurssitiedot</em> ("kurssitiedot" means "course info").
+Let's finish the code for rendering course contents from exercises 1.1 - 1.5. You can start with the code from the model answers. The model answers for Part 1 can be found by going to the [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen), clicking on <em>my submissions</em> at the top, and in the row corresponding to Part 1 under the <em>solutions</em> column clicking on <em>show</em>. To see the solution to the course info exercise, click on `index.js` under <em>kurssitiedot</em> ("kurssitiedot" means "course info").
 
 **Note that if you copy a project from one place to another, you might have to delete the <em>node_modules</em> directory and install the dependencies again with the command `npm install` before you can start the application.**
 
@@ -430,7 +430,7 @@ const delete = (id) => {
 }
 ```
 
-### 2.15*: The Phonebook step10
+### 2.15*: Phonebook, step10
 
 <em>Why is there a star in the exercise? See [here](https://fullstackopen.com/en/part0/general_info#taking-the-course) for the explanation.</em>
 
@@ -464,7 +464,7 @@ Note that even if you handle the exception, the first "404" error message is sti
 
 ## Exercises 2.18.-2.20.
 
-### 2.18* Data for countries, step1
+### 2.18*: Data for countries, step1
 
 At [https://studies.cs.helsinki.fi/restcountries/](https://studies.cs.helsinki.fi/restcountries/) you can find a service that offers a lot of information related to different countries in a so-called machine-readable format via the REST API. Make an application that allows you to view information from different countries.
 
@@ -535,6 +535,6 @@ REACT_APP_API_KEY=t0p53cr3t4p1k3yv4lu3
 
 Note that you will need to restart the server to apply the changes.
 
-This was the last exercise of this part of the course. It's time to push your code to GitHub and mark all of your finished exercises to the exercise [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
+This was the last exercise of this part of the course. It's time to push your code to GitHub and mark all of your finished exercises to the exercise [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
 
