@@ -225,13 +225,13 @@
 
 ## Part 9 - TypeScript - Exercises 9.1.-9.31.
 
-  *  9.1: Body mass index
-  *  9.2: Exercise calculator
-  *  9.3: Command line
-  *  9.4: Express
-  *  9.5: WebBMI
-  *  9.6: Eslint
-  *  9.7: WebExercises
+  *  9.1: Calculators Body mass index step1
+  *  9.2: Calculators Exercise calculator step2
+  *  9.3: Calculators Command line step3
+  *  9.4: Calculators Express step4
+  *  9.5: Calculators WebBMI step5
+  *  9.6: Calculators Eslint step6
+  *  9.7: Calculators WebExercises step7
   *  9.8: Patientor backend step1
   *  9.9: Patientor backend step2
   *  9.10: Patientor backend step3
