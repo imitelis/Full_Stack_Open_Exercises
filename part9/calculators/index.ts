@@ -1,10 +1,10 @@
 import express from 'express';
 
-const app = express();
-app.use(express.json());
-
 import { calculateBmi } from './bmiCalculator';
 import { isArrayOfNumbers, calculateExercises } from './exercisesCalculator';
+
+const app = express();
+app.use(express.json());
 
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');

@@ -238,6 +238,14 @@
   *  9.11: Patientor backend step4
   *  9.12: Patientor backend step5
   *  9.13: Patientor backend step6
+  *  9.14: Course information step1  
+  *  9.15: Course information step2
+  *  9.16: Flight diary frontend step1
+  *  9.17: Flight diary frontend step2
+  *  9.18: Flight diary frontend step3
+  *  9.19: Flight diary frontend step4
+  *  9.20: Patientor finale step1
+  *  9.21: Patientor finale step2
   
 ## Part 10 - React Native - Exercises 10.1.-10.26.
 
