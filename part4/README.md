@@ -442,5 +442,5 @@ After adding token-based authentication the tests for adding a new blog broke do
 
 [This](https://github.com/ladjs/supertest/issues/398) is most likely useful when doing the fix.
 
-This is the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your finished exercises to the exercise [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
+This is the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your finished exercises to the exercise [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
