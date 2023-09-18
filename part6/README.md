@@ -396,7 +396,7 @@ As stated in exercise 6.21, the server requires that the content of the anecdote
 
 The error condition should be handled in the callback function registered for it, see [here](https://tanstack.com/query/latest/docs/react/reference/useMutation) how to register a function.
 
-This was the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your completed exercises to the exercise [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
+This was the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your completed exercises to the exercise [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
 
 ## Exercises 6.19.-6.21. (the old part)
@@ -423,6 +423,6 @@ Fix the bug so that after multiple votes in a row, the notification for the last
 
 The fix can be done by canceling the previous notification when a new notification is displayed, whenever necessary. The [documentation](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout) for the setTimeout function might also be useful for this.
 
-This was the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your completed exercises to the exercise [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
+This was the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your completed exercises to the exercise [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
 
