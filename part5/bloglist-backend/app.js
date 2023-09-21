@@ -1,17 +1,17 @@
-const express = require('express')
-const cors = require('cors')
-const logger = require('./utils/logger')
-const config = require('./utils/config')
 const app = express()
 
-const mongoose = require('mongoose')
+const express = require('express')
 require('express-async-errors')
+const cors = require('cors')
+const mongoose = require('mongoose')
 
 const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
 const middleware = require('./utils/middleware')
+const logger = require('./utils/logger')
+const config = require('./utils/config')
 
 mongoose.set('strictQuery', false)
 
