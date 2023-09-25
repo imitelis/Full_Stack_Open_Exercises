@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const FavAnecdote = ({anecdotes, mostIndex, votes, total}) => {
-  if (total == 0) {
+  if (total === 0) {
     return (
       <div>
       <h2>Anecdote with most votes</h2>
