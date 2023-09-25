@@ -21,7 +21,7 @@ Clone the application from [GitHub](https://github.com/fullstack-hy2020/bloglist
 git clone https://github.com/fullstack-hy2020/bloglist-frontend
 ```
 
-<em>remove the git configuration of the cloned application</em>:
+<em>remove the git configuration of the cloned application</em>
 
 ```
 cd bloglist-frontend   // go to cloned repository
