@@ -5,11 +5,12 @@ import { ALL_AUTHORS } from "../queries";
 import SetBirthyear from "./SetBirthyear";
 
 const Authors = ({ token, setSuccessMessage, setErrorMessage }) => {
+  
   const result = useQuery(ALL_AUTHORS, {
     refetchQueries: [{ query: ALL_AUTHORS }],
   });
 
-  if (result.loading) {
+  if (result.loading || result.data === undefined) {
     return (
       <div>
         <h2>Authors</h2>
@@ -18,7 +19,7 @@ const Authors = ({ token, setSuccessMessage, setErrorMessage }) => {
     );
   }
 
-  const authors = [...result.data.allAuthors].sort(
+  const authors = [...result?.data?.allAuthors].sort(
     (a, b) => b.bookCount - a.bookCount,
   );
 
