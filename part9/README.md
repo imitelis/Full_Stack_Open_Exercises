@@ -282,7 +282,7 @@ Check the developer tools to make sure it works:
 
 ![plot](./exercises-media/16a.png)
 
-You might also want to have a look at the console tab. If something fails, [Part 3](https://fullstackopen.com/en/part3) of the course shows how the problem can be solved.
+You might also want to have a look at the <em>console</em> tab. If something fails, [Part 3](https://fullstackopen.com/en/part3) of the course shows how the problem can be solved.
 
 
 ## Exercises 9.10.-9.11.
@@ -295,7 +295,7 @@ Create a type `Diagnose` and use it to create endpoint `/api/diagnoses` for fetc
 
 Structure your code properly by using meaningfully-named directories and files.
 
-**Note:** that <em>diagnoses</em> may or may not contain the field `latin`. You might want to use [optional properties](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#optional-properties) in the type definition.
+**Note:** That <em>diagnoses</em> may or may not contain the field `latin`. You might want to use [optional properties](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#optional-properties) in the type definition.
 
 ### 9.11: Patientor backend, step4
 
@@ -307,7 +307,7 @@ Try the endpoint with your browser and ensure that `ssn` is not included in the 
 
 ![plot](./exercises-media/22a.png)
 
-After creating the endpoint, ensure that the frontend shows the list of patients:
+After creating the endpoint, ensure that the <em>frontend</em> shows the list of patients:
 
 ![plot](./exercises-media/23a.png)
 
@@ -484,7 +484,7 @@ Your first task is to declare a new interface that includes the `description` at
 
 Then create a component `Part` that renders all attributes of each type of course part. Use a switch case-based exhaustive type checking! Use the new component in component `Content`.
 
-Lastly, add another course part interface with the following attributes: `name`, `exerciseCount, `description` and `requirements`, the latter being a string array. The objects of this type look like the following:
+Lastly, add another course part interface with the following attributes: `name`, `exerciseCount`, `description` and `requirements`, the latter being a string array. The objects of this type look like the following:
 
 ```
 {
@@ -625,13 +625,13 @@ Extend the entry listing on the patient's page to include the Entry's details wi
 
 You could use eg. [Icons](https://mui.com/material-ui/material-icons/) or some other [Material UI](https://mui.com/) component to get appropriate visuals for your listing.
 
-You should use a `switch case`-based rendering and exhaustive type checking so that no cases can be forgotten.
+You should use a `switch case`-based rendering and <em>exhaustive type checking</em> so that no cases can be forgotten.
 
 Like this:
 
 ![plot](./exercises-media/35a.png)
 
-The resulting entries in the listing could look something like this:
+The resulting entries in the listing <em>could</em> look something like this:
 
 ![plot](./exercises-media/36a.png)
 
@@ -662,7 +662,7 @@ const parseDiagnosisCodes = (object: unknown): Array<Diagnosis['code']> =>  {
 
 Now that our backend supports adding entries, we want to add the corresponding functionality to the frontend. In this exercise, you should add a form for adding an entry to a patient. An intuitive place for accessing the form would be on a patient's page.
 
-In this exercise, it is enough to support one entry type. All the fields in the form can be just plain text inputs, so it is up to user to enter valid values.
+In this exercise, it is enough to **support <em>one</em> entry type**. All the fields in the form can be just plain text inputs, so it is up to user to enter valid values.
 
 Upon a successful submit, the new entry should be added to the correct patient and the patient's entries on the patient page should be updated to contain the new entry.
 
@@ -686,11 +686,11 @@ Your improved form might look something like this:
 
 ![plot](./exercises-media/76e.png)
 
-Diagnosis codes are now set with Material UI [multiple select](https://mui.com/material-ui/react-select/#multiple-select) and dates with [Input](https://mui.com/material-ui/api/input/) elements with type [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date).
+Diagnosis codes are now set with Material UI [multiple select](https://mui.com/material-ui/react-select/#multiple-select) and dates with [input](https://mui.com/material-ui/api/input/) elements with type [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date).
 
 ### Submitting exercises and getting the credits
 
-Exercises of this part are submitted via the [submissions system](https://studies.cs.helsinki.fi/stats/courses/fs-typescript) just like in the previous parts, but unlike previous parts, the submission goes to a different "course instance". Remember that you have to finish at least 24 exercises to pass this part!
+Exercises of this part are submitted via the [submission system](https://studies.cs.helsinki.fi/stats/courses/fs-typescript) just like in the previous parts, but unlike previous parts, the submission goes to a different "course instance". Remember that you have to finish at least 24 exercises to pass this part!
 
 Once you have completed the exercises and want to get the credits, let us know through the exercise submissions system that you have completed the course:
 

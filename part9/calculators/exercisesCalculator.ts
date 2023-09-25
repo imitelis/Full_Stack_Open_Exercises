@@ -3,6 +3,16 @@ interface exercisesValues {
     dailyExercisesValue: Array<number>;
 }
 
+interface exercisesCalculation {
+    periodLength: number,
+    trainingDays: number,
+    success: boolean,
+    rating: number,
+    ratingDescription: string,
+    target: number,
+    average: number
+}
+
 export function isArrayOfNumbers(arr: Array<number>) {
     return Array.isArray(arr) && arr.every(item => typeof item === 'number' && !isNaN(item));
 }
@@ -25,7 +35,7 @@ const exercisesArguments = (args: string[]): exercisesValues => {
       }
 };
 
-export const calculateExercises = (targetHours: number, hoursPerDay: Array<number>): object => {
+export const calculateExercises = (targetHours: number, hoursPerDay: Array<number>): exercisesCalculation => {
     const trainingPeriod = hoursPerDay.length;
     
     let trainedDays = 0;
@@ -59,7 +69,8 @@ export const calculateExercises = (targetHours: number, hoursPerDay: Array<numbe
         ratedDescription = 'sick, maybe you should rest more';
     }
     
-    return { periodLength: trainingPeriod,
+    return { 
+        periodLength: trainingPeriod,
         trainingDays: trainedDays,
         success: sucessfulTraining,
         rating: rated,
