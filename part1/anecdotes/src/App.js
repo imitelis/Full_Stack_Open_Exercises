@@ -20,7 +20,6 @@ const FavAnecdote = ({anecdotes, mostIndex, votes, total}) => {
   }
 }
 
-
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
