@@ -23,6 +23,7 @@ function App() {
     <div>
       <h1>Countries</h1>
       <Finder newSearch={newSearch} handleSearch={handleSearch}/>
+      <br/>
       <Countries countries={countries} newSearch={newSearch}/>
     </div>
   );
