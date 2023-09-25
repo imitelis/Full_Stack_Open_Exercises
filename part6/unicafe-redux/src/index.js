@@ -47,6 +47,40 @@ const App = () => {
     )
   }
 
+
+const Statistics = ({good, neutral, bad}) => {
+  
+  if (good + neutral + bad === 0) {
+    return (
+      <>
+      <h2>statistics</h2>
+      <p>No feedback given</p>
+      </>
+    )
+  }
+
+  const total = good + neutral + bad
+  const average = (good-bad)/(total)
+  const positive = (good * 100)/(total)
+
+  return(
+    <>
+    <h2>Statistics</h2>    
+    <table>
+      <thead></thead>
+      <tbody>
+      <StatisticLine text='good' value={good} add=''/>
+      <StatisticLine text='neutral' value={neutral} add=''/>
+      <StatisticLine text='bad' value={bad} add=''/>
+      <StatisticLine text='all' value={total} add=''/>
+      <StatisticLine text='average' value={average} add=''/>
+      <StatisticLine text='positive' value={positive} add='%'/>
+      </tbody>
+    </table>
+    </>
+  )
+}
+
   return (
     <div>
       <h1>Unicafe</h1>
@@ -55,15 +89,7 @@ const App = () => {
       <button onClick={ok}>ok</button> 
       <button onClick={bad}>bad</button>
       <button onClick={reset}>reset stats</button>
-      <h2>Statistics</h2>   
-    <table>
-      <thead></thead>
-      <tbody>
-      <StatisticLine text='good' value={store.getState().good} add=''/>
-      <StatisticLine text='ok' value={store.getState().ok} add=''/>
-      <StatisticLine text='bad' value={store.getState().bad} add=''/>
-      </tbody>
-    </table>
+      <Statistics good={store.getState().good} neutral={store.getState().ok} bad={store.getState().bad}/>
     </div>
   )
 }
