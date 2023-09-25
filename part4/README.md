@@ -388,7 +388,7 @@ if ( blog.user.toString() === userid.toString() ) ...
 
 Both the new blog creation and blog deletion need to find out the identity of the user who is doing the operation. The middleware `tokenExtractor` that we did in exercise 4.20 helps but still both the handlers of post and delete operations need to find out who the user holding a specific token is.
 
-Now create a new middleware `userExtractor`, that finds out the user and sets it to the request object. When you register the middleware in <em>app.js</em>:
+Now create a new middleware `userExtractor`, that finds out the user and sets it to the request object. When you register the middleware in <em>app.js</em>
 
 ```
 app.use(middleware.userExtractor)
