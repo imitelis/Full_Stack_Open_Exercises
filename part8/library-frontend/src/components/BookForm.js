@@ -6,7 +6,7 @@ import { updateCache } from "../App";
 
 import { CREATE_BOOK, ALL_BOOKS, ALL_AUTHORS, ALL_GENRES } from "../queries";
 
-const AddBook = ({ setErrorMessage }) => {
+const BookForm = ({ setErrorMessage }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [published, setPublished] = useState("");
@@ -29,7 +29,6 @@ const AddBook = ({ setErrorMessage }) => {
 
   const submit = async (event) => {
     event.preventDefault();
-
     createBook({
       variables: { title, author, published: Number(published), genres },
     });
@@ -92,4 +91,4 @@ const AddBook = ({ setErrorMessage }) => {
   );
 };
 
-export default AddBook;
+export default BookForm;

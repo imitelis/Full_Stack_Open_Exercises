@@ -129,7 +129,7 @@ const resolvers = {
               extensions: {            
                 code: 'BAD_USER_INPUT',          
               }        
-            })      
+            })
           }
   
           try {

@@ -15,8 +15,10 @@ const LoginForm = ({ setToken, setErrorMessage, setSuccessMessage }) => {
     onError: (error) => {
       setErrorMessage(error.graphQLErrors[0].message);
     },
-    onSuccess: () => {
+    onCompleted: () => {
       setSuccessMessage(`welcome ${username}!`);
+    },
+    onSuccess: () => {
       navigate("/books");
     },
     refetchQueries: [{ query: ME }],

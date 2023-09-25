@@ -288,31 +288,31 @@ Take [this project](https://github.com/fullstack-hy2020/library-frontend) as a s
 
 Implement an Authors view to show the details of all authors on a page as follows:
 
-![plot](./exercises-data/16e.png)
+![plot](./exercises-media/16e.png)
 
 ### 8.9: Books view
 
 Implement a Books view to show on a page all other details of all books except their genres.
 
-![plot](./exercises-data/17e.png)
+![plot](./exercises-media/17e.png)
 
 ### 8.10: Adding a book
 
 Implement a possibility to add new books to your application. The functionality can look like this:
 
-![plot](./exercises-data/18e.png)
+![plot](./exercises-media/18e.png)
 
 Make sure that the Authors and Books views are kept up to date after a new book is added.
 
 In case of problems when making queries or mutations, check from the developer console what the server response is:
 
-![plot](./exercises-data/42a.png)
+![plot](./exercises-media/42a.png)
 
 ### 8.11: Authors birth year
 
 Implement a possibility to set authors birth year. You can create a new view for setting the birth year, or place it on the Authors view:
 
-![plot](./exercises-data/20e.png)
+![plot](./exercises-media/20e.png)
 
 Make sure that the Authors view is kept up to date after setting a birth year.
 
@@ -322,7 +322,7 @@ Change the birth year form so that a birth year can be set only for an existing 
 
 A solution using the react select library looks as follows:
 
-![plot](./exercises-data/21e.png)
+![plot](./exercises-media/21e.png)
 
 
 ## Exercises 8.13.-8.16.
@@ -339,7 +339,6 @@ Let's change the book graphql schema a little
 type Book {
   title: String!
   published: Int!
-
   author: Author!
   genres: [String!]!
   id: ID!
@@ -363,7 +362,6 @@ The following things do not have to work just yet:
 type Mutation {
   addBook(
     title: String!
-
     author: String!
     published: Int!
     genres: [String!]!
@@ -382,7 +380,7 @@ Regarding the <em>genre</em> parameter of the all books query, the situation is 
 
 Complete the program so that database validation errors (e.g. book title or author name being too short) are handled sensibly. This means that they cause [GraphQLError](https://www.apollographql.com/docs/apollo-server/data/errors/#custom-errors) with a suitable error message to be thrown.
 
-### 8.16: user and logging in
+### 8.16: User and logging in
 
 Add user management to your application. Expand the schema like so:
 
@@ -438,21 +436,21 @@ It is not necessary yet to handle validation errors.
 
 You can decide how the login looks on the user interface. One possible solution is to make the login form into a separate view which can be accessed through a navigation menu:
 
-![plot](./exercises-data/26e.png)
+![plot](./exercises-media/26e.png)
 
 The login form:
 
-![plot](./exercises-data/27e.png)
+![plot](./exercises-media/27e.png)
 
 When a user is logged in, the navigation changes to show the functionalities which can only be done by a logged-in user:
 
-![plot](./exercises-data/28e.png)
+![plot](./exercises-media/28e.png)
 
 ### 8.19: Books by genre, part 1
 
 Complete your application to filter the book list by genre. Your solution might look something like this:
 
-![plot](./exercises-data/30e.png)
+![plot](./exercises-media/30e.png)
 
 In this exercise, the filtering can be done using just React.
 
@@ -460,9 +458,9 @@ In this exercise, the filtering can be done using just React.
 
 Implement a view which shows all the books based on the logged-in user's favourite genre.
 
-![plot](./exercises-data/29e.png)
+![plot](./exercises-media/29e.png)
 
-### 8.21: books by genre with GraphQL
+### 8.21: Books by genre with GraphQL
 
 In the previous two exercises, the filtering could have been done using just React. To complete this exercise, you should redo the filtering the books based on a selected genre (that was done in exercise 8.19) using a GraphQL query to the server. If you already did so then you do not have to do anything.
 
@@ -483,7 +481,7 @@ Do a backend implementation for subscription `bookAdded`, which returns the deta
 
 ### 8.24: Subscriptions - client, part 1
 
-Start using subscriptions in the client, and subscribe to bookAdded. When new books are added, notify the user. Any method works. For example, you can use the [window.alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) function.
+Start using subscriptions in the client, and subscribe to `bookAdded`. When new books are added, notify the user. Any method works. For example, you can use the [window.alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) function.
 
 ### 8.25: Subscriptions - client, part 2
 
@@ -508,7 +506,7 @@ Exercises of this part are submitted via the [submission system](https://studies
 
 Once you have completed the exercises and want to get the credits, let us know through the exercise submission system that you have completed the course:
 
-![plot](./exercises-data/21a.png)
+![plot](./exercises-media/21a.png)
 
 **Note:** that you need a registration to the corresponding course part for getting the credits registered, see [here](https://fullstackopen.com/en/part0/general_info#parts-and-completion) for more information.
 

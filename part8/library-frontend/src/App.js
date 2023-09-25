@@ -5,7 +5,7 @@ import { useApolloClient, useSubscription, useQuery } from "@apollo/client";
 
 import { ALL_BOOKS, BOOK_ADDED, ME } from "./queries";
 
-import Notification from "./components/Notification";
+import { NotificationBlue, NotificationRed } from "./components/Notification";
 import Authors from "./components/Authors";
 import Books from "./components/Books";
 import BookForm from "./components/BookForm";
@@ -63,9 +63,13 @@ const App = () => {
   });
 
   useEffect(() => {
-    if (successMessage || errorMessage) {
+    if (successMessage) {
       setTimeout(() => {
         setSuccessMessage("");
+      }, 5000);
+    }
+    if (errorMessage) {
+      setTimeout(() => {
         setErrorMessage("");
       }, 5000);
     }
@@ -91,10 +95,8 @@ const App = () => {
       <div>
         <h1>Library</h1>
         <div>
-          <Notification
-            successMessage={successMessage}
-            errorMessage={errorMessage}
-          />
+        <NotificationBlue message={successMessage} />
+        <NotificationRed message={errorMessage} />
           <Link to="/authors">
             <button>authors</button>
           </Link>
@@ -138,10 +140,8 @@ const App = () => {
     <div>
       <h1>Library</h1>
       <div>
-        <Notification
-          successMessage={successMessage}
-          errorMessage={errorMessage}
-        />
+        <NotificationBlue message={successMessage} />
+        <NotificationRed message={errorMessage} />
         <Link to="/authors">
           <button>authors</button>
         </Link>

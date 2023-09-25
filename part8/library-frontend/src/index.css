@@ -2,18 +2,13 @@ h1,
 h2,
 h3,
 h4 {
-  color: green;
+  color: dodgerblue;
   font-style: italic;
 }
 
-a {
-  color: dimgray;
-}
-
 b,
-th,
-a:visited {
-  color: darkgreen;
+th {
+  color: royalblue;
 }
 
 .error {
@@ -27,7 +22,7 @@ a:visited {
 }
 
 .success {
-  color: green;
+  color: dodgerblue;
   background: lightgrey;
   font-size: 20px;
   border-style: solid;

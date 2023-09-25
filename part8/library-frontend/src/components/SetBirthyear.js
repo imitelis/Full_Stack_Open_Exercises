@@ -10,6 +10,12 @@ const SetBirthyear = ({ authors, setSuccessMessage, setErrorMessage }) => {
   const [born, setBorn] = useState("");
 
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
+    onError: (error) => {
+      setErrorMessage(error.graphQLErrors[0].message);
+    },
+    onCompleted: () => {
+      setSuccessMessage(`${name}'s birthyear was edited`);
+    },
     refetchQueries: [{ query: ALL_AUTHORS }],
   });
 
@@ -19,7 +25,7 @@ const SetBirthyear = ({ authors, setSuccessMessage, setErrorMessage }) => {
       setErrorMessage(`error: birth (${born}) is required`);
     } else if (born !== "") {
       editAuthor({ variables: { name, setBornTo: Number(born) } });
-      setSuccessMessage(`${name}'s birthyear was edited`);
+      // setSuccessMessage(`${name}'s birthyear was edited`);
     }
     setBorn("");
   };
