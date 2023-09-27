@@ -37,7 +37,7 @@ const Part = (props: PartProps) => {
         <div>
           {content}
         </div>
-      )    
+      )
   }
 
 export default Part;

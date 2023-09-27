@@ -7,9 +7,6 @@ interface HeaderProps {
 const Header = (props: HeaderProps) => {
     return (
       <div>
-        <Typography variant="h3" style={{ marginTop: "0.5em", color: "green" }}>
-          Course Info
-        </Typography>
         <Typography variant="h4" style={{ marginTop: "0.25em", color: "green" }}>
           {props.name}
         </Typography>
