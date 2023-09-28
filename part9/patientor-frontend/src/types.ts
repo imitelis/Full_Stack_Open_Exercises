@@ -42,10 +42,10 @@ export interface OccupationalHealthcareEntry extends BaseEntry {
 }
 
 export enum HealthCheckRating {
-  "Healthy" = 0,
-  "LowRisk" = 1,
-  "HighRisk" = 2,
-  "CriticalRisk" = 3,
+  Healthy = "0",
+  LowRisk = "1",
+  HighRisk = "2",
+  CriticalRisk = "3",
 }
 
 export interface HealthCheckEntry extends BaseEntry {
@@ -81,4 +81,14 @@ export enum EntryType {
   Hospital = "Hospital",
   OccupationalHealthcare = "OccupationalHealthcare",
   HealthCheck = "HealthCheck",
+}
+
+export interface EntryOption {
+  value: EntryType;
+  label: string;
+}
+
+export interface HealthCheckRatingOption {
+  value: HealthCheckRating;
+  label: string;
 }

@@ -64,33 +64,15 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
           fullWidth
           value={name}
           onChange={({ target }) => setName(target.value)}
+          style={{ marginBottom: "12px" }}
         />
-        <TextField
-          label="Social security number"
-          fullWidth
-          value={ssn}
-          onChange={({ target }) => setSsn(target.value)}
-        />
-        <TextField
-          label="Date of birth"
-          placeholder="YYYY-MM-DD"
-          fullWidth
-          value={dateOfBirth}
-          onChange={({ target }) => setDateOfBirth(target.value)}
-        />
-        <TextField
-          label="Occupation"
-          fullWidth
-          value={occupation}
-          onChange={({ target }) => setOccupation(target.value)}
-        />
-
-        <InputLabel style={{ marginTop: 20 }}>Gender</InputLabel>
+        <InputLabel shrink>Gender</InputLabel>
         <Select
           label="Gender"
           fullWidth
           value={gender}
           onChange={onGenderChange}
+          style={{ marginBottom: "12px" }}
         >
           {genderOptions.map((option) => (
             <MenuItem key={option.label} value={option.value}>
@@ -98,7 +80,28 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
             </MenuItem>
           ))}
         </Select>
-
+        <InputLabel shrink>Date of Birth</InputLabel>
+        <TextField
+          type="date"
+          fullWidth
+          value={dateOfBirth}
+          onChange={({ target }) => setDateOfBirth(target.value)}
+          style={{ marginBottom: "12px" }}
+        />
+        <TextField
+          label="Social security number"
+          fullWidth
+          value={ssn}
+          onChange={({ target }) => setSsn(target.value)}
+          style={{ marginBottom: "12px" }}
+        />
+        <TextField
+          label="Occupation"
+          fullWidth
+          value={occupation}
+          onChange={({ target }) => setOccupation(target.value)}
+          style={{ marginBottom: "24px" }}
+        />
         <Grid>
           <Grid item>
             <Button

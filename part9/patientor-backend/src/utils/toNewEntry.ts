@@ -38,6 +38,12 @@ const isSickLeave = (sickLeave: object): boolean => {
   return false;
 };
 
+const isHealthCheckRating = (param: string): param is HealthCheckRating => {
+  return Object.values(HealthCheckRating)
+    .map((v) => v.toString())
+    .includes(param);
+};
+
 const parseDescription = (description: unknown): string => {
   if (!description || !isString(description)) {
     throw new Error("Incorrect or missing description");
@@ -59,13 +65,18 @@ const parseSpecialist = (specialist: unknown): string => {
   return specialist;
 };
 
-const parseDiagnosisCodes = (object: unknown): Array<Diagnosis["code"]> => {
-  if (!object || typeof object !== "object" || !("diagnosisCodes" in object)) {
+const parseDiagnosisCodes = (
+  diagnosisCodes: unknown,
+): Array<Diagnosis["code"]> => {
+  if (
+    !diagnosisCodes ||
+    typeof diagnosisCodes !== "object" ||
+    !(diagnosisCodes instanceof Array)
+  ) {
     // we will just trust the data to be in correct form
     return [] as Array<Diagnosis["code"]>;
   }
-
-  return object.diagnosisCodes as Array<Diagnosis["code"]>;
+  return diagnosisCodes as Array<Diagnosis["code"]>;
 };
 
 const parseDischarge = (discharge: unknown): Discharge => {
@@ -91,20 +102,12 @@ const parseSickLeave = (sickLeave: unknown): SickLeave => {
   return { startDate, endDate };
 };
 
-const isNumber = (param: unknown): param is number => {
-  return typeof param === "number" || param instanceof Number;
-};
-
-const isHealthCheckRating = (param: number): param is HealthCheckRating => {
-  return Object.values(HealthCheckRating).includes(param);
-};
-
 const parseHealthCheckRating = (
   healthCheckRating: unknown,
 ): HealthCheckRating => {
   if (
     !healthCheckRating ||
-    !isNumber(healthCheckRating) ||
+    !isString(healthCheckRating) ||
     !isHealthCheckRating(healthCheckRating)
   ) {
     throw new Error("Incorrect or missing healthCheckRating");

@@ -8,7 +8,7 @@ import EntryList from "./components/EntryList";
 import EntryForm from "./components/EntryForm";
 import { NotificationGreen, NotificationRed } from "./components/Notification";
 
-import { Divider } from "@mui/material";
+import { Typography, Divider } from "@mui/material";
 
 const App = () => {
   const [entries, setEntries] = useState<NonSensitiveDiaryEntry[]>([]);
@@ -23,10 +23,15 @@ const App = () => {
 
   return (
     <div>
+      <Typography
+        variant="h4"
+        style={{ marginTop: "0.5em", color: "dodgerblue" }}
+      >
+        Flight Diary
+      </Typography>
+      <Divider />
       <NotificationGreen message={greenMessage} />
       <NotificationRed message={redMessage} />
-      <h1>Flight Diary</h1>
-      <Divider />
       <EntryForm
         entries={entries}
         setEntries={setEntries}

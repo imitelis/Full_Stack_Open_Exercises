@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Patient, EntryFormValues } from "../../types";
+import { Patient, Diagnosis, EntryFormValues } from "../../types";
 import patientService from "../../services/patients";
 
 import { Box, Typography, Button } from "@mui/material";
@@ -14,9 +14,10 @@ import AddEntryModal from "../AddEntryModal";
 
 interface Props {
   patientId: string | null;
+  diagnoses: Diagnosis[];
 }
 
-const PatientPage = ({ patientId }: Props) => {
+const PatientPage = ({ patientId, diagnoses }: Props) => {
   const [patient, setPatient] = useState<Patient | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>();
@@ -72,14 +73,20 @@ const PatientPage = ({ patientId }: Props) => {
           <Typography marginTop="1em" variant="h4">
             Patient
           </Typography>
-          Not Found.
+          <div style={{ marginTop: "0.25em" }}>
+            <em>Not found</em>
+          </div>
         </Box>
       </div>
     );
   } else {
     return (
       <div className="App">
-        <Box fontFamily="Roboto, sans-serif" marginTop="0.5em">
+        <Box
+          fontFamily="Roboto, sans-serif"
+          marginTop="0.5em"
+          marginBottom="1.5em"
+        >
           <Typography marginTop="1em" variant="h4">
             {patient.name} {patient.gender === "male" ? <MaleIcon /> : <></>}{" "}
             {patient.gender === "female" ? <FemaleIcon /> : <></>}{" "}
@@ -89,6 +96,7 @@ const PatientPage = ({ patientId }: Props) => {
           occupation: {patient.occupation}
         </Box>
         <AddEntryModal
+          diagnoses={diagnoses}
           modalOpen={modalOpen}
           onSubmit={submitNewEntry}
           error={error}
@@ -102,11 +110,19 @@ const PatientPage = ({ patientId }: Props) => {
             Entries
           </Typography>
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            style={{ marginBottom: "5em" }}
           >
-            {patient.entries.map((entry, index) => (
-              <PatientEntry key={index} entry={entry} />
-            ))}
+            {patient.entries.length === 0 ? (
+              <div style={{ marginTop: "0.25em" }}>
+                <em>None yet</em>
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "0.25em" }}>
+              {patient.entries.map((entry, index) => (
+                <PatientEntry key={index} entry={entry} />
+              ))}
+              </div>
+            )}
           </div>
         </Box>
       </div>

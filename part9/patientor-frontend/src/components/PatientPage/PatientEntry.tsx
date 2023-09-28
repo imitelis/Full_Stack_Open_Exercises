@@ -55,22 +55,25 @@ const PatientEntry = ({ entry }: Props) => {
             Hospital <MedicalServicesIcon />
           </span>
           <br />
-          <span style={{ color: "red" }}>
-            <FavoriteIcon /> date:{" "}
-          </span>
+          <span style={{ color: "red" }}>date: </span>
           {entry.date}
           <br />
-          <span style={{ color: "red" }}>description: </span>
+          <span style={{ color: "red" }}>
+            <FavoriteIcon /> description:{" "}
+          </span>
           <em>{entry.description}</em>
           <br />
           diagnosis:{" "}
-          {entry.diagnosisCodes === undefined ? (
-            <>None</>
+          {entry.diagnosisCodes === undefined ||
+          entry.diagnosisCodes.length === 0 ? (
+            <>
+              <em>None</em>
+            </>
           ) : (
-            entry.diagnosisCodes?.map((diagnosisCode) => (
-              <>
+            entry.diagnosisCodes?.map((diagnosisCode, index) => (
+              <span key={index}>
                 {diagnosisCode}: {findDiagnosisName(diagnosisCode)}.{" "}
-              </>
+              </span>
             ))
           )}
           <br />
@@ -93,22 +96,25 @@ const PatientEntry = ({ entry }: Props) => {
             Occupational Healthcare <NextWeekIcon />
           </span>
           <br />
-          <span style={{ color: "dodgerblue" }}>
-            <FavoriteIcon /> date:{" "}
-          </span>
+          <span style={{ color: "dodgerblue" }}>date: </span>
           {entry.date}
           <br />
-          <span style={{ color: "dodgerblue" }}>description: </span>
+          <span style={{ color: "dodgerblue" }}>
+            <FavoriteIcon /> description:{" "}
+          </span>
           <em>{entry.description}</em>
           <br />
           diagnosis:{" "}
-          {entry.diagnosisCodes === undefined ? (
-            <>None</>
+          {entry.diagnosisCodes === undefined ||
+          entry.diagnosisCodes.length === 0 ? (
+            <>
+              <em>None</em>
+            </>
           ) : (
-            entry.diagnosisCodes?.map((diagnosisCode) => (
-              <>
+            entry.diagnosisCodes?.map((diagnosisCode, index) => (
+              <span key={index}>
                 {diagnosisCode}: {findDiagnosisName(diagnosisCode)}.{" "}
-              </>
+              </span>
             ))
           )}
           <br />
@@ -141,22 +147,25 @@ const PatientEntry = ({ entry }: Props) => {
             Health Check <WorkHistoryIcon />
           </span>
           <br />
-          <span style={{ color: "darkorchid" }}>
-            <FavoriteIcon /> date:{" "}
-          </span>
+          <span style={{ color: "darkorchid" }}>date: </span>
           {entry.date}
           <br />
-          <span style={{ color: "darkorchid" }}>description: </span>
+          <span style={{ color: "darkorchid" }}>
+            <FavoriteIcon /> description:{" "}
+          </span>
           <em>{entry.description}</em>
           <br />
           diagnosis:{" "}
-          {entry.diagnosisCodes === undefined ? (
-            <>None</>
+          {entry.diagnosisCodes === undefined ||
+          entry.diagnosisCodes.length === 0 ? (
+            <>
+              <em>None</em>
+            </>
           ) : (
-            entry.diagnosisCodes?.map((diagnosisCode) => (
-              <>
+            entry.diagnosisCodes?.map((diagnosisCode, index) => (
+              <span key={index}>
                 {diagnosisCode}: {findDiagnosisName(diagnosisCode)}.{" "}
-              </>
+              </span>
             ))
           )}
           <br />

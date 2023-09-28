@@ -1,4 +1,5 @@
-import { Patient, Gender } from "../src/types";
+import { Patient, Gender, HealthCheckRating } from "../src/types";
+
 // import toNewPatientEntry from "../src/utils";
 
 const patients : Patient[] = [
@@ -72,7 +73,7 @@ const patients : Patient[] = [
         specialist: 'MD House',
         type: 'HealthCheck',
         description: 'Yearly control visit. Cholesterol levels back to normal.',
-        healthCheckRating: 0,
+        healthCheckRating: HealthCheckRating.Healthy,
       },
       {
         id: 'fcd59fa6-c4b4-4fec-ac4d-df4fe1f85f62',
@@ -89,7 +90,7 @@ const patients : Patient[] = [
         type: 'HealthCheck',
         description:
           'Yearly control visit. Due to high cholesterol levels recommended to eat more vegetables.',
-        healthCheckRating: 1,
+        healthCheckRating: HealthCheckRating.LowRisk,
       },
     ],
   },
@@ -107,7 +108,7 @@ const patients : Patient[] = [
         specialist: 'Dr Byte House',
         type: 'HealthCheck',
         description: 'Digital overdose, very bytestatic. Otherwise healthy.',
-        healthCheckRating: 0,
+        healthCheckRating: HealthCheckRating.Healthy,
       },
     ],
   },

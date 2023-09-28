@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Weather, Visibility, NonSensitiveDiaryEntry } from "../types";
 
@@ -6,9 +6,7 @@ import { createEntry } from "../services/diaryService";
 
 import {
   TextField,
-  FormControl,
   FormControlLabel,
-  MenuItem,
   Grid,
   Button,
   Radio,
@@ -29,6 +27,13 @@ const EntryForm = (props: EntryFormProps) => {
   const [visibility, setVisibility] = useState<Visibility>(Visibility.Great);
   const [comment, setComment] = useState("");
 
+  useEffect(() => {
+    console.log(date);
+    console.log(weather);
+    console.log(visibility);
+    console.log(comment);
+  }, [date, weather, visibility, comment]);
+
   const handleWeather = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWeather(event.target.value as Weather);
   };
@@ -44,6 +49,7 @@ const EntryForm = (props: EntryFormProps) => {
       props.setRedMessage(
         `entry validation failed: date and comment are required`,
       );
+      console.log(`entry validation failed: date and comment are required`);
       setTimeout(() => {
         props.setRedMessage(null);
       }, 3000);
@@ -79,112 +85,128 @@ const EntryForm = (props: EntryFormProps) => {
   };
 
   return (
-    <div>
-      <Typography variant="h5">Add a new entry</Typography>
-      <FormControl onSubmit={entryCreation}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Typography variant="h6">date:</Typography>
-          </Grid>
-          <Grid item>
-            <TextField
-              type="date"
-              value={date}
-              onChange={(event) => setDate(event.target.value)}
-            />
-          </Grid>
+    <div style={{ marginBottom: "1em" }}>
+      <Typography
+        variant="h5"
+        style={{ marginTop: "0.5em", color: "dodgerblue" }}
+      >
+        Add a new
+      </Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <Typography variant="h6">date:</Typography>
         </Grid>
-
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Typography variant="h6">weather:</Typography>
-          </Grid>
-          <Grid item>
-            <RadioGroup name="weather" value={weather} onChange={handleWeather}>
-              <span>
-                <FormControlLabel
-                  value={Weather.Sunny}
-                  control={<Radio />}
-                  label="Sunny"
-                />
-                <FormControlLabel
-                  value={Weather.Rainy}
-                  control={<Radio />}
-                  label="Rainy"
-                />
-                <FormControlLabel
-                  value={Weather.Cloudy}
-                  control={<Radio />}
-                  label="Cloudy"
-                />
-                <FormControlLabel
-                  value={Weather.Stormy}
-                  control={<Radio />}
-                  label="Stormy"
-                />
-                <FormControlLabel
-                  value={Weather.Windy}
-                  control={<Radio />}
-                  label="Windy"
-                />
-              </span>
-            </RadioGroup>
-          </Grid>
+        <Grid item>
+          <TextField
+            type="date"
+            value={date}
+            onChange={(event) => setDate(event.target.value)}
+          />
         </Grid>
+      </Grid>
 
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Typography variant="h6">visibility:</Typography>
-          </Grid>
-          <Grid item>
-            <RadioGroup
-              name="visibility"
-              value={visibility}
-              onChange={handleVisibility}
-            >
-              <span>
-                <FormControlLabel
-                  value={Visibility.Great}
-                  control={<Radio />}
-                  label="Great"
-                />
-                <FormControlLabel
-                  value={Visibility.Good}
-                  control={<Radio />}
-                  label="Good"
-                />
-                <FormControlLabel
-                  value={Visibility.Ok}
-                  control={<Radio />}
-                  label="Ok"
-                />
-                <FormControlLabel
-                  value={Visibility.Poor}
-                  control={<Radio />}
-                  label="Poor"
-                />
-              </span>
-            </RadioGroup>
-          </Grid>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <Typography variant="h6">weather:</Typography>
         </Grid>
-
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Typography variant="h6">comment:</Typography>
-          </Grid>
-          <Grid item>
-            <TextField
-              value={comment}
-              onChange={(event) => setComment(event.target.value)}
-            />
-          </Grid>
+        <Grid item>
+          <RadioGroup name="weather" value={weather} onChange={handleWeather}>
+            <span>
+              <FormControlLabel
+                value={Weather.Sunny}
+                control={<Radio />}
+                label="Sunny"
+              />
+              <FormControlLabel
+                value={Weather.Rainy}
+                control={<Radio />}
+                label="Rainy"
+              />
+              <FormControlLabel
+                value={Weather.Cloudy}
+                control={<Radio />}
+                label="Cloudy"
+              />
+              <FormControlLabel
+                value={Weather.Stormy}
+                control={<Radio />}
+                label="Stormy"
+              />
+              <FormControlLabel
+                value={Weather.Windy}
+                control={<Radio />}
+                label="Windy"
+              />
+            </span>
+          </RadioGroup>
         </Grid>
+      </Grid>
 
-        <Button color="primary" variant="contained" type="submit">
-          add
-        </Button>
-      </FormControl>
-      <FormControl component="fieldset"></FormControl>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <Typography variant="h6">visibility:</Typography>
+        </Grid>
+        <Grid item>
+          <RadioGroup
+            name="visibility"
+            value={visibility}
+            onChange={handleVisibility}
+          >
+            <span>
+              <FormControlLabel
+                value={Visibility.Great}
+                control={<Radio />}
+                label="Great"
+              />
+              <FormControlLabel
+                value={Visibility.Good}
+                control={<Radio />}
+                label="Good"
+              />
+              <FormControlLabel
+                value={Visibility.Ok}
+                control={<Radio />}
+                label="Ok"
+              />
+              <FormControlLabel
+                value={Visibility.Poor}
+                control={<Radio />}
+                label="Poor"
+              />
+            </span>
+          </RadioGroup>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <Typography variant="h6" marginBottom="3.5em">
+            comment:
+          </Typography>
+        </Grid>
+        <Grid item>
+          <TextField
+            value={comment}
+            fullWidth
+            onChange={(event) => setComment(event.target.value)}
+            multiline
+            rows={3}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            onClick={entryCreation}
+          >
+            add
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 };
