@@ -40,6 +40,15 @@ const Books = () => {
     );
   }
 
+  if (books_result.data === undefined || genres_result.data === undefined) {
+    return (
+      <div>
+        <h2>Books</h2>
+        <em>lost connection...</em>
+      </div>
+    );
+  }
+
   // const genres = genres_result.data.allGenres
 
   return (

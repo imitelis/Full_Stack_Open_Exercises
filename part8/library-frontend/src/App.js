@@ -94,9 +94,9 @@ const App = () => {
     return (
       <div>
         <h1>Library</h1>
-        <div>
         <NotificationBlue message={successMessage} />
         <NotificationRed message={errorMessage} />
+        <div>
           <Link to="/authors">
             <button>authors</button>
           </Link>

@@ -1,13 +1,13 @@
 h1,
 h2,
 h3,
-h4 {
+h4,
+th {
   color: dodgerblue;
   font-style: italic;
 }
 
-b,
-th {
+b {
   color: royalblue;
 }
 

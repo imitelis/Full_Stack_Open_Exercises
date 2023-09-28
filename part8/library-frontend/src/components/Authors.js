@@ -10,11 +10,20 @@ const Authors = ({ token, setSuccessMessage, setErrorMessage }) => {
     refetchQueries: [{ query: ALL_AUTHORS }],
   });
 
-  if (result.loading || result.data === undefined) {
+  if (result.loading) {
     return (
       <div>
         <h2>Authors</h2>
         <em>loading...</em>
+      </div>
+    );
+  }
+
+  if (result.data === undefined) {
+    return (
+      <div>
+        <h2>Authors</h2>
+        <em>lost connection...</em>
       </div>
     );
   }

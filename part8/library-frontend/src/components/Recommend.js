@@ -31,6 +31,15 @@ const Recommend = () => {
       </div>
     );
   }
+  
+  if (me_result.data === undefined || books_by_genre_result.data === undefined) {
+    return (
+      <div>
+        <h2>Recommendations</h2>
+        <em>lost connection...</em>
+      </div>
+    );
+  }
 
   return (
     <div>
