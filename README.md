@@ -223,7 +223,7 @@
   *  8.26: Library n+1 problem step1
 
 
-## Part 9 - TypeScript - Exercises 9.1.-9.31.
+## Part 9 - TypeScript - Exercises 9.1.-9.29.
 
   *  9.1: Calculators Body mass index step1
   *  9.2: Calculators Exercise calculator step2
@@ -238,8 +238,8 @@
   *  9.11: Patientor backend step4
   *  9.12: Patientor backend step5
   *  9.13: Patientor backend step6
-  *  9.14: Course information step1  
-  *  9.15: Course information step2
+  *  9.14: Course information typed step1  
+  *  9.15: Course information typed step2
   *  9.16: Flight diary frontend step1
   *  9.17: Flight diary frontend step2
   *  9.18: Flight diary frontend step3

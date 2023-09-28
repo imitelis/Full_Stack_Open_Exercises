@@ -123,7 +123,7 @@ const PatientEntry = ({ entry }: Props) => {
           sick leave:{" "}
           {entry.sickLeave ? (
             <>
-              {entry.sickLeave?.startDate}-{entry.sickLeave?.endDate}
+              {entry.sickLeave?.startDate}{" "}-{" "}{entry.sickLeave?.endDate}
             </>
           ) : (
             <>
