@@ -258,3 +258,20 @@
 
 ## Part 10 - React Native - Exercises 10.1.-10.26.
 
+  *  10.1: Rate repository step1
+  *  10.2: Rate repository step2
+  *  10.3: Rate repository step3
+  *  10.4: Rate repository step4
+  *  10.5: Rate repository step5
+  *  10.6: Rate repository step6
+  *  10.7: Rate repository step7
+  *  10.8: Rate repository step8
+  *  10.9: Rate repository step9
+  *  10.10: Rate repository step10
+  *  10.11: Rate repository step11
+  *  10.12: Rate repository step12
+
+  
+## Part 11 - CI/CD
+
+
