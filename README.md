@@ -6,9 +6,9 @@
   *  0.1: Review HTML step1
   *  0.2: Review CSS step2
   *  0.3: Review HTML forms step3
-  *  0.4: Diagram Page notes step1
-  *  0.5: Diagram Page spa step2
-  *  0.6: Diagram Page single-page step3
+  *  0.4: Diagram notes step1
+  *  0.5: Diagram spa step2
+  *  0.6: Diagram single-page step3
 
 
 ## Part 1 - Introduction to React - Exercises 1.1.-1.14.
@@ -225,9 +225,9 @@
 
 ## Part 9 - TypeScript - Exercises 9.1.-9.29.
 
-  *  9.1: Calculators Body mass index step1
-  *  9.2: Calculators Exercise calculator step2
-  *  9.3: Calculators Command line step3
+  *  9.1: Body mass index step1
+  *  9.2: Exercise calculator step2
+  *  9.3: Command line step3
   *  9.4: Calculators Express step4
   *  9.5: Calculators WebBMI step5
   *  9.6: Calculators Eslint step6
@@ -258,19 +258,21 @@
 
 ## Part 10 - React Native - Exercises 10.1.-10.26.
 
-  *  10.1: Rate repository step1
-  *  10.2: Rate repository step2
-  *  10.3: Rate repository step3
-  *  10.4: Rate repository step4
-  *  10.5: Rate repository step5
-  *  10.6: Rate repository step6
-  *  10.7: Rate repository step7
-  *  10.8: Rate repository step8
-  *  10.9: Rate repository step9
+  *  10.1: Rate repository setup step1
+  *  10.2: Rate repository setup step2
+  *  10.3: Rate repository basics step3
+  *  10.4: Rate repository basics step4
+  *  10.5: Rate repository basics step5
+  *  10.6: Rate repository basics step6
+  *  10.7: Rate repository basics step7
+  *  10.8: Rate repository basics step8
+  *  10.9: Rate repository basics step9
+  *  10.10: Rate repository basics step10
+  *  10.11: Rate repository step11
+  *  10.12: Rate repository step12
   *  10.10: Rate repository step10
   *  10.11: Rate repository step11
   *  10.12: Rate repository step12
-
   
 ## Part 11 - CI/CD
 

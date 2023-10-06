@@ -1,5 +1,5 @@
 {
-  "name": "rate-repository-app",
+  "name": "rate-repository",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -13,10 +13,12 @@
     "@expo/webpack-config": "^0.17.0",
     "expo": "~46.0.21",
     "expo-status-bar": "~1.4.0",
+    "formik": "^2.4.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.9",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "react-router-native": "^6.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
