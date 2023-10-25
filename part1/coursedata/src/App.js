@@ -1,8 +1,7 @@
 const Header = ({course}) => {
   return(
     <div>
-      <h1>Course Data</h1>
-      <h2>{course}</h2>
+      <h1>{course}</h1>
     </div>
   )
 }
