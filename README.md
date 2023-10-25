@@ -268,11 +268,11 @@
   *  10.8: Rate repository basics step8
   *  10.9: Rate repository basics step9
   *  10.10: Rate repository basics step10
-  *  10.11: Rate repository step11
-  *  10.12: Rate repository step12
-  *  10.10: Rate repository step10
-  *  10.11: Rate repository step11
-  *  10.12: Rate repository step12
+  *  10.11: Rate repository graphql step11
+  *  10.12: Rate repository graphql step12
+  *  10.10: Rate repository graphql step10
+  *  10.11: Rate repository graphql step11
+  *  10.12: Rate repository graphql step12
   
 ## Part 11 - CI/CD
 

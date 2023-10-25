@@ -102,7 +102,7 @@ export default RepositoryList;
 
 <em>Do not</em> alter the contents of the `repositories` variable, it should contain everything you need to complete this exercise. Render the `RepositoryList` component in the `Main` component which we previously added to the <em>Main.jsx</em> file. The reviewed repository list should roughly look something like this:
 
-![plot](./exercises-media/5a.png)
+![plot](./exercises-media/5a.jpg)
 
 
 ## Exercises 10.4-10.5.
@@ -132,7 +132,7 @@ export default AppBar;
 
 Now that the `AppBar` component will prevent the status bar from overlapping the content, you can remove the `marginTop` style we added for the `Main` component earlier in the <em>Main.jsx</em> file. The `AppBar` component should currently contain a tab with the text "`Repositories`". Make the tab pressable by using the [Pressable](https://reactnative.dev/docs/pressable) component but you don't have to handle the `onPress` event in any way. Add the `AppBar` component to the `Main` component so that it is the uppermost component on the screen. The `AppBar` component should look something like this:
 
-![plot](./exercises-media/6a.png)
+![plot](./exercises-media/6a.jpg)
 
 The background color of the app bar in the image is `#24292e` but you can use any other color as well. It might be a good idea to add the app bar's background color into the theme configuration so that it is easy to change it if needed. Another good idea might be to separate the app bar's tab into a component like `AppBarTab` so that it is easy to add new tabs in the future.
 
@@ -140,7 +140,7 @@ The background color of the app bar in the image is `#24292e` but you can use an
 
 The current version of the reviewed repositories list looks quite grim. Modify the <em>RepositoryItem</em> component so that it also displays the repository author's avatar image. You can implement this by using the [Image](https://reactnative.dev/docs/image) component. Counts, such as the number of stars and forks, larger than or equal to 1000 should be displayed in thousands with the precision of one decimal and with a "k" suffix. This means that for example fork count of 8439 should be displayed as "8.4k". Also, polish the overall look of the component so that the reviewed repositories list looks something like this:
 
-![plot](./exercises-media/7a.png)
+![plot](./exercises-media/7a.jpg)
 
 In the image, the `Main` component's background color is set to `#e1e4e8` whereas `RepositoryItem` component's background color is set to `white`. The language tag's background color is `#0366d6` which is the value of the `colors.primary` variable in the theme configuration. Remember to exploit the `Text` component we implemented earlier. Also when needed, split the `RepositoryItem` component into smaller components.
 
@@ -197,7 +197,7 @@ Remember to utilize the `FormikTextInput` component we implemented earlier. You 
 
 The sign-in form should look something like this:
 
-![plot](./exercises-media/7b.png)
+![plot](./exercises-media/7b.jpg)
 
 
 ## Exercise 10.9.
@@ -212,7 +212,7 @@ On top of the red error message, give an invalid field a visual indication of an
 
 Here's what the sign-in form should roughly look like with an invalid field:
 
-![plot](./exercises-media/8a.png)
+![plot](./exercises-media/8a.jpg)
 
 The red color used in this implementation is `#d73a4a`.
 
@@ -257,11 +257,11 @@ Instead of the hardcoded Apollo Server's URL, use an environment variable define
 
 ### Exercise 10.13: the sign in form mutation
 
-The current implementation of the sign in form doesn't do much with the submitted user's credentials. Let's do something about that in this exercise. First, read the rate-repository-api server's authentication documentation and test the provided queries and mutations in the Apollo Sandbox. If the database doesn't have any users, you can populate the database with some seed data. Instructions for this can be found in the getting started section of the README.
+The current implementation of the sign in form doesn't do much with the submitted user's credentials. Let's do something about that in this exercise. First, read the rate-repository-api server's [authentication documentation](https://github.com/fullstack-hy2020/rate-repository-api#-authentication) and test the provided queries and mutations in the Apollo Sandbox. If the database doesn't have any users, you can populate the database with some seed data. Instructions for this can be found in the [getting started](https://github.com/fullstack-hy2020/rate-repository-api#-getting-started) section of the README.
 
-Once you have figured out how the authentication works, create a file useSignIn.js file in the hooks directory. In that file implement a useSignIn hook that sends the authenticate mutation using the useMutation hook. Note that the authenticate mutation has a single argument called credentials, which is of type AuthenticateInput. This input type contains username and password fields.
+Once you have figured out how the authentication works, create a file `useSignIn.js` file in the <em>hooks</em> directory. In that file implement a `useSignIn` hook that sends the `authenticate` mutation using the [useMutation](https://www.apollographql.com/docs/react/api/react/hooks/#usemutation) hook. Note that the `authenticate` mutation has a single argument called `credentials`, which is of type `AuthenticateInput`. This [input type](https://graphql.org/graphql-js/mutations-and-input-types) contains `username` and `password` fields.
 
-The return value of the hook should be a tuple [signIn, result] where result is the mutations result as it is returned by the useMutation hook and signIn a function that runs the mutation with a { username, password } object argument. Hint: don't pass the mutation function to the return value directly. Instead, return a function that calls the mutation function like this:
+The return value of the hook should be a tuple `[signIn, result]` where `result` is the mutations result as it is returned by the `useMutation` hook and `signIn` a function that runs the mutation with a `{ username, password }` object argument. Hint: don't pass the mutation function to the return value directly. Instead, return a function that calls the mutation function like this:
 
 ```
 const useSignIn = () => {
@@ -275,7 +275,7 @@ const useSignIn = () => {
 };
 ```
 
-Once the hook is implemented, use it in the SignIn component's onSubmit callback for example like this:
+Once the hook is implemented, use it in the `SignIn` component's `onSubmit` callback for example like this:
 
 ```
 const SignIn = () => {
@@ -296,10 +296,11 @@ const SignIn = () => {
 };
 ```
 
-This exercise is completed once you can log the user's authenticate mutations result after the sign in form has been submitted. The mutation result should contain the user's access token.
-Exercise 10.14: storing the access token step1
+This exercise is completed once you can log the user's <em>authenticate</em> mutations result after the sign in form has been submitted. The mutation result should contain the user's access token.
 
-Now that we can obtain the access token we need to store it. Create a file authStorage.js in the utils directory with the following content:
+### Exercise 10.14: Storing the access token step1
+
+Now that we can obtain the access token we need to store it. Create a file <em>authStorage.js</em> in the <em>utils</em> directory with the following content:
 
 ```
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -325,35 +326,152 @@ class AuthStorage {
 export default AuthStorage;
 ```
 
-Next, implement the methods AuthStorage.getAccessToken, AuthStorage.setAccessToken and AuthStorage.removeAccessToken. Use the namespace variable to give your keys a namespace like we did in the previous example.
+Next, implement the methods `AuthStorage.getAccessToken`, `AuthStorage.setAccessToken` and `AuthStorage.removeAccessToken`. Use the `namespace` variable to give your keys a namespace like we did in the previous example.
 
 
 ## Exercises 10.15. - 10.16
-Exercise 10.15: storing the access token step2
 
-Improve the useSignIn hook so that it stores the user's access token retrieved from the authenticate mutation. The return value of the hook should not change. The only change you should make to the SignIn component is that you should redirect the user to the reviewed repositories list view after a successful sign in. You can achieve this by using the useNavigate hook.
+### Exercise 10.15: Storing the access token step2
 
-After the authenticate mutation has been executed and you have stored the user's access token to the storage, you should reset the Apollo Client's store. This will clear the Apollo Client's cache and re-execute all active queries. You can do this by using the Apollo Client's resetStore method. You can access the Apollo Client in the useSignIn hook using the useApolloClient hook. Note that the order of the execution is crucial and should be the following:
+Improve the `useSignIn` hook so that it stores the user's access token retrieved from the <em>authenticate</em> mutation. The return value of the hook should not change. The only change you should make to the `SignIn` component is that you should redirect the user to the reviewed repositories list view after a successful sign in. You can achieve this by using the [useNavigate](https://reactrouter.com/en/6.14.2/hooks/use-navigate) hook.
 
+After the authenticate mutation has been executed and you have stored the user's access token to the storage, you should reset the Apollo Client's store. This will clear the Apollo Client's cache and re-execute all active queries. You can do this by using the Apollo Client's [resetStore](https://www.apollographql.com/docs/react/api/core/ApolloClient/#ApolloClient.resetStore) method. You can access the Apollo Client in the `useSignIn` hook using the [useApolloClient](https://www.apollographql.com/docs/react/api/react/hooks/#useapolloclient) hook. Note that the order of the execution is crucial and should be the following:
+
+```
 const { data } = await mutate(/* options */);
 await authStorage.setAccessToken(/* access token from the data */);
 apolloClient.resetStore();
+```
 
-Exercise 10.16: sign out
+### Exercise 10.16: Sign out
 
-The final step in completing the sign in feature is to implement a sign out feature. The me query can be used to check the authenticated user's information. If the query's result is null, that means that the user is not authenticated. Open the Apollo Sandbox and run the following query:
+The final step in completing the sign in feature is to implement a sign out feature. The `me` query can be used to check the authenticated user's information. If the query's result is `null`, that means that the user is not authenticated. Open the Apollo Sandbox and run the following query:
 
+```
 {
   me {
     id
     username
   }
 }
+```
 
-You will probably end up with the null result. This is because the Apollo Sandbox is not authenticated, meaning that it doesn't send a valid access token with the request. Revise the authentication documentation and retrieve an access token using the authenticate mutation. Use this access token in the Authorization header as instructed in the documentation. Now, run the me query again and you should be able to see the authenticated user's information.
+You will probably end up with the `null` result. This is because the Apollo Sandbox is not authenticated, meaning that it doesn't send a valid access token with the request. Revise the [authentication documentation](https://github.com/fullstack-hy2020/rate-repository-api#-authentication) and retrieve an access token using the authenticate mutation. Use this access token in the Authorization header as instructed in the documentation. Now, run the `me` query again and you should be able to see the authenticated user's information.
 
-Open the AppBar component in the AppBar.jsx file where you currently have the tabs "Repositories" and "Sign in". Change the tabs so that if the user is signed in the tab "Sign out" is displayed, otherwise show the "Sign in" tab. You can achieve this by using the me query with the useQuery hook.
+Open the `AppBar` component in the <em>AppBar.jsx</em> file where you currently have the tabs "Repositories" and "Sign in". Change the tabs so that if the user is signed in the tab "Sign out" is displayed, otherwise show the "Sign in" tab. You can achieve this by using the `me` query with the [useQuery](https://www.apollographql.com/docs/react/api/react/hooks/#usequery) hook.
 
-Pressing the "Sign out" tab should remove the user's access token from the storage and reset the Apollo Client's store with the resetStore method. Calling the resetStore method should automatically re-execute all active queries which means that the me query should be re-executed. Note that the order of execution is crucial: access token must be removed from the storage before the Apollo Client's store is reset.
+Pressing the "Sign out" tab should remove the user's access token from the storage and reset the Apollo Client's store with the [resetStore](https://www.apollographql.com/docs/react/api/core/ApolloClient/#ApolloClient.resetStore) method. Calling the `resetStore` method should automatically re-execute all active queries which means that the `me` query should be re-executed. Note that the order of execution is crucial: access token must be removed from the storage <em>before</em> the Apollo Client's store is reset.
 
-This was the last exercise in this section. It's time to push your code to GitHub and mark all of your finished exercises to the exercise submission system. Note that exercises in this section should be submitted to the part 3 in the exercise submission system.
+This was the last exercise in this section. It's time to push your code to GitHub and mark all of your finished exercises to the exercise [submission system](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js). Note that exercises in this section should be submitted to the Part 3 in the exercise submission system.
+
+
+## Exercises 10.17. - 10.18
+
+### Exercise 10.17: Testing the reviewed repositories list
+
+Implement a test that ensures that the `RepositoryListContainer` component renders repository's name, description, language, forks count, stargazers count, rating average, and review count correctly. One approach in implementing this test is to add a [testID](https://reactnative.dev/docs/view#testid) prop for the element wrapping a single repository's information:
+
+```
+const RepositoryItem = (/* ... */) => {
+  // ...
+
+  return (
+    <View testID="repositoryItem" {/* ... */}>
+      {/* ... */}
+    </View>
+  )
+};
+```
+
+Once the `testID` prop is added, you can use the [getAllByTestId](https://callstack.github.io/react-native-testing-library/docs/api-queries#getallby) query to get those elements:
+
+```
+const repositoryItems = screen.getAllByTestId('repositoryItem');
+const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
+
+// expect something from the first and the second repository item
+```
+
+Having those elements you can use the [toHaveTextContent](https://github.com/testing-library/jest-native#tohavetextcontent) matcher to check whether an element has certain textual content. You might also find the [Querying Within Elements](https://testing-library.com/docs/dom-testing-library/api-within/) guide useful. If you are unsure what is being rendered, use the [debug](https://callstack.github.io/react-native-testing-library/docs/api#debug) function to see the serialized rendering result.
+
+Use this as a base for your test:
+
+```
+describe('RepositoryList', () => {
+  describe('RepositoryListContainer', () => {
+    it('renders repository information correctly', () => {
+      const repositories = {
+        totalCount: 8,
+        pageInfo: {
+          hasNextPage: true,
+          endCursor:
+            'WyJhc3luYy1saWJyYXJ5LnJlYWN0LWFzeW5jIiwxNTg4NjU2NzUwMDc2XQ==',
+          startCursor: 'WyJqYXJlZHBhbG1lci5mb3JtaWsiLDE1ODg2NjAzNTAwNzZd',
+        },
+        edges: [
+          {
+            node: {
+              id: 'jaredpalmer.formik',
+              fullName: 'jaredpalmer/formik',
+              description: 'Build forms in React, without the tears',
+              language: 'TypeScript',
+              forksCount: 1619,
+              stargazersCount: 21856,
+              ratingAverage: 88,
+              reviewCount: 3,
+              ownerAvatarUrl:
+                'https://avatars2.githubusercontent.com/u/4060187?v=4',
+            },
+            cursor: 'WyJqYXJlZHBhbG1lci5mb3JtaWsiLDE1ODg2NjAzNTAwNzZd',
+          },
+          {
+            node: {
+              id: 'async-library.react-async',
+              fullName: 'async-library/react-async',
+              description: 'Flexible promise-based React data loader',
+              language: 'JavaScript',
+              forksCount: 69,
+              stargazersCount: 1760,
+              ratingAverage: 72,
+              reviewCount: 3,
+              ownerAvatarUrl:
+                'https://avatars1.githubusercontent.com/u/54310907?v=4',
+            },
+            cursor:
+              'WyJhc3luYy1saWJyYXJ5LnJlYWN0LWFzeW5jIiwxNTg4NjU2NzUwMDc2XQ==',
+          },
+        ],
+      };
+
+      // Add your test code here
+    });
+  });
+});
+```
+
+You can put the test file where you please. However, it is recommended to follow one of the ways of organizing test files introduced earlier. Use the repositories variable as the repository data for the test. There should be no need to alter the variable's value. Note that the repository data contains two repositories, which means that you need to check that both repositories' information is present.
+
+### Exercise 10.18: Testing the sign in form
+
+Implement a test that ensures that filling the sign in form's username and password fields and pressing the submit button <em>will call</em> the `onSubmit` handler with <em>correct arguments</em>. The <em>first argument</em> of the handler should be an object representing the form's values. You can ignore the other arguments of the function. Remember that the [fireEvent](https://callstack.github.io/react-native-testing-library/docs/api#fireevent) methods can be used for triggering events and a [mock function](https://jestjs.io/docs/mock-function-api) for checking whether the `onSubmit` handler is called or not.
+
+You don't have to test any Apollo Client or AsyncStorage related code which is in the `useSignIn` hook. As in the previous exercise, extract the pure code into its own component and test it in the test.
+
+Note that Formik's form submissions are <em>asynchronous</em> so expecting the `onSubmit` function to be called immediately after pressing the submit button won't work. You can get around this issue by making the test function an async function using the `async` keyword and using the React Native Testing Library's [waitFor](https://callstack.github.io/react-native-testing-library/docs/api#waitfor) helper function. The `waitFor` function can be used to wait for expectations to pass. If the expectations don't pass within a certain period, the function will throw an error. Here is a rough example of how to use it:
+
+```
+import { render, screen, fireEvent, waitFor } from '@testing-library/react-native';
+// ...
+
+describe('SignIn', () => {
+  describe('SignInContainer', () => {
+    it('calls onSubmit function with correct arguments when a valid form is submitted', async () => {
+      // render the SignInContainer component, fill the text inputs and press the submit button
+
+      await waitFor(() => {
+        // expect the onSubmit function to have been called once and with a correct first argument
+      });
+    });
+  });
+});
+```
