@@ -1,14 +1,18 @@
-node_modules/
-.expo/
-dist/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# macOS
-.DS_Store
+# dependencies
+/node_modules
+.expo/
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.env
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

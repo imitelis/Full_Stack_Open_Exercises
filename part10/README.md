@@ -105,7 +105,7 @@ export default RepositoryList;
 ![plot](./exercises-media/5a.jpg)
 
 
-## Exercises 10.4-10.5.
+## Exercises 10.4. - 10.5.
 
 ### Exercise 10.4: The app bar
 
@@ -145,7 +145,7 @@ The current version of the reviewed repositories list looks quite grim. Modify t
 In the image, the `Main` component's background color is set to `#e1e4e8` whereas `RepositoryItem` component's background color is set to `white`. The language tag's background color is `#0366d6` which is the value of the `colors.primary` variable in the theme configuration. Remember to exploit the `Text` component we implemented earlier. Also when needed, split the `RepositoryItem` component into smaller components.
 
 
-## Exercises 10.6-10.7.
+## Exercises 10.6. - 10.7.
 
 ### 10.6: The sign-in view
 
@@ -329,7 +329,7 @@ export default AuthStorage;
 Next, implement the methods `AuthStorage.getAccessToken`, `AuthStorage.setAccessToken` and `AuthStorage.removeAccessToken`. Use the `namespace` variable to give your keys a namespace like we did in the previous example.
 
 
-## Exercises 10.15. - 10.16
+## Exercises 10.15. - 10.16.
 
 ### Exercise 10.15: Storing the access token step2
 
@@ -365,7 +365,7 @@ Pressing the "Sign out" tab should remove the user's access token from the stora
 This was the last exercise in this section. It's time to push your code to GitHub and mark all of your finished exercises to the exercise [submission system](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js). Note that exercises in this section should be submitted to the Part 3 in the exercise submission system.
 
 
-## Exercises 10.17. - 10.18
+## Exercises 10.17. - 10.18.
 
 ### Exercise 10.17: Testing the reviewed repositories list
 
@@ -475,3 +475,38 @@ describe('SignIn', () => {
   });
 });
 ```
+
+## Exercises 10.19. - 10.26.
+
+### Exercise 10.19: The single repository view
+
+Implement a view for a single repository, which contains the same repository information as in the reviewed repositories list but also a button for opening the repository in GitHub. It would be a good idea to reuse the `RepositoryItem` component used in the `RepositoryList` component and display the GitHub repository button for example based on a boolean prop.
+
+The repository's URL is in the `url` field of the `Repository` type in the GraphQL schema. You can fetch a single repository from the Apollo server with the `repository` query. The query has a single argument, which is the id of the repository. Here's a simple example of the `repository` query:
+
+```
+{
+  repository(id: "jaredpalmer.formik") {
+    id
+    fullName
+    url
+  }
+}
+```
+
+As always, test your queries in the Apollo Sandbox first before using them in your application. If you are unsure about the GraphQL schema or what are the available queries, take a look at the documentation next to the operations editor. If you have trouble using the id as a variable in the query, take a moment to study the Apollo Client's documentation on queries.
+
+To learn how to open a URL in a browser, read the Expo's Linking API documentation. You will need this feature while implementing the button for opening the repository in GitHub. Hint: Linking.openURL method will come in handy.
+
+The view should have its own route. It would be a good idea to define the repository's id in the route's path as a path parameter, which you can access by using the useParams hook. The user should be able to access the view by pressing a repository in the reviewed repositories list. You can achieve this by for example wrapping the RepositoryItem with a Pressable component in the RepositoryList component and using navigate function to change the route in an onPress event handler. You can access the navigate function with the useNavigate hook.
+
+The final version of the single repository view should look something like this:
+Application preview
+
+Note if the peer depencendy issues prevent installing the library, try the --legacy-peer-deps option:
+
+```
+npm install expo-linking --legacy-peer-deps
+```
+
+### Exercise 10.20: repository's review list

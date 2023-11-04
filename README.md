@@ -273,7 +273,14 @@
   *  10.10: Rate repository graphql step10
   *  10.11: Rate repository graphql step11
   *  10.12: Rate repository graphql step12
+  *  10.13: Rate repository graphql step13
+  *  10.14: Rate repository graphql step14
+  *  10.15: Rate repository graphql step15
+  *  10.16: Rate repository graphql step16
+  *  10.17: Rate repository testing step17
+  *  10.18: Rate repository testing step18
   
-## Part 11 - CI/CD
+    
+## Part 11 - CI/CD - Exercises 11.1.-11.
 
 
