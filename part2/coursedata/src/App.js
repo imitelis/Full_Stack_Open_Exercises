@@ -53,11 +53,9 @@ const App = () => {
       ]
     }
   ]
-
   return (
     <div>
-      <h1>Course Data</h1>
-      <h2>Web development curriculum</h2>
+      <h1>Web development curriculum</h1>
       <Courses courses={courses}/>
     </div>
   )
