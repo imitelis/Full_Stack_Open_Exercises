@@ -6,9 +6,9 @@
   *  0.1: Review HTML step1
   *  0.2: Review CSS step2
   *  0.3: Review HTML forms step3
-  *  0.4: Diagram notes step1
-  *  0.5: Diagram spa step2
-  *  0.6: Diagram single-page step3
+  *  0.4: New note diagram step1
+  *  0.5: Single page app diagram step2
+  *  0.6: New note in single page app diagram step3
 
 
 ## Part 1 - Introduction to React - Exercises 1.1.-1.14.
@@ -281,6 +281,26 @@
   *  10.18: Rate repository testing step18
   
     
-## Part 11 - CI/CD - Exercises 11.1.-11.
+## Part 11 - CI/CD - Exercises 11.1.-11.21.
 
+  *  11.1: Warming up ci text step1
+  *  11.2: Pokédex ci/cd step1
+  *  11.3: Pokédex ci/cd step2
+  *  11.4: Pokédex ci/cd step3
+  *  11.5: Pokédex ci/cd step4
+  *  11.6: Pokédex ci/cd step5
+  *  11.7: Pokédex ci/cd step6
+  *  11.8: Pokédex ci/cd step7
+  *  11.9: Pokédex ci/cd step8
+  *  11.10: Pokédex ci/cd step9
+  *  11.11: Pokédex ci/cd step10
+  *  11.12: Pokédex ci/cd step11
+  *  11.13: Pokédex ci/cd step12
+  *  11.14: Pokédex ci/cd step13
+  *  11.15: Pokédex ci/cd step14
+  *  11.16: Pokédex ci/cd step15
+  *  11.17: Pokédex ci/cd step16
+  
+  
+## Part 12 - Containers - Exercises 12.1.-12.22.
 
