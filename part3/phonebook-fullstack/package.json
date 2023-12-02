@@ -1,6 +1,6 @@
 {
   "name": "phonebook-backend",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,6 @@
   },
   "author": "imitelis",
   "license": "MIT",
-  "proxy": "http://localhost:3001",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
