@@ -696,7 +696,7 @@ Push some more code to your branch, and ensure that the deployment step <em>is n
 
 ## Exercises 11.15.-11.16.
 
-Let's extend our workflow so that it will automatically increase (bump) the version when a pull request is merged into the main branch and [tag](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js) the release with the version number. We will use an open source action developed by a third-party: anothrNick/github-tag-action[tag](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js).
+Let's extend our workflow so that it will automatically increase (bump) the version when a pull request is merged into the main branch and [tag](https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-tag) the release with the version number. We will use an open source action developed by a third-party: [anothrNick/github-tag-action](https://github.com/anothrNick/github-tag-action).
 
 ### 11.15: Adding versioning
 
@@ -709,27 +709,27 @@ We will extend our workflow with one more step:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-**NOTE:** You should use the most recent version of the action, see [here](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js) if a more recent version is available.
+**NOTE:** You should use the most recent version of the action, see [here](https://github.com/anothrNick/github-tag-action) if a more recent version is available.
 
-We're passing an environmental variable `secrets.GITHUB_TOKEN` to the action. As it is third-party action, it needs the token for authentication in your repository. You can read more here[this file](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js) about authentication in GitHub Actions.
+We're passing an environmental variable `secrets.GITHUB_TOKEN` to the action. As it is third-party action, it needs the token for authentication in your repository. You can read more [here](https://docs.github.com/en/actions/security-guides/automatic-token-authentication) about authentication in GitHub Actions.
 
 You may end up having this error message:
 
 ![plot](./exercises-media/15a.png)
 
-The most likely cause for this is that your token has no write access to your repo. Go to your repository settings, and select actions/general, and ensure that your token has read and write permissions:
+The most likely cause for this is that your token has no write access to your repo. Go to your repository settings, and select actions/general, and ensure that your token has <em>read and write permissions</em>:
 
 ![plot](./exercises-media/15b.png)
 
-The [anothrNick/github-tag-action](./exercises-media/15a.png) action accepts some environment variables that modify the way the action tags your releases. You can look at these in the [README](./exercises-media/15a.png) and see what suits your needs.
+The [anothrNick/github-tag-action](https://github.com/anothrNick/github-tag-action) action accepts some environment variables that modify the way the action tags your releases. You can look at these in the [README](https://github.com/anothrNick/github-tag-action) and see what suits your needs.
 
 As you can see from the documentation by default your releases will receive a `minor` bump, meaning that the middle number will be incremented.
 
 Modify the configuration above so that each new version is by default a `patch` bump in the version number, so that by default, the last number is increased.
 
-Remember that we want only to bump the version when the change happens to the main branch! So add a similar `if` condition to prevent version bumps on pull request as was done in [Exercise 11.14.](./exercises-media/15a.png) to prevent deployment on pull request related events.
+Remember that we want only to bump the version when the change happens to the main branch! So add a similar `if` condition to prevent version bumps on pull request as was done in [Exercise 11.14.](https://fullstackopen.com/en/part11/keeping_green#exercises-11-13-11-14) to prevent deployment on pull request related events.
 
-Complete now the workflow. Do not just add it as another step, but configure it as a separate job that [depends](./exercises-media/15a.png) on the job that takes care of linting, testing and deployment. So change your workflow definition as follows:
+Complete now the workflow. Do not just add it as another step, but configure it as a separate job that [depends](https://docs.github.com/en/actions/using-workflows/about-workflows#creating-dependent-jobs) on the job that takes care of linting, testing and deployment. So change your workflow definition as follows:
 
 ```
 name: Deployment pipeline
@@ -754,16 +754,101 @@ jobs:
       // steps here
 ```
 
-As was mentioned earlier jobs of a workflow are executed in parallel but since we want the linting, testing and deployment to be done first, we set a dependency that the tag_release waits the another job to execute first since we do not want to tag the release unless it passes tests and is deployed.
+As was mentioned [earlier](https://fullstackopen.com/en/part11/getting_started_with_git_hub_actions#getting-started-with-workflows) jobs of a workflow are executed in parallel but since we want the linting, testing and deployment to be done first, we set a dependency that the <em>tag_release</em> waits the another job to execute first since we do not want to tag the release unless it passes tests and is deployed.
 
-If you're uncertain of the configuration, you can set DRY_RUN to true, which will make the action output the next version number without creating or tagging the release!
+If you're uncertain of the configuration, you can set `DRY_RUN` to `true`, which will make the action output the next version number without creating or tagging the release!
 
-Once the workflow runs successfully, the repository mentions that there are some tags:
+Once the workflow runs successfully, the repository mentions that there are some <em>tags</em>:
 
 ![plot](./exercises-media/15c.png)
 
-By clicking view all tags, you can see all the tags listed:
+By clicking <em>view all tags</em>, you can see all the tags listed:
 
 ![plot](./exercises-media/15d.png)
 
 And if needed, you can navigate to the view of a single tag that shows eg. what is the GitHub commit corresponding to the tag.
+
+### 11.16: Skipping a commit for tagging and deployment
+
+In general the more often you deploy the main branch to production, the better. However, there might be some valid reasons sometimes to skip a particular commit or a merged pull request to becoming tagged and released to production.
+
+Modify your setup so that if a commit message in a pull request contains `#skip`, the merge will not be deployed to production and it is not tagged with a version number.
+
+**Hints:**
+
+The easiest way to implement this is to alter the [if](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsif) conditions of the relevant steps. Similarly to [Exercise 11.14.](https://fullstackopen.com/en/part11/keeping_green#exercises-11-13-11-14) you can get the relevant information from the [GitHub context](https://docs.github.com/en/actions/learn-github-actions/contexts#github-context) of the workflow.
+
+You might take this as a starting point:
+
+```
+name: Testing stuff
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  a_test_job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: github context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: commits
+        env:
+          COMMITS: ${{ toJson(github.event.commits) }}
+        run: echo "$COMMITS"
+      - name: commit messages
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+        run: echo "$COMMIT_MESSAGES"
+```
+
+See what gets printed in the workflow log!
+
+Note that you can access the commits and commit messages <em>only when pushing or merging to the main branch</em>, so for pull requests the `github.event.commits` is empty. It is anyway not needed, since we want to skip the step altogether for pull requests.
+
+You most likely need functions [contains](https://docs.github.com/en/actions/learn-github-actions/expressions#contains) and [join](https://docs.github.com/en/actions/learn-github-actions/expressions#join) for your if condition.
+
+Developing workflows is not easy, and quite often the only option is trial and error. It might actually be advisable to have a separate repository for getting the configuration right, and when it is done, to copy the right configurations to the actual repository.
+
+It would also be possible to install a tool such as [act](https://github.com/nektos/act) that makes it possible to run your workflows locally. Unless you end using more involved use cases like creating your own [custom actions](https://docs.github.com/en/actions/creating-actions), going through the burden of setting up a tool such as act is most likely not worth the trouble.
+
+
+## Exercise 11.17.
+
+### 11.17: Adding protection to your main branch
+
+Add protection to your master (or main) branch.
+
+You should protect it to:
+
+  *  Require all pull request to be approved before merging
+  *  Require all status checks to pass before merging
+
+
+## Exercise 11.18.
+
+We have set up a channel fullstack_webhook to the course Discord group at https://study.cs.helsinki.fi/discord/join/fullstack for testing a messaging integration.
+
+Register now to Discord if you have not already done that. You will also need a Discord webhook in this exercise. You find the webhook in the pinned message of the channel fullstack_webhook. Please do not commit the webhook to GitHub!
+
+### 11.18: Build success/failure notification action
+
+You can find quite a few of third party actions from GitHub Action Marketplace by using the search phrase discord. Pick one for this exercise. My choice was discord-webhook-notify since it has quite many stars and a decent documentation.
+
+Setup the action so that it gives two types of notifications:
+
+  *  A success indication if a new version gets deployed
+  *  An error indication if a build fails
+
+In the case of an error, the notification should be a bit more verbose to help developers finding quickly which is the commit that caused it.
+
+See here how to check the job status!
+
+Your notifications may look like the following:
+
+![plot](./exercises-media/18a.png)

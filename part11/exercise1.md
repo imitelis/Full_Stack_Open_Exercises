@@ -1,6 +1,7 @@
 ## Exercise 11.1.
 
 ## C# language / .NET framework:
+
   *  For linting: StyleCop (set of style and consistency rules for C#), FxCop (code analysis in conformance to Microsoft's .NET framework guidelines), Roslyn (set of APIs libraries for custom code analysis and refactoring).
   *  For testing: NUnit (attribute-based model for writing tests), XUnit.net (similar approach, simple and extensible), MSTest (Microsoft's testing framework and comes built in VS).
   *  For building: MSBuild (build platform for Microsoft, used by Visual Studio), NuGet (package manager for .NET and C# dependencies), .NET CLI (command-line interface, cross-platform toolchain for .NET applications)

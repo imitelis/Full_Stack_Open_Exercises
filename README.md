@@ -3,7 +3,7 @@
 
 ## Part 0 - Fundamentals of Web apps - Exercises 0.1.-0.6.
 
-  *  0.1: Review HTML step1
+0.1: Review HTML step1
   *  0.2: Review CSS step2
   *  0.3: Review HTML forms step3
   *  0.4: New note diagram step1
