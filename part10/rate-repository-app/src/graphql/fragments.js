@@ -2,11 +2,11 @@ import { gql } from '@apollo/client'
 
 export const REPOSITORY_DETAILS = gql`
   fragment RepositoryDetails on Repository {
+    id
     createdAt
     description
     forksCount
     fullName
-    id
     language
     name
     openIssuesCount
@@ -14,12 +14,24 @@ export const REPOSITORY_DETAILS = gql`
     ownerName
     ratingAverage
     reviewCount
-
     stargazersCount
-    url
-
     userHasReviewed
     watchersCount
+    url
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
   }
 `
 

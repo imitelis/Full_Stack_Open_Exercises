@@ -23,7 +23,7 @@ This was the last exercise in this section. It's time to push your code to GitHu
 
 ## Exercise 10.3.
 
-### Exercise 10.3: The reviewed repositories list
+### 10.3: The reviewed repositories list
 
 In this exercise, we will implement the first version of the reviewed repositories list. The list should contain the repository's full name, description, language, number of forks, number of stars, rating average and number of reviews. Luckily React Native provides a handy component for displaying a list of data, which is the [FlatList](https://reactnative.dev/docs/flatlist) component.
 
@@ -105,9 +105,9 @@ export default RepositoryList;
 ![plot](./exercises-media/5a.jpg)
 
 
-## Exercises 10.4. - 10.5.
+## Exercises 10.4.-10.5.
 
-### Exercise 10.4: The app bar
+### 10.4: The app bar
 
 We will soon need to navigate between different views in our application. That is why we need an [app bar](https://material.io/components/app-bars-top/) to display tabs for switching between different views. Create a file <em>AppBar.jsx</em> in the <em>components</em> folder with the following content:
 
@@ -145,7 +145,7 @@ The current version of the reviewed repositories list looks quite grim. Modify t
 In the image, the `Main` component's background color is set to `#e1e4e8` whereas `RepositoryItem` component's background color is set to `white`. The language tag's background color is `#0366d6` which is the value of the `colors.primary` variable in the theme configuration. Remember to exploit the `Text` component we implemented earlier. Also when needed, split the `RepositoryItem` component into smaller components.
 
 
-## Exercises 10.6. - 10.7.
+## Exercises 10.6.-10.7.
 
 ### 10.6: The sign-in view
 
@@ -228,7 +228,7 @@ This was the last exercise in this section. It's time to push your code to GitHu
 
 ## Exercise 10.11.
 
-### Exercise 10.11: Fetching repositories with Apollo Client
+### 10.11: Fetching repositories with Apollo Client
 
 We want to replace the Fetch API implementation in the `useRepositories` hook with a GraphQL query. Open the Apollo Sandbox at [http://localhost:4000](localhost:4000) and take a look at the documentation next to the operations editor. Look up the `repositories` query. The query has some arguments, however, all of these are optional so you don't need to specify them. In the Apollo Sandbox form a query for fetching the repositories with the fields you are currently displaying in the application. The result will be paginated and it contains the up to first 30 results by default. For now, you can ignore the pagination entirely.
 
@@ -246,16 +246,16 @@ The changes in the `useRepositories` hook should not affect the `RepositoryList`
 
 ## Exercise 10.12.
 
-### Exercise 10.12: Environment variables
+### 10.12: Environment variables
 
 Instead of the hardcoded Apollo Server's URL, use an environment variable defined in the <em>.env</em> file when initializing the Apollo Client. You can name the environment variable for example `APOLLO_URI`.
 
 <em>Do not</em> try to access environment variables like `process.env.APOLLO_URI` outside the <em>app.config.js</em> file. Instead use the `Constants.manifest.extra` object like in the previous example. In addition, do not import the dotenv library outside the <em>app.config.js</em> file or you will most likely face errors.
 
 
-## Exercises 10.13. - 10.14.
+## Exercises 10.13.-10.14.
 
-### Exercise 10.13: the sign in form mutation
+### 10.13: the sign in form mutation
 
 The current implementation of the sign in form doesn't do much with the submitted user's credentials. Let's do something about that in this exercise. First, read the rate-repository-api server's [authentication documentation](https://github.com/fullstack-hy2020/rate-repository-api#-authentication) and test the provided queries and mutations in the Apollo Sandbox. If the database doesn't have any users, you can populate the database with some seed data. Instructions for this can be found in the [getting started](https://github.com/fullstack-hy2020/rate-repository-api#-getting-started) section of the README.
 
@@ -298,7 +298,7 @@ const SignIn = () => {
 
 This exercise is completed once you can log the user's <em>authenticate</em> mutations result after the sign in form has been submitted. The mutation result should contain the user's access token.
 
-### Exercise 10.14: Storing the access token step1
+### 10.14: Storing the access token step1
 
 Now that we can obtain the access token we need to store it. Create a file <em>authStorage.js</em> in the <em>utils</em> directory with the following content:
 
@@ -329,13 +329,13 @@ export default AuthStorage;
 Next, implement the methods `AuthStorage.getAccessToken`, `AuthStorage.setAccessToken` and `AuthStorage.removeAccessToken`. Use the `namespace` variable to give your keys a namespace like we did in the previous example.
 
 
-## Exercises 10.15. - 10.16.
+## Exercises 10.15.-10.16.
 
-### Exercise 10.15: Storing the access token step2
+### 10.15: Storing the access token step2
 
 Improve the `useSignIn` hook so that it stores the user's access token retrieved from the <em>authenticate</em> mutation. The return value of the hook should not change. The only change you should make to the `SignIn` component is that you should redirect the user to the reviewed repositories list view after a successful sign in. You can achieve this by using the [useNavigate](https://reactrouter.com/en/6.14.2/hooks/use-navigate) hook.
 
-After the authenticate mutation has been executed and you have stored the user's access token to the storage, you should reset the Apollo Client's store. This will clear the Apollo Client's cache and re-execute all active queries. You can do this by using the Apollo Client's [resetStore](https://www.apollographql.com/docs/react/api/core/ApolloClient/#ApolloClient.resetStore) method. You can access the Apollo Client in the `useSignIn` hook using the [useApolloClient](https://www.apollographql.com/docs/react/api/react/hooks/#useapolloclient) hook. Note that the order of the execution is crucial and should be the following:
+After the <em>authenticate</em> mutation has been executed and you have stored the user's access token to the storage, you should reset the Apollo Client's store. This will clear the Apollo Client's cache and re-execute all active queries. You can do this by using the Apollo Client's [resetStore](https://www.apollographql.com/docs/react/api/core/ApolloClient/#ApolloClient.resetStore) method. You can access the Apollo Client in the `useSignIn` hook using the [useApolloClient](https://www.apollographql.com/docs/react/api/react/hooks/#useapolloclient) hook. Note that the order of the execution is crucial and should be the following:
 
 ```
 const { data } = await mutate(/* options */);
@@ -343,7 +343,7 @@ await authStorage.setAccessToken(/* access token from the data */);
 apolloClient.resetStore();
 ```
 
-### Exercise 10.16: Sign out
+### 10.16: Sign out
 
 The final step in completing the sign in feature is to implement a sign out feature. The `me` query can be used to check the authenticated user's information. If the query's result is `null`, that means that the user is not authenticated. Open the Apollo Sandbox and run the following query:
 
@@ -356,7 +356,7 @@ The final step in completing the sign in feature is to implement a sign out feat
 }
 ```
 
-You will probably end up with the `null` result. This is because the Apollo Sandbox is not authenticated, meaning that it doesn't send a valid access token with the request. Revise the [authentication documentation](https://github.com/fullstack-hy2020/rate-repository-api#-authentication) and retrieve an access token using the authenticate mutation. Use this access token in the Authorization header as instructed in the documentation. Now, run the `me` query again and you should be able to see the authenticated user's information.
+You will probably end up with the `null` result. This is because the Apollo Sandbox is not authenticated, meaning that it doesn't send a valid access token with the request. Revise the [authentication documentation](https://github.com/fullstack-hy2020/rate-repository-api#-authentication) and retrieve an access token using the `authenticate` mutation. Use this access token in the Authorization header as instructed in the documentation. Now, run the `me` query again and you should be able to see the authenticated user's information.
 
 Open the `AppBar` component in the <em>AppBar.jsx</em> file where you currently have the tabs "Repositories" and "Sign in". Change the tabs so that if the user is signed in the tab "Sign out" is displayed, otherwise show the "Sign in" tab. You can achieve this by using the `me` query with the [useQuery](https://www.apollographql.com/docs/react/api/react/hooks/#usequery) hook.
 
@@ -365,9 +365,9 @@ Pressing the "Sign out" tab should remove the user's access token from the stora
 This was the last exercise in this section. It's time to push your code to GitHub and mark all of your finished exercises to the exercise [submission system](https://github.com/fullstack-hy2020/misc/blob/master/library-backend.js). Note that exercises in this section should be submitted to the Part 3 in the exercise submission system.
 
 
-## Exercises 10.17. - 10.18.
+## Exercises 10.17.-10.18.
 
-### Exercise 10.17: Testing the reviewed repositories list
+### 10.17: Testing the reviewed repositories list
 
 Implement a test that ensures that the `RepositoryListContainer` component renders repository's name, description, language, forks count, stargazers count, rating average, and review count correctly. One approach in implementing this test is to add a [testID](https://reactnative.dev/docs/view#testid) prop for the element wrapping a single repository's information:
 
@@ -449,9 +449,9 @@ describe('RepositoryList', () => {
 });
 ```
 
-You can put the test file where you please. However, it is recommended to follow one of the ways of organizing test files introduced earlier. Use the repositories variable as the repository data for the test. There should be no need to alter the variable's value. Note that the repository data contains two repositories, which means that you need to check that both repositories' information is present.
+You can put the test file where you please. However, it is recommended to follow one of the ways of organizing test files introduced earlier. Use the `repositories` variable as the repository data for the test. There should be no need to alter the variable's value. Note that the repository data contains two repositories, which means that you need to check that both repositories' information is present.
 
-### Exercise 10.18: Testing the sign in form
+### 10.18: Testing the sign in form
 
 Implement a test that ensures that filling the sign in form's username and password fields and pressing the submit button <em>will call</em> the `onSubmit` handler with <em>correct arguments</em>. The <em>first argument</em> of the handler should be an object representing the form's values. You can ignore the other arguments of the function. Remember that the [fireEvent](https://callstack.github.io/react-native-testing-library/docs/api#fireevent) methods can be used for triggering events and a [mock function](https://jestjs.io/docs/mock-function-api) for checking whether the `onSubmit` handler is called or not.
 
@@ -476,9 +476,9 @@ describe('SignIn', () => {
 });
 ```
 
-## Exercises 10.19. - 10.26.
+## Exercises 10.19.-10.26.
 
-### Exercise 10.19: The single repository view
+### 10.19: The single repository view
 
 Implement a view for a single repository, which contains the same repository information as in the reviewed repositories list but also a button for opening the repository in GitHub. It would be a good idea to reuse the `RepositoryItem` component used in the `RepositoryList` component and display the GitHub repository button for example based on a boolean prop.
 
@@ -494,19 +494,137 @@ The repository's URL is in the `url` field of the `Repository` type in the Graph
 }
 ```
 
-As always, test your queries in the Apollo Sandbox first before using them in your application. If you are unsure about the GraphQL schema or what are the available queries, take a look at the documentation next to the operations editor. If you have trouble using the id as a variable in the query, take a moment to study the Apollo Client's documentation on queries.
+As always, test your queries in the Apollo Sandbox first before using them in your application. If you are unsure about the GraphQL schema or what are the available queries, take a look at the documentation next to the operations editor. If you have trouble using the id as a variable in the query, take a moment to study the Apollo Client's [documentation](https://www.apollographql.com/docs/react/data/queries/) on queries.
 
-To learn how to open a URL in a browser, read the Expo's Linking API documentation. You will need this feature while implementing the button for opening the repository in GitHub. Hint: Linking.openURL method will come in handy.
+To learn how to open a URL in a browser, read the Expo's [Linking API documentation](https://docs.expo.dev/versions/latest/sdk/linking/). You will need this feature while implementing the button for opening the repository in GitHub. Hint: [Linking.openURL](https://docs.expo.dev/versions/latest/sdk/linking/#linkingopenurlurl) method will come in handy.
 
-The view should have its own route. It would be a good idea to define the repository's id in the route's path as a path parameter, which you can access by using the useParams hook. The user should be able to access the view by pressing a repository in the reviewed repositories list. You can achieve this by for example wrapping the RepositoryItem with a Pressable component in the RepositoryList component and using navigate function to change the route in an onPress event handler. You can access the navigate function with the useNavigate hook.
+The view should have its own route. It would be a good idea to define the repository's id in the route's path as a path parameter, which you can access by using the [useParams](https://reactrouter.com/en/6.14.2/hooks/use-params) hook. The user should be able to access the view by pressing a repository in the reviewed repositories list. You can achieve this by for example wrapping the `RepositoryItem` with a [Pressable](https://reactnative.dev/docs/pressable) component in the `RepositoryList` component and using `navigate` function to change the route in an `onPress` event handler. You can access the `navigate` function with the [useNavigate](https://reactrouter.com/en/6.14.2/hooks/use-navigate) hook.
 
 The final version of the single repository view should look something like this:
-Application preview
 
-Note if the peer depencendy issues prevent installing the library, try the --legacy-peer-deps option:
+![plot](./exercises-media/13a.jpg)
+
+**NOTE:** If the peer depencendy issues prevent installing the library, try the `--legacy-peer-deps` option:
 
 ```
 npm install expo-linking --legacy-peer-deps
 ```
 
-### Exercise 10.20: repository's review list
+### 10.20: Repository's review list
+
+Now that we have a view for a single repository, let's display repository's reviews there. Repository's reviews are in the `reviews` field of the `Repository` type in the GraphQL schema. `reviews` is a similar paginated list as in the `repositories` query. Here's an example of getting reviews of a repository:
+
+```
+{
+  repository(id: "jaredpalmer.formik") {
+    id
+    fullName
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Review's `text` field contains the textual review, `rating` field a numeric rating between 0 and 100, and `createdAt` the date when the review was created. Review's `user` field contains the reviewer's information, which is of type `User`.
+
+We want to display reviews as a scrollable list, which makes [FlatList](https://reactnative.dev/docs/flatlist) a suitable component for the job. To display the previous exercise's repository's information at the top of the list, you can use the `FlatList` component's [ListHeaderComponent](https://reactnative.dev/docs/flatlist#listheadercomponent) prop. You can use the [ItemSeparatorComponent](https://reactnative.dev/docs/flatlist#itemseparatorcomponent) to add some space between the items like in the `RepositoryList` component. Here's an example of the structure:
+
+```
+const RepositoryInfo = ({ repository }) => {
+  // Repository's information implemented in the previous exercise
+};
+
+const ReviewItem = ({ review }) => {
+  // Single review item
+};
+
+const SingleRepository = () => {
+  // ...
+
+  return (
+    <FlatList
+      data={reviews}
+      renderItem={({ item }) => <ReviewItem review={item} />}
+      keyExtractor={({ id }) => id}
+      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+      // ...
+    />
+  );
+};
+
+export default SingleRepository;
+```
+
+The final version of the repository's reviews list should look something like this:
+
+![plot](./exercises-media/14a.jpg)
+
+The date under the reviewer's username is the creation date of the review, which is in the `createdAt` field of the Review type. The date format should be user-friendly such as <em>date.month.year</em>. You can for example install the [date-fns](https://date-fns.org) library and use the [format](https://date-fns.org/v2.28.0/docs/format) function for formatting the creation date.
+
+The round shape of the rating's container can be achieved with the `borderRadius` style property. You can make it round by fixing the container's `width` and `height` style property and setting the border-radius as `width / 2`.
+
+### 10.21: The review form
+
+Implement a form for creating a review using Formik. The form should have four fields: repository owner's GitHub username (for example "jaredpalmer"), repository's name (for example "formik"), a numeric rating, and a textual review. Validate the fields using Yup schema so that it contains the following validations:
+
+  *  Repository owner's username is a required string
+  *  Repository's name is a required string
+  *  Rating is a required number between 0 and 100
+  *  Review is a optional string
+
+Explore Yup's [documentation](https://github.com/jquense/yup#yup) to find suitable validators. Use sensible error messages with the validators. The validation `message` can be defined as the validator method's message argument. You can make the review field expand to multiple lines by using `TextInput` component's [multiline](https://reactnative.dev/docs/textinput#multiline) prop.
+
+You can create a review using the `createReview` mutation. Check this mutation's arguments in the Apollo Sandbox. You can use the [useMutation](https://www.apollographql.com/docs/react/api/react/hooks/#usemutation) hook to send a mutation to the Apollo Server.
+
+After a successful `createReview` mutation, redirect the user to the repository's view you implemented in the previous exercise. This can be done with the `navigate` function after you have obtained it using the [useNavigate](https://reactrouter.com/en/6.22.3/docs/en/v6/api#usenavigate) hook. The created review has a `repositoryId` field which you can use to construct the route's path.
+
+To prevent getting cached data with the `repository` query in the single repository view, use the `cache-and-network` [fetch policy](https://www.apollographql.com/docs/react/data/queries/#setting-a-fetch-policy) in the query. It can be used with the `useQuery` hook like this:
+
+```
+useQuery(GET_REPOSITORY, {
+  fetchPolicy: 'cache-and-network',
+  // Other options
+});
+```
+
+Note that only <em>an existing public GitHub repository</em> can be reviewed and a user can review the same repository <em>only once</em>. You don't have to handle these error cases, but the error payload includes specific codes and messages for these errors. You can try out your implementation by reviewing one of your own public repositories or any other public repository.
+
+The review form should be accessible through the app bar. Create a tab to the app bar with a label "Create a review". This tab should only be visible to users who have signed in. You will also need to define a route for the review form.
+
+The final version of the review form should look something like this:
+
+![plot](./exercises-media/15a.jpg)
+
+This screenshot has been taken after invalid form submission to present what the form should look like in an invalid state.
+
+# 10.22: The sign up form
+
+Implement a sign up form for registering a user using Formik. The form should have three fields: username, password, and password confirmation. Validate the form using Yup schema so that it contains the following validations:
+
+  *  Username is a required string with a length between 5 and 30
+  *  Password is a required string with a length between 5 and 50
+  *  Password confirmation matches the password
+
+The password confirmation field's validation can be a bit tricky, but it can be done for example by using the [oneOf](https://github.com/jquense/yup#schemaoneofarrayofvalues-arrayany-message-string--function-schema-alias-equals) and [ref](https://github.com/jquense/yup#refpath-string-options--contextprefix-string--ref) methods like suggested in this [issue](https://github.com/jaredpalmer/formik/issues/90#issuecomment-354873201).
+
+You can create a new user by using the `createUser` mutation. Find out how this mutation works by exploring the documentation in the Apollo Sandbox. After a successful `createUser` mutation, sign the created user in by using the `useSignIn` hook as we did in the sign in the form. After the user has been signed in, redirect the user to the reviewed repositories list view.
+
+The user should be able to access the sign-up form through the app bar by pressing a "Sign up" tab. This tab should only be visible to users that aren't signed in.
+
+The final version of the sign up form should look something like this:
+
+![plot](./exercises-media/16a.jpg)
+
+This screenshot has been taken after invalid form submission to present what the form should look like in an invalid state.

@@ -30,12 +30,16 @@ const theme = {
     unit: 1,
     tiny: 2.5,
     small: 5,
+    middle: 7.5,
     medium: 10,
     large: 15,
-    big: 20,
+    larger: 20,
+    big: 25,
+    bigger: 30,
   },
   imageSizes: {
     small: 40,
+    middle: 50,
   },
 }
 

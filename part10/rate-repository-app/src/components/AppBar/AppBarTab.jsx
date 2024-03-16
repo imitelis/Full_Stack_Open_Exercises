@@ -7,7 +7,7 @@ const AppBarTab = ({ tabTitle, tabLink }) => {
   return (
     <View>
       <Link to={tabLink}>
-        <Text color="secondary" fontWeight="bold" fontSize="large">
+        <Text color="secondary" fontWeight="bold" fontSize="medium">
           {tabTitle}
         </Text>
       </Link>

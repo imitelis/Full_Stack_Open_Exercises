@@ -1,12 +1,20 @@
 import { View, Image, StyleSheet, Pressable } from 'react-native'
-import { useNavigate } from 'react-router-native'
+import { useParams } from 'react-router-native'
+import { Linking } from 'react-native-web'
 
-import theme from '../../theme'
+import ReviewList from './ReviewList'
+
+import useRepository from '../../hooks/useRepository'
 import { formatNumber } from '../../utils/formatNumber'
 
+import theme from '../../theme'
 import Text from '../Text'
 
 const styles = StyleSheet.create({
+  separator: {
+    height: 10,
+    backgroundColor: theme.colors.backgroundPrimary,
+  },
   container: {
     backgroundColor: theme.colors.secondary,
   },
@@ -47,21 +55,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: theme.propSizes.small,
   },
+  form: {
+    flexDirection: 'column',
+    padding: theme.propSizes.medium,
+    backgroundColor: theme.colors.secondary,
+  },
+  submitButton: {
+    backgroundColor: theme.colors.primary,
+    paddingVertical: theme.propSizes.large,
+    borderRadius: theme.propSizes.tiny,
+    alignItems: 'center',
+  },
+  submitText: {
+    color: theme.colors.secondary,
+    fontSize: theme.fontSizes.large,
+    fontWeight: theme.fontWeights.bold,
+  },
 })
 
-const RepositoryItem = ({ repository }) => {
-  const navigate = useNavigate()
-
-  const handleView = () => {
-    navigate(`/repositories/${repository.id}`)
+export const SingleRepositoryContainer = ({ repository }) => {
+  const onOpen = () => {
+    Linking.openURL(repository.url)
   }
 
   return (
-    <Pressable
-      style={styles.container}
-      testID="repositoryItem"
-      onPress={handleView}
-    >
+    <View style={styles.container} testID="repositoryItem">
       <View style={styles.header}>
         <View>
           <Image
@@ -107,8 +125,22 @@ const RepositoryItem = ({ repository }) => {
           <Text color="textSecondary">Rating</Text>
         </View>
       </View>
-    </Pressable>
+      <View style={styles.form}>
+        <Pressable style={styles.submitButton} onPress={onOpen}>
+          <Text style={styles.submitText}>Open in Github</Text>
+        </Pressable>
+      </View>
+      <View style={styles.separator}></View>
+      <ReviewList reviews={repository.reviews} />
+    </View>
   )
 }
 
-export default RepositoryItem
+const SingleRepository = () => {
+  const { id } = useParams()
+  const repository = useRepository(id)
+
+  if (repository) return <SingleRepositoryContainer repository={repository} />
+}
+
+export default SingleRepository

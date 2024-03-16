@@ -17,7 +17,7 @@ const SignOutTab = () => {
   return (
     <View>
       <Pressable onPress={handleSignOut}>
-        <Text color="secondary" fontWeight="bold" fontSize="large">
+        <Text color="secondary" fontWeight="bold" fontSize="medium">
           Sign Out
         </Text>
       </Pressable>
