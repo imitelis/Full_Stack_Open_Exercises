@@ -3,12 +3,19 @@ import { FlatList, View, StyleSheet } from 'react-native'
 import theme from '../../theme'
 import useRepositories from '../../hooks/useRepositories'
 
+import SelectForm from './SelectForm'
 import RepositoryItem from './RepositoryItem'
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
     backgroundColor: theme.colors.backgroundPrimary,
+  },
+  select: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: theme.propSizes.larger,
   },
 })
 
@@ -69,12 +76,15 @@ export const RepositoryListContainer = ({ repositories }) => {
     : []
 
   return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <RepositoryItem repository={item} />}
-      keyExtractor={(item) => item.id}
-    />
+    <>
+      <SelectForm />
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => <RepositoryItem repository={item} />}
+        keyExtractor={(item) => item.id}
+      />
+    </>
   )
 }
 

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-native'
 import { View, Pressable, StyleSheet } from 'react-native'
-import { Formik, Form } from 'formik'
+import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import theme from '../../theme'
@@ -51,19 +51,13 @@ const validationSchema = yup.object().shape({
 
 const SignInForm = ({ onSubmit }) => {
   return (
-    <Form style={styles.form}>
-      <View>
-        <FormikTextInput name="username" placeholder="Username" />
-        <FormikTextInput
-          name="password"
-          placeholder="Password"
-          isSecure={true}
-        />
-        <Pressable style={styles.submitButton} onPress={onSubmit}>
-          <Text style={styles.submitText}>Sign In</Text>
-        </Pressable>
-      </View>
-    </Form>
+    <View style={styles.form}>
+      <FormikTextInput name="username" placeholder="Username" />
+      <FormikTextInput name="password" placeholder="Password" isSecure={true} />
+      <Pressable style={styles.submitButton} onPress={onSubmit}>
+        <Text style={styles.submitText}>Sign In</Text>
+      </Pressable>
+    </View>
   )
 }
 

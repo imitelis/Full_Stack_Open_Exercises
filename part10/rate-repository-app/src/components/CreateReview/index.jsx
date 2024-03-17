@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-native'
 import { View, Pressable, StyleSheet } from 'react-native'
-import { Formik, Form } from 'formik'
+import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import theme from '../../theme'
@@ -60,17 +60,15 @@ const validationSchema = yup.object().shape({
 
 const CreateReviewForm = ({ onSubmit }) => {
   return (
-    <Form style={styles.form}>
-      <View>
-        <FormikTextInput name="ownerName" placeholder="Repository owner name" />
-        <FormikTextInput name="repositoryName" placeholder="Repository name" />
-        <FormikTextInput name="rating" placeholder="Rating between 0 and 100" />
-        <FormikTextInput name="text" placeholder="Review" />
-        <Pressable style={styles.submitButton} onPress={onSubmit}>
-          <Text style={styles.submitText}>Create a Review</Text>
-        </Pressable>
-      </View>
-    </Form>
+    <View style={styles.form}>
+      <FormikTextInput name="ownerName" placeholder="Repository owner name" />
+      <FormikTextInput name="repositoryName" placeholder="Repository name" />
+      <FormikTextInput name="rating" placeholder="Rating between 0 and 100" />
+      <FormikTextInput name="text" placeholder="Review" />
+      <Pressable style={styles.submitButton} onPress={onSubmit}>
+        <Text style={styles.submitText}>Create a Review</Text>
+      </Pressable>
+    </View>
   )
 }
 

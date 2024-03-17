@@ -130,7 +130,7 @@ export const SingleRepositoryContainer = ({ repository }) => {
           <Text style={styles.submitText}>Open in Github</Text>
         </Pressable>
       </View>
-      <View style={styles.separator}></View>
+      <View style={styles.separator} />
       <ReviewList reviews={repository.reviews} />
     </View>
   )

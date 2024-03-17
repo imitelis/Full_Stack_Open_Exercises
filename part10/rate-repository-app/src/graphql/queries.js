@@ -15,6 +15,22 @@ export const GET_REPOSITORIES = gql`
   ${REPOSITORY_DETAILS}
 `
 
+export const GET_FILTERED_REPOSITORIES = gql`
+  query Query(
+    $orderBy: AllRepositoriesOrderBy
+    $orderDirection: OrderDirection
+  ) {
+    repositories(orderBy: $orderBy, orderDirection: $orderDirection) {
+      edges {
+        node {
+          ...RepositoryDetails
+        }
+      }
+    }
+  }
+  ${REPOSITORY_DETAILS}
+`
+
 export const GET_REPOSITORY = gql`
   query Repository($id: ID!) {
     repository(id: $id) {

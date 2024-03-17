@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: theme.propSizes.large,
+    padding: theme.propSizes.small,
     marginTop: theme.propSizes.small,
     marginLeft: theme.propSizes.small,
   },
