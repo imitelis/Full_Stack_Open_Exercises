@@ -100,11 +100,9 @@ const SignUp = () => {
     const password = values.password
 
     try {
-      const signUpData = await signUp({ username, password })
-      const signInData = await signIn({ username, password })
+      await signUp({ username, password })
+      await signIn({ username, password })
       navigate('/repositories')
-      console.log(signUpData)
-      console.log(signInData)
     } catch (e) {
       console.log(e)
     }

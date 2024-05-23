@@ -18,20 +18,6 @@ export const REPOSITORY_DETAILS = gql`
     userHasReviewed
     watchersCount
     url
-    reviews {
-      edges {
-        node {
-          id
-          text
-          rating
-          createdAt
-          user {
-            id
-            username
-          }
-        }
-      }
-    }
   }
 `
 
@@ -39,5 +25,23 @@ export const USER_DETAILS = gql`
   fragment UserDetails on User {
     id
     username
+  }
+`
+
+export const REVIEW_DETAILS = gql`
+  fragment ReviewDetails on Review {
+    id
+    rating
+    text
+    createdAt
+    repository {
+      id
+      fullName
+      url
+    }
+    user {
+      id
+      username
+    }
   }
 `

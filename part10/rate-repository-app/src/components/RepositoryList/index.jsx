@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useDebounce } from 'use-debounce'
 import { FlatList, View, StyleSheet } from 'react-native'
 
 import theme from '../../theme'
@@ -70,28 +72,63 @@ const repositories = [
 
 const ItemSeparator = () => <View style={styles.separator} />
 
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({
+  repositories,
+  order,
+  setOrder,
+  searchWord,
+  setSearchWord,
+  onEndReach,
+}) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : []
 
   return (
     <>
-      <SelectForm />
+      <SelectForm
+        order={order}
+        setOrder={setOrder}
+        searchWord={searchWord}
+        setSearchWord={setSearchWord}
+      />
       <FlatList
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item }) => <RepositoryItem repository={item} />}
         keyExtractor={(item) => item.id}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     </>
   )
 }
 
 const RepositoryList = () => {
-  const repositories = useRepositories()
+  const [order, setOrder] = useState('')
+  const [searchWord, setSearchWord] = useState('')
+  const [debouncedsearchWord] = useDebounce(searchWord, 1000)
 
-  return <RepositoryListContainer repositories={repositories} />
+  const { repositories, fetchMore } = useRepositories({
+    order,
+    debouncedsearchWord,
+  })
+
+  const onEndReach = () => {
+    // console.log('You have reached the end of the list');
+    fetchMore()
+  }
+
+  return (
+    <RepositoryListContainer
+      repositories={repositories}
+      order={order}
+      setOrder={setOrder}
+      searchWord={searchWord}
+      setSearchWord={setSearchWord}
+      onEndReach={onEndReach}
+    />
+  )
 }
 
 export default RepositoryList

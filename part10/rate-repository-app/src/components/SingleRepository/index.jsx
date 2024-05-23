@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export const SingleRepositoryContainer = ({ repository }) => {
+export const SingleRepositoryContainer = ({ repository, onEndReach }) => {
   const onOpen = () => {
     Linking.openURL(repository.url)
   }
@@ -131,16 +131,27 @@ export const SingleRepositoryContainer = ({ repository }) => {
         </Pressable>
       </View>
       <View style={styles.separator} />
-      <ReviewList reviews={repository.reviews} />
+      <ReviewList reviews={repository.reviews} onEndReach={onEndReach} />
     </View>
   )
 }
 
 const SingleRepository = () => {
   const { id } = useParams()
-  const repository = useRepository(id)
+  const { repository, fetchMore } = useRepository(id)
 
-  if (repository) return <SingleRepositoryContainer repository={repository} />
+  const onEndReach = () => {
+    console.log('You have reached the end of the list')
+    fetchMore()
+  }
+
+  if (repository)
+    return (
+      <SingleRepositoryContainer
+        repository={repository}
+        onEndReach={onEndReach}
+      />
+    )
 }
 
 export default SingleRepository

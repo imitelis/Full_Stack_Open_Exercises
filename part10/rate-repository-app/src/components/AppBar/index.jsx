@@ -40,6 +40,10 @@ const AppBar = () => {
               tabTitle={'Create a Review'}
               tabLink={'/createreview'}
             ></AppBarTab>
+            <AppBarTab
+              tabTitle={'My Reviews'}
+              tabLink={'/myreviews'}
+            ></AppBarTab>
             <SignOutTab />
           </>
         ) : (

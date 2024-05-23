@@ -4,7 +4,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import theme from '../../theme'
-import useReview from '../../hooks/useReview'
+import useCreateReview from '../../hooks/useCreateReview'
 
 import Text from '../Text'
 import FormikTextInput from '../FormikTextInput'
@@ -86,7 +86,7 @@ export const CreateReviewContainer = ({ onSubmit }) => {
 }
 
 const CreateReview = () => {
-  const [createReview] = useReview()
+  const [createReview] = useCreateReview()
   const navigate = useNavigate()
 
   const onSubmit = async (values) => {
@@ -96,14 +96,13 @@ const CreateReview = () => {
     const text = values.text
 
     try {
-      const data = await createReview({
+      await createReview({
         ownerName,
         repositoryName,
         rating,
         text,
       })
       navigate(`/repositories/${ownerName}.${repositoryName}`)
-      console.log(data)
     } catch (e) {
       console.log(e)
     }

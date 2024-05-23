@@ -7,6 +7,7 @@ import AppBar from './AppBar'
 import RepositoryList from './RepositoryList'
 import SingleRepository from './SingleRepository'
 import CreateReview from './CreateReview'
+import MyReviews from './MyReviews'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 
@@ -27,6 +28,7 @@ const Main = () => {
         <Route path="/repositories" element={<RepositoryList />} />
         <Route path="/repositories/:id" element={<SingleRepository />} />
         <Route path="/createreview" element={<CreateReview />} />
+        <Route path="/myreviews" element={<MyReviews />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

@@ -256,7 +256,7 @@
   *  9.29: Patientor finale step10
 
 
-## Part 10 - React Native - Exercises 10.1.-10.26.
+## Part 10 - React Native - Exercises 10.1.-10.27.
 
   *  10.1: Rate repository setup step1
   *  10.2: Rate repository setup step2
@@ -283,6 +283,11 @@
   *  10.20: Rate repository extending step20
   *  10.21: Rate repository extending step21
   *  10.22: Rate repository extending step22
+  *  10.23: Rate repository extending step23
+  *  10.24: Rate repository extending step24
+  *  10.25: Rate repository extending step25
+  *  10.26: Rate repository extending step26
+  *  10.27: Rate repository extending step27
   
     
 ## Part 11 - CI/CD - Exercises 11.1.-11.21.

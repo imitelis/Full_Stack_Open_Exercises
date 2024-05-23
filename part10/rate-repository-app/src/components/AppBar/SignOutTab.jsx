@@ -6,12 +6,16 @@ import useSignOut from '../../hooks/useSignOut'
 import Text from '../Text'
 
 const SignOutTab = () => {
-  const navigate = useNavigate()
   const [signOut] = useSignOut()
+  const navigate = useNavigate()
 
   const handleSignOut = async () => {
-    await signOut()
-    navigate('/signin')
+    try {
+      await signOut()
+      navigate('/signin')
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (

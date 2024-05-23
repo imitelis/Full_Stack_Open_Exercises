@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 
-import { AUTHENTICATE_ME } from '../graphql/queries'
+import { AUTHENTICATE_USER } from '../graphql/queries'
 
 const useAuthenticate = () => {
   const [me, setMe] = useState()
 
-  const { data, error, loading } = useQuery(AUTHENTICATE_ME, {
+  const { data, error, loading } = useQuery(AUTHENTICATE_USER, {
     fetchPolicy: 'cache-and-network',
   })
 
   useEffect(() => {
     if (!loading) {
-      // console.log(data);
-      setMe(data.me)
-    }
-    if (error) {
-      console.log(error)
+      if (data && data.me) {
+        setMe(data.me)
+      } else {
+        console.log(error)
+      }
     }
   }, [data, error, loading])
 

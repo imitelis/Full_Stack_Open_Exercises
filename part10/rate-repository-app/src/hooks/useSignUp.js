@@ -12,10 +12,8 @@ const useSignUp = () => {
       variables: { user: { username, password } },
     })
     apolloClient.resetStore()
-
     return result
   }
-
   return [signUp, result]
 }
 

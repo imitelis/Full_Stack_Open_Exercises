@@ -9,21 +9,28 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: theme.colors.backgroundPrimary,
   },
+  select: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: theme.propSizes.larger,
+  },
 })
 
 const ItemSeparator = () => <View style={styles.separator} />
 
-export const ReviewList = ({ reviews, onEndReach }) => {
+const ReviewList = ({ reviews }) => {
   const reviewNodes = reviews ? reviews.edges.map((edge) => edge.node) : []
+
   return (
-    <FlatList
-      data={reviewNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <ReviewItem review={item} />}
-      keyExtractor={(item) => item.id}
-      onEndReached={onEndReach}
-      onEndReachedThreshold={0.5}
-    />
+    <>
+      <FlatList
+        data={reviewNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => <ReviewItem review={item} />}
+        keyExtractor={(item) => item.id}
+      />
+    </>
   )
 }
 
