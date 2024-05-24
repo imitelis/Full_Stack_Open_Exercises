@@ -5,15 +5,14 @@ import { formatNumber } from '../../utils/formatNumber'
 import { RepositoryListContainer } from './index'
 
 describe('RepositoryList', () => {
-  const order = '';
-  const searchWord = '';
-  const setOrder = jest.fn();
-  const setSearchWord = jest.fn();
-  const onEndReach = jest.fn();
+  const order = ''
+  const searchWord = ''
+  const setOrder = jest.fn()
+  const setSearchWord = jest.fn()
+  const onEndReach = jest.fn()
 
   describe('RepositoryListContainer', () => {
     it('renders repository list information correctly', () => {
-
       const repositories = {
         totalCount: 8,
         pageInfo: {
@@ -60,7 +59,14 @@ describe('RepositoryList', () => {
       // Add your test code here
       render(
         <NativeRouter>
-          <RepositoryListContainer repositories={repositories} order={order} setOrder={setOrder} searchWord={searchWord} setSearchWord={setSearchWord} onEndReach={onEndReach} />
+          <RepositoryListContainer
+            repositories={repositories}
+            order={order}
+            setOrder={setOrder}
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            onEndReach={onEndReach}
+          />
         </NativeRouter>,
       )
 
