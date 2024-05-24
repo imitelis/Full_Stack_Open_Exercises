@@ -1,5 +1,5 @@
-import { NativeRouter } from 'react-router-native'
 import { render, screen } from '@testing-library/react-native'
+import { NativeRouter } from 'react-router-native'
 
 import { formatNumber } from '../../utils/formatNumber'
 import { RepositoryListContainer } from './index'
@@ -13,6 +13,7 @@ describe('RepositoryList', () => {
 
   describe('RepositoryListContainer', () => {
     it('renders repository list information correctly', () => {
+
       const repositories = {
         totalCount: 8,
         pageInfo: {
