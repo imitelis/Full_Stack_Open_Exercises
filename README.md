@@ -309,6 +309,10 @@
   *  11.15: Pokédex ci/cd step14
   *  11.16: Pokédex ci/cd step15
   *  11.17: Pokédex ci/cd step16
+  *  11.18: Pokédex ci/cd step17
+  *  11.19: Pokédex ci/cd step18
+  *  11.20: Blog ci/cd step1
+  *  11.21: Blog ci/cd step2
   
   
 ## Part 12 - Containers - Exercises 12.1.-12.22.

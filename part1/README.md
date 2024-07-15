@@ -3,7 +3,7 @@
 
 ## Exercises 1.1.-1.2.
 
-The exercises are submitted via GitHub, and by marking the exercises as done in the "my submissions" tab of the [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
+The exercises are submitted via GitHub, and by marking the exercises as done in the "my submissions" tab of the [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
 The exercises are submitted **one part at a time**. When you have submitted the exercises for a part of the course you can no longer submit undone exercises for the same part.
 
@@ -259,7 +259,7 @@ const App = () => {
 
 ## Exercises 1.6.-1.14.
 
-Submit your solutions to the exercises by first pushing your code to GitHub and then marking the completed exercises into the "my submissions" tab of the [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
+Submit your solutions to the exercises by first pushing your code to GitHub and then marking the completed exercises into the "my submissions" tab of the [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
 Remember, submit **all** the exercises of one part in a **single submission**. Once you have submitted your solutions for one part, **you cannot submit more exercises to that part anymore**.
 
@@ -483,6 +483,6 @@ Now implement the final version of the application that displays the anecdote wi
 
 If multiple anecdotes are tied for first place it is sufficient to just show one of them.
 
-This was the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your finished exercises to the "my submissions" tab of the [submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
+This was the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your finished exercises to the "my submissions" tab of the [submissions system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
 
 

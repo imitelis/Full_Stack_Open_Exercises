@@ -1,0 +1,103 @@
+name: Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - master
+    pull_request:
+      # note that your "main" branch might be called main instead of master
+      branches: [master]
+      types: [opened, synchronize]
+    schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  deployment_pipeline:    
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3 
+        with:          
+          node-version: '16'
+      - name: Install dependencies
+        run: npm install
+      - name: Check style
+        run: npm run eslint
+      - name: Build app
+        run: npm run build
+      - name: Jest tests
+        run: npm run test
+      - name: E2E tests
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:5000
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy flyctl
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+      - name: Visit app
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
+        run: |
+          app_url="https://imitelis-pokedex.fly.dev/"
+          curl -I $app_url
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+      - name: Health check
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
+        run: |
+          set -e
+          flyctl ssh console -t ${{ secrets.FLY_API_TOKEN }} <<EOF
+          chmod +x health_check.sh
+          ./health_check.sh
+          exit
+          EOF
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+  tag_release:
+    needs: [deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
+        uses: anothrNick/github-tag-action@a2c70ae13a881faf2b4953baaa9e49731997ab36
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+  build_notification:
+    needs: [tag_release]
+    runs-on: ubuntu-20.04  
+    steps:
+      - name: Notify success
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ success() }}
+        with:
+          severity: info
+          details: A new version of Pokédex deployed
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Notify failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ failure() }}
+        with:
+          severity: error
+          details: Build failed
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  health_check:
+    needs: [build_notification]
+    runs-on: ubuntu-20.04  
+    steps:
+      - name: Periodic health check
+        uses: jtalk/url-health-check-action@v4
+        if: ${{ github.event_name == 'schedule' }}
+        with:
+          url: https://imitelis-pokedex.fly.dev/
+          follow-redirect: false
+          max-attempts: 3
+          retry-delay: 5s

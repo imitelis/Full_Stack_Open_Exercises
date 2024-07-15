@@ -822,7 +822,7 @@ It would also be possible to install a tool such as [act](https://github.com/nek
 
 ### 11.17: Adding protection to your main branch
 
-Add protection to your master (or main) branch.
+Add protection to your <em>master</em> (or <em>main</em>) branch.
 
 You should protect it to:
 
@@ -832,13 +832,13 @@ You should protect it to:
 
 ## Exercise 11.18.
 
-We have set up a channel fullstack_webhook to the course Discord group at https://study.cs.helsinki.fi/discord/join/fullstack for testing a messaging integration.
+We have set up a channel <em>fullstack_webhook</em> to the course Discord group at [https://study.cs.helsinki.fi/discord/join/fullstack](https://study.cs.helsinki.fi/discord/join/fullstack) for testing a messaging integration.
 
-Register now to Discord if you have not already done that. You will also need a Discord webhook in this exercise. You find the webhook in the pinned message of the channel fullstack_webhook. Please do not commit the webhook to GitHub!
+Register now to Discord if you have not already done that. You will also need a <em>Discord webhook</em> in this exercise. You find the webhook in the pinned message of the channel <em>fullstack_webhook</em>. Please do not commit the webhook to GitHub!
 
 ### 11.18: Build success/failure notification action
 
-You can find quite a few of third party actions from GitHub Action Marketplace by using the search phrase discord. Pick one for this exercise. My choice was discord-webhook-notify since it has quite many stars and a decent documentation.
+You can find quite a few of third party actions from [GitHub Action Marketplace](https://github.com/marketplace?type=actions) by using the search phrase [discord](https://github.com/marketplace?type=actions&query=discord). Pick one for this exercise. My choice was [discord-webhook-notify](https://github.com/marketplace/actions/discord-webhook-notify) since it has quite many stars and a decent documentation.
 
 Setup the action so that it gives two types of notifications:
 
@@ -847,8 +847,62 @@ Setup the action so that it gives two types of notifications:
 
 In the case of an error, the notification should be a bit more verbose to help developers finding quickly which is the commit that caused it.
 
-See here how to check the job status!
+See [here](https://docs.github.com/en/actions/learn-github-actions/expressions#status-check-functions) how to check the job status!
 
 Your notifications may look like the following:
 
 ![plot](./exercises-media/18a.png)
+
+
+## Exercise 11.19-11.21.
+
+### 11.9: Periodic health check
+
+We are pretty confident now that our pipeline prevents bad code from being deployed. However, there are many sources of errors. If our application would e.g. depend on a database that would for some reason become unavailable, our application would most likely crash. That's why it would be a good idea to set up a <em>periodic health check</em> that would regularly do an HTTP GET request to our server. We quite often refer to this kind of request as a <em>ping</em>.
+
+It is possible to [schedule](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) GitHub actions to happen regularly.
+
+Use now the action [url-health-check](https://github.com/marketplace/actions/url-health-check) or any other alternative and schedule a periodic health check ping to your deployed software. Try to simulate a situation where your application breaks down and ensure that the check detects the problem. Write this periodic workflow to an own file.
+
+**Note** that unfortunately it takes quite long until GitHub Actions starts the scheduled workflow for the first time. For me, it took nearly one hour. So it might be a good idea to get the check working firstly by triggering the workflow with Git push. When you are sure that the check is properly working, then switch to a scheduled trigger.
+
+**Note also** that once you get this working, it is best to drop the ping frequency (to max once in 24 hours) or disable the rule altogether since otherwise your health check may consume all your monthly free hours.
+
+### 11.20 Your own pipeline
+
+Build a similar CI/CD-pipeline for some of your own applications. Some of the good candidates are the phonebook app that was built in Parts 2 and 3 of the course, or the blogapp built in Parts 4 and 5, or the Redux anecdotes built in Part 6. You may also use some app of your own for this exercise.
+
+You most likely need to do some restructuring to get all the pieces together. A logical first step is to store both the frontend and backend code in the same repository. This is not a requirement but it is recommended since it makes things much more simple.
+
+One possible repository structure would be to have the backend at the root of the repository and the frontend as a subdirectory. You can also "copy paste" the structure of the [example app](https://github.com/fullstack-hy2020/create-app) of this part or try out the example app mentioned in [Part 7](https://fullstackopen.com/en/part7/class_components_miscellaneous#frontend-and-backend-in-the-same-repository).
+
+It is perhaps best to create a new repository for this exercise and simply copy and paste the old code there. In real life, you most likely would do this all in the old repository but now "a fresh start" makes things easier.
+
+This is a long and perhaps quite a tough exercise, but this kind of situation where you have a "legacy code" and you need to build proper deployment pipeline is quite common in real life!
+
+Obviously, this exercise is not done in the same repository as the previous exercises. Since you can return only one repository to the submission system, put a link of the <em>other</em> repository to the one you fill into the submission form.
+
+### 11.21 Protect your main branch and ask for pull request
+
+Protect the main branch of the repository where you did the previous exercise. This time prevent also the administrators from merging the code without a review.
+
+Do a pull request and ask GitHub user [mluukkai](https://github.com/mluukkai) to review your code. Once the review is done, merge your code to the main branch. Note that the reviewer needs to be a collaborator in the repository. Ping us in Discord to get the review, and to include the collaboration invite link to the message.
+
+**Please note** what was written above, include the link to <em>the collaboration invite</em> in the ping, not the link to the pull request.
+
+Then you are done!
+
+
+## Submitting exercises and getting the credits
+
+Exercises of this part are submitted via the [submissions system](https://studies.cs.helsinki.fi/stats/courses/fs-cicd) just like in the previous parts, but unlike parts 0 to 7, the submission goes to different "course instance". Remember that you have to finish <em>all the exercises</em> to pass this part!
+
+Your solutions are in two repositories (pokedex and your own project), and since you can return only one repository to the submission system, put a link of the <em>other</em> repository to the one you fill into the submission form!
+
+Once you have completed the exercises and want to get the credits, let us know through the exercise submission system that you have completed the course:
+
+![plot](./exercises-media/21a.png)
+
+**Note** that you need a registration to the corresponding course part for getting the credits registered, see [here](https://fullstackopen.com/en/part0/general_info#parts-and-completion) for more information.
+
+You can download the certificate for completing this part by clicking one of the flag icons. The flag icon corresponds to the certificate's language.
