@@ -14,7 +14,7 @@ describe('When there is initially one user in db', () => {
     await User.deleteMany({})
 
     const passwordHash = await bcrypt.hash(process.env.SECRET, 10)
-    const user = new User({ username: 'root', passwordHash })
+    const user = new User({ username: 'root', name: 'An Admin', passwordHash })
 
     await user.save()
   }, 10000)
@@ -108,3 +108,4 @@ describe('When there is initially one user in db', () => {
 afterAll(async () => {
   await mongoose.connection.close()
 })
+

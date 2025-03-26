@@ -87,7 +87,7 @@ describe('Posting a blog', () => {
     const password = 'mypassword'
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
-    const user = await new User({ username: 'myusername', passwordHash }).save()
+    const user = await new User({ username: 'myusername', name: 'An Admin', passwordHash }).save()
     const userForToken = {
       username: user.username,
       id: user._id
@@ -204,7 +204,7 @@ describe('Deleting a blog', () => {
     const password = 'mypassword'
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
-    const user = await new User({ username: 'myusername', passwordHash }).save()
+    const user = await new User({ username: 'myusername', name: 'An Admin', passwordHash }).save()
     const userForToken = {
       username: user.username,
       id: user._id
@@ -298,7 +298,7 @@ describe('Updating a blog', () => {
     const password = 'mypassword'
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
-    const user = await new User({ username: 'myusername', passwordHash }).save()
+    const user = await new User({ username: 'myusername', name: 'An Admin', passwordHash }).save()
     const userForToken = {
       username: user.username,
       id: user._id
@@ -419,3 +419,4 @@ describe('Updating a blog', () => {
 afterAll(async () => {
   await mongoose.connection.close()
 })
+
