@@ -307,7 +307,6 @@ You can display the default error message returned by Mongoose, even though they
 Add validation to your phonebook application, which will make sure that phone numbers are of the correct form. A phone number must:
 
   *  have length of 8 or more
-
   *  be formed of two parts that are separated by -, the first part has two or three numbers and the second part also consists of numbers
       *  eg. 09-1234556 and 040-22334455 are valid phone numbers
       *  eg. 1234556, 1-22334455 and 10-22-334455 are invalid

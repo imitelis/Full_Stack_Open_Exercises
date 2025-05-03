@@ -317,3 +317,9 @@
   
 ## Part 12 - Containers - Exercises 12.1.-12.22.
 
+
+## Part 13 - Relational Databases - Exercises 13.1.-13.
+
+  *  13.1: Blog sql step1
+  *  13.2: Blog sql step2
+  *  13.3: Blog sql step3
