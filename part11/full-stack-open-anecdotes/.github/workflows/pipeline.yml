@@ -1,0 +1,43 @@
+name: Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+    pull_request:
+      branches: [main]
+      types: [opened, synchronize]
+
+jobs:
+  deployment_pipeline:    
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3 
+        with:          
+          node-version: '16'
+      - name: Install dependencies
+        run: npm install
+      - name: Unit tests
+        run: npm run test
+      - name: Build app
+        run: npm run build
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Set Fly.io secrets
+        run: flyctl secrets set REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Deploy flyctl
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+      - name: Visit app
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
+        run: |
+          app_url=${{ secrets.FLY_APP_URL }}
+          curl -I $app_url
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
