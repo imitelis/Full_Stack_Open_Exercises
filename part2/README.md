@@ -11,7 +11,7 @@ The exercises are submitted **One part at a time**. When you have submitted the 
 
 Note that this part has more exercises than the ones before, so <em>do not submit</em> until you have done all exercises from this part you want to submit.
 
-**WARNING:** `create-react-app` makes the project automatically into a git repository if the project is not created inside of an already existing repository. You probably do not want the project to become a repository, so run the command `rm -rf .git` from its root.
+**Warning:** `create-react-app` makes the project automatically into a git repository if the project is not created inside of an already existing repository. You probably do not want the project to become a repository, so run the command `rm -rf .git` from its root.
 
 ### 2.1: Course information, step6
 
@@ -183,7 +183,7 @@ Declare the <em>Course</em> component as a separate module, which is imported by
 
 In the first exercise, we will start working on an application that will be further developed in the later exercises. In related sets of exercises, it is sufficient to return the final version of your application. You may also make a separate commit after you have finished each part of the exercise set, but doing so is not required.
 
-**WARNING:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. You likely do not want your project to be a repository, so simply run the `rm -rf .git` command at the root of your application.
+**Warning:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. You likely do not want your project to be a repository, so simply run the `rm -rf .git` command at the root of your application.
 
 ### 2.6: Phonebook, step1
 
@@ -486,7 +486,7 @@ When there is only one country matching the query, then the basic data of the co
 
 **NB:** It is enough that your application works for most countries. Some countries, like Sudan, can be hard to support since the name of the country is part of the name of another country, South Sudan. You don't need to worry about these edge cases.
 
-**WARNING:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the `rm -rf .git` command at the root of your application.
+**Warning:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the `rm -rf .git` command at the root of your application.
 
 ### 2.19*: Data for countries, step2
 

@@ -101,7 +101,7 @@ const App = () => {
 }
 ```
 
-**WARNING:** Don't try to program all the components concurrently, because that will almost certainly break down the whole app. Proceed in small steps, first make e.g. the component Header and only when it works for sure, you could proceed to the next component.
+**Warning:** Don't try to program all the components concurrently, because that will almost certainly break down the whole app. Proceed in small steps, first make e.g. the component Header and only when it works for sure, you could proceed to the next component.
 
 Careful, small-step progress may seem slow, but it is actually <em>by far the fastest</em> way to progress. Famous software developer Robert "Uncle Bob" Martin has stated
 
@@ -109,7 +109,7 @@ Careful, small-step progress may seem slow, but it is actually <em>by far the fa
 
 that is, according to Martin, careful progress with small steps is even the only way to be fast.
 
-**WARNING 2:** `create-react-app` automatically makes the project a git repository unless the application is created within an already existing repository. Most likely you do not want the project to become a repository, so run the command `rm -rf .git` in the root of the project.
+**Warning 2:** `create-react-app` automatically makes the project a git repository unless the application is created within an already existing repository. Most likely you do not want the project to become a repository, so run the command `rm -rf .git` in the root of the project.
 
 ### 1.2: Course information, step2
 
@@ -265,7 +265,7 @@ Remember, submit **all** the exercises of one part in a **single submission**. O
 
 <em>Some of the exercises work on the same application. In these cases, it is sufficient to submit just the final version of the application. If you wish, you can make a commit after every finished exercise, but it is not mandatory.</em>
 
-**WARNING:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the `rm -rf .git` command at the root of your application.
+**Warning:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the `rm -rf .git` command at the root of your application.
 
 In some situations you may also have to run the command below from the root of the project:
 
@@ -443,7 +443,7 @@ Your finished application could look something like this:
 
 ![plot](./exercises-media/18a.png)
 
-**WARNING:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the `rm -rf .git` command at the root of your application.
+**Warning:** `create-react-app` will automatically turn your project into a git-repository unless you create your application inside of an existing git repository. Most likely you do not want each of your projects to be a separate repository, so simply run the `rm -rf .git` command at the root of your application.
 
 ### 1.13*: Anecdotes, step2
 

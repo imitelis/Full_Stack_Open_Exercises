@@ -42,7 +42,7 @@ Once the process has been finished, you should be redirected to your brand new r
 
 Clone the project now to your machine. As always, when starting with a new code, the most obvious place to look first is the file `package.json`.
 
-**NOTE:** <em>Since the project is already a bit old, you need Node 16 to work with it!</em>
+**Note:** <em>Since the project is already a bit old, you need Node 16 to work with it!</em>
 
 Try now the following:
 
@@ -150,7 +150,7 @@ describe('Pokedex', function() {
 
 Define a npm script `test:e2e` for running the e2e tests from the command line.
 
-**NOTE:** Do not include the word <em>spec</em> in the Cypress test file name, that would cause also Jest to run it, and it might cause problems.
+**Note:** Do not include the word <em>spec</em> in the Cypress test file name, that would cause also Jest to run it, and it might cause problems.
 
 **Another thing to note** is that although the page renders the Pokemon names with an initial capital letter, the names are actually written with lower case letters in the source, so you should test for `ivysaur` instead of `Ivysaur`!
 
@@ -171,7 +171,7 @@ Three options are used: [command](https://github.com/cypress-io/github-action#cu
 
 Once you are sure that the pipeline works, <em>write another test</em> that ensures that one can navigate from the main page to the page of a particular Pokemon, e.g. <em>ivysaur</em>. The test does not need to be a complex one, just check that when you navigate to a link, the page has some proper content, such as the string <em>chlorophyll</em> in the case of <em>ivysaur</em>.
 
-**NOTE:** The Pokemon abilities are written with lower case letters in the source code (the capitalization is done in CSS), so <em>do not</em> test for <em>Chlorophyll</em> but rather <em>chlorophyll</em>.
+**Note:** The Pokemon abilities are written with lower case letters in the source code (the capitalization is done in CSS), so <em>do not</em> test for <em>Chlorophyll</em> but rather <em>chlorophyll</em>.
 
 **NOTE 2:** That you should not try <em>bulbasaur</em>, for some reason the page of that particular Pokemon does not work properly...
 
@@ -370,7 +370,7 @@ Before moving to next exercise, fix your deployment and ensure that the applicat
 
 ### 11.12: Custom health check
 
-**NOTE:** At the moment the custom health check feature in Fly.io does not work. You can mark this exercise done without doing anything. A replacement for this exercise will be developed later...
+**Note:** At the moment the custom health check feature in Fly.io does not work. You can mark this exercise done without doing anything. A replacement for this exercise will be developed later...
 
 Besides TCP and HTTP based health checks, Fly.io allows to use very flexible shell script based health checks. The feature is still undocumented but e.g. [this](https://community.fly.io/t/verifying-services-script-checks-is-supported/1464) shows you how to use it.
 
@@ -709,7 +709,7 @@ We will extend our workflow with one more step:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-**NOTE:** You should use the most recent version of the action, see [here](https://github.com/anothrNick/github-tag-action) if a more recent version is available.
+**Note:** You should use the most recent version of the action, see [here](https://github.com/anothrNick/github-tag-action) if a more recent version is available.
 
 We're passing an environmental variable `secrets.GITHUB_TOKEN` to the action. As it is third-party action, it needs the token for authentication in your repository. You can read more [here](https://docs.github.com/en/actions/security-guides/automatic-token-authentication) about authentication in GitHub Actions.
 

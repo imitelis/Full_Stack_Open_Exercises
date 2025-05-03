@@ -401,7 +401,7 @@ This was the last exercise for this part of the course and it's time to push you
 
 ## Exercises 6.19.-6.21. (the old part)
 
-**NOTE:** This is the old ending section of the Part 6 that has 30th January 2023 been replaced with material about [React Query, useReducer and context](https://fullstackopen.com/en/part6/react_query_use_reducer_and_the_context). This section remains here for a couple of weeks.
+**Note:** This is the old ending section of the Part 6 that has 30th January 2023 been replaced with material about [React Query, useReducer and context](https://fullstackopen.com/en/part6/react_query_use_reducer_and_the_context). This section remains here for a couple of weeks.
 
 If you have started with the exercises that use the Redux connect you may continue with those. If you have not yet started, I recommend to proceed with the new section.
 

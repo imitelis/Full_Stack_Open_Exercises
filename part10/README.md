@@ -504,7 +504,7 @@ The final version of the single repository view should look something like this:
 
 ![plot](./exercises-media/13a.jpg)
 
-**NOTE:** If the peer depencendy issues prevent installing the library, try the `--legacy-peer-deps` option:
+**Note:** If the peer depencendy issues prevent installing the library, try the `--legacy-peer-deps` option:
 
 ```
 npm install expo-linking --legacy-peer-deps
