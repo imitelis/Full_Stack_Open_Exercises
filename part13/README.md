@@ -79,28 +79,30 @@ The data returned in the context of an error message is not very important.
 At this point, the situations that require error handling by the application are creating a new blog and changing the number of likes on a blog. Make sure the error handler handles both of these appropriately.
 
 
-## Tasks 13.8.-13.12.
-Task 13.8.
+## Exercises 13.8.-13.12.
+
+### Exercise 13.8.
 
 Add support for users to the application. In addition to ID, users have the following fields:
 
-    name (string, must not be empty)
-    username (string, must not be empty)
+  *  name (string, must not be empty)
+  *  username (string, must not be empty)
 
-Unlike in the material, do not prevent Sequelize from creating timestamps created_at and updated_at for users
+Unlike in the material, do not prevent Sequelize from creating [timestamps](https://sequelize.org/master/manual/model-basics.html#timestamps) <em>created_at</em> and <em>updated_at</em> for users
 
-All users can have the same password as the material. You can also choose to properly implement passwords as in part 4.
+All users can have the same password as the material. You can also choose to properly implement passwords as in [part 4](https://fullstackopen.com/en/part4/user_administration).
 
 Implement the following routes
 
-    POST api/users (adding a new user)
-    GET api/users (listing all users)
-    PUT api/users/:username (changing a username, keep in mind that the parameter is not id but username)
+  *  `POST api/users` (adding a new user)
+  *  `GET api/users` (listing all users)
+  *  `PUT api/users/:username` (changing a username, keep in mind that the parameter is not id but username)
 
-Make sure that the timestamps created_at and updated_at automatically set by Sequelize work correctly when creating a new user and changing a username.
-Exercise 13.9.
+Make sure that the timestamps <em>created_at</em> and <em>updated_at</em> automatically set by Sequelize work correctly when creating a new user and changing a username.
 
-Sequelize provides a set of pre-defined validations for the model fields, which it performs before storing the objects in the database.
+### Exercise 13.9.
+
+Sequelize provides a set of pre-defined [validations](https://sequelize.org/master/manual/validations-and-constraints.html) for the model fields, which it performs before storing the objects in the database.
 
 It's decided to change the user creation policy so that only a valid email address is valid as a username. Implement validation that verifies this issue during the creation of a user.
 
@@ -114,36 +116,41 @@ Modify the error handling middleware to provide a more descriptive error message
 }
 ```
 
-Exercise 13.10.
+### Exercise 13.10.
 
-Expand the application so that the current logged-in user identified by a token is linked to each blog added. To do this you will also need to implement a login endpoint POST /api/login, which returns the token.
-Exercise 13.11.
+Expand the application so that the current logged-in user identified by a token is linked to each blog added. To do this you will also need to implement a login endpoint `POST /api/login`, which returns the token.
+
+### Exercise 13.11.
 
 Make deletion of a blog only possible for the user who added the blog.
-Task 13.12.
+
+### Exercise 13.12.
 
 Modify the routes for retrieving all blogs and all users so that each blog shows the user who added it and each user shows the blogs they have added.
 
-Tasks 13.13.-13.16
-Task 13.13.
+
+## Exercises 13.13.-13.16.
+
+### Exercise 13.13.
 
 Implement filtering by keyword in the application for the route returning all blogs. The filtering should work as follows
 
-    GET /api/blogs?search=react returns all blogs with the search word react in the title field, the search word is case-insensitive
-    GET /api/blogs returns all blogs
+  *  `GET /api/blogs?search=react` returns all blogs with the search word react in the title field, the search word is case-insensitive
+  *  `GET /api/blogs` returns all blogs
 
-This should be useful for this task and the next one.
-Exercise 13.14.
+[This](https://sequelize.org/master/manual/model-querying-basics.html#operators) should be useful for this task and the next one.
 
-Expand the filter to search for a keyword in either the title or author fields, i.e.
+### Exercise 13.14.
 
-GET /api/blogs?search=jami returns blogs with the search word jami in the title field or in the author field
-Exercise 13.15.
+Expand the filter to search for a keyword in either the <em>title</em> or <em>author</em> fields, i.e. `GET /api/blogs?search=jami` returns blogs with the search word <em>jami</em> in the <em>title</em> field or in the <em>author</em> field
 
-Modify the blogs route so that it returns blogs based on likes in descending order. Search the documentation for instructions on ordering,
-Task 13.16.
+### Exercise 13.15.
 
-Make a route for the application /api/authors that returns the number of blogs for each author and the total number of likes. Implement the operation directly at the database level. You will most likely need the group by functionality, and the sequelize.fn aggregator function.
+Modify the blogs route so that it returns blogs based on likes in descending order. Search the [documentation](https://sequelize.org/master/manual/model-querying-basics.html) for instructions on ordering,
+
+### Exercise 13.16.
+
+Make a route for the application `/api/authors` that returns the number of blogs for each author and the total number of likes. Implement the operation directly at the database level. You will most likely need the [group by](https://sequelize.org/master/manual/model-querying-basics.html#grouping) functionality, and the [sequelize.fn](https://sequelize.org/master/manual/model-querying-basics.html#specifying-attributes-for-select-queries) aggregator function.
 
 The JSON returned by the route might look like the following, for example:
 
@@ -170,8 +177,7 @@ The JSON returned by the route might look like the following, for example:
 Bonus task: order the data returned based on the number of likes, do the ordering in the database query.
 
 
-
-Tasks 13.17-13.18.
+## Tasks 13.17-13.18.
 Task 13.17.
 
 Delete all tables from your application's database.

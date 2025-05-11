@@ -3,7 +3,7 @@
 
 ## Part 0 - Fundamentals of Web apps - Exercises 0.1.-0.6.
 
-0.1: Review HTML step1
+  *  0.1: Review HTML step1
   *  0.2: Review CSS step2
   *  0.3: Review HTML forms step3
   *  0.4: New note diagram step1
@@ -320,6 +320,18 @@
 
 ## Part 13 - Relational Databases - Exercises 13.1.-13.
 
-  *  13.1: Blog sql step1
-  *  13.2: Blog sql step2
-  *  13.3: Blog sql step3
+  *  13.1: Blog psql step1
+  *  13.2: Blog psql step2
+  *  13.3: Blog psql step3
+  *  13.4: Blog psql step4
+  *  13.5: Blog psql step5
+  *  13.6: Blog psql step6
+  *  13.7: Blog psql step7
+  *  13.8: Blog psql step8
+  *  13.9: Blog psql step9
+  *  13.10: Blog psql step10
+  *  13.11: Blog psql step11
+  *  13.12: Blog psql step12
+  *  13.13: Blog psql step13
+  *  13.14: Blog psql step14
+  *  13.15: Blog psql step15

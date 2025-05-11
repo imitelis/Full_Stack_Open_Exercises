@@ -1,0 +1,6 @@
+PUT http://localhost:3001/api/users/admin@gmail.com
+Content-Type: "application/json"
+
+{
+  "username": "administrator@gmail.com"
+}
