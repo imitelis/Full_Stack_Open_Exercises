@@ -7,10 +7,10 @@ const tokenExtractor = (req, res, next) => {
       try {      
         req.decodedToken = jwt.verify(authorization.substring(7), SECRET)    
       } catch{      
-        return res.status(401).json({ error: 'token invalid' })    
+        return res.status(401).json({ error: 'Invalid token' })    
       }  
     }  else {    
-      return res.status(401).json({ error: 'token missing' })  
+      return res.status(401).json({ error: 'Missing token' })  
     }  next()
 }
 

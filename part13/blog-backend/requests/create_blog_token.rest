@@ -1,9 +1,0 @@
-POST http://localhost:3001/api/blogs
-Content-Type: "application/json"
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFmZmZhZmVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTc0NjkyODE1MCwiZXhwIjoxNzQ2OTMxNzUwfQ.kul-i-LDH1TxLUCReNSzJIpjACbVLoJNw-xHoXVtmfA
-
-{
-  "author": "Dan Abramov",
-  "url": "",
-  "title": "On let vs const"
-}

@@ -177,30 +177,36 @@ The JSON returned by the route might look like the following, for example:
 Bonus task: order the data returned based on the number of likes, do the ordering in the database query.
 
 
-## Tasks 13.17-13.18.
-Task 13.17.
+## Exercises 13.17-13.18.
+
+### Exercise 13.17.
 
 Delete all tables from your application's database.
 
-Make a migration that initializes the database. Add created_at and updated_at timestamps for both tables. Keep in mind that you will have to add them in the migration yourself.
+Make a migration that initializes the database. Add <em>created_at</em> and <em>updated_at</em> [timestamps](https://sequelize.org/master/manual/model-basics.html#timestamps) for both tables. Keep in mind that you will have to add them in the migration yourself.
 
-NOTE: be sure to remove the commands User.sync() and Blog.sync(), which synchronizes the models' schemas from your code, otherwise your migrations will fail.
+**NOTE:** Be sure to remove the commands <em>User.sync()</em> and <em>Blog.sync()</em>, which synchronizes the models' schemas from your code, otherwise your migrations will fail.
 
-NOTE2: if you have to delete tables from the command line (i.e. you don't do the deletion by undoing the migration), you will have to delete the contents of the migrations table if you want your program to perform the migrations again.
-Task 13.18.
+**NOTE 2:** If you have to delete tables from the command line (i.e. you don't do the deletion by undoing the migration), you will have to delete the contents of the <em>migrations</em> table if you want your program to perform the migrations again.
+
+### Exercise 13.18.
 
 Expand your application (by migration) so that the blogs have a year written attribute, i.e. a field year which is an integer at least equal to 1991 but not greater than the current year. Make sure the application gives an appropriate error message if an incorrect value is attempted to be given for a year written.
 
-Task 13.19.
 
-Give users the ability to add blogs on the system to a reading list. When added to the reading list, the blog should be in the unread state. The blog can later be marked as read. Implement the reading list using a connection table. Make database changes using migrations.
+## Exercises 13.19-13.23.
+
+### Exercise 13.19.
+
+Give users the ability to add blogs on the system to a <em>reading list</em>. When added to the reading list, the blog should be in the <em>unread</em> state. The blog can later be marked as <em>read</em>. Implement the reading list using a connection table. Make database changes using migrations.
 
 In this task, adding to a reading list and displaying the list need not be successful other than directly using the database.
-Exercise 13.20.
+
+### Exercise 13.20.
 
 Now add functionality to the application to support the reading list.
 
-Adding a blog to the reading list is done by making an HTTP POST to the path /api/readinglists, the request will be accompanied with the blog and user id:
+Adding a blog to the reading list is done by making an HTTP POST to the path <em>/api/reading_lists</em>, the request will be accompanied with the blog and user id:
 
 ```
 {
@@ -209,7 +215,7 @@ Adding a blog to the reading list is done by making an HTTP POST to the path /ap
 }
 ```
 
-Also modify the individual user route GET /api/users/:id to return not only the user's other information but also the reading list, e.g. in the following format:
+Also modify the individual user route `GET /api/users/:id` to return not only the user's other information but also the reading list, e.g. in the following format:
 
 ```
 {
@@ -237,9 +243,10 @@ Also modify the individual user route GET /api/users/:id to return not only the 
 ```
 
 At this point, information about whether the blog is read or not does not need to be available.
-Task 13.21.
 
-Expand the single-user route so that each blog in the reading list shows also whether the blog has been read and the id of the corresponding join table row.
+### Exercise 13.21.
+
+Expand the single-user route so that each blog in the reading list shows also whether the blog has been read <em>and</em> the id of the corresponding join table row.
 
 For example, the information could be in the following form:
 
@@ -255,7 +262,7 @@ For example, the information could be in the following form:
       author: "Dan Abramov",
       likes: 34,
       year: null,
-      readinglists: [
+      readings: [
         {
           read: false,
           id: 2
@@ -269,7 +276,7 @@ For example, the information could be in the following form:
       author: "Bob Martin",
       likes: 5,
       year: null,
-      readinglists: [
+      readings: [
         {
           read: false,
           id: 3
@@ -280,29 +287,32 @@ For example, the information could be in the following form:
 }
 ```
 
-Note: there are several ways to implement this functionality. This should help.
+Note: there are several ways to implement this functionality. [This](https://sequelize.org/docs/v6/advanced-association-concepts/advanced-many-to-many/#the-best-of-both-worlds-the-super-many-to-many-relationship) should help.
 
-Note also that despite having an array field readinglists in the example, it should always just contain exactly one object, the join table entry that connects the book to the particular user's reading list.
-Exercise 13.22.
+Note also that despite having an array field <em>readings</em> in the example, it should always just contain exactly one object, the join table entry that connects the book to the particular user's reading list.
 
-Implement functionality in the application to mark a blog in the reading list as read. Marking as read is done by making a request to the PUT /api/readinglists/:id path, and sending the request with
+### Exercise 13.22.
+
+Implement functionality in the application to mark a blog in the reading list as read. Marking as read is done by making a request to the `PUT /api/reading_lists/:id` path, and sending the request with
 
 ```
 { "read": true }
 ```
 
 The user can only mark the blogs in their own reading list as read. The user is identified as usual from the token accompanying the request.
-Exercise 13.23.
+
+### Exercise 13.23.
 
 Modify the route that returns a single user's information so that the request can control which of the blogs in the reading list are returned:
 
-    GET /api/users/:id returns the entire reading list
-    GET /api/users/:id?read=true returns blogs that have been read
-    GET /api/users/:id?read=false returns blogs that have not been read
+  *  `GET /api/users/:id` returns the entire reading list
+  *  `GET /api/users/:id?read=true` returns blogs that have been read
+  *  `GET /api/users/:id?read=false` returns blogs that have not been read
 
 
-Task 13.24.
-Task 13.24.
+## Exercise 13.24.
+
+### Exercise 13.24.
 
 Grand finale: towards the end of part 4 there was mention of a token-criticality problem: if a user's access to the system is decided to be revoked, the user may still use the token in possession to use the system.
 

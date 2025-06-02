@@ -1,8 +1,10 @@
 POST http://localhost:3001/api/blogs
 Content-Type: "application/json"
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInVzZXJfaWQiOjMsInNlc3Npb25faWQiOjEsImlhdCI6MTc0ODgzNjIwOX0.Pc5NsDDfYQf5WrbClBQXOKwCO2hzODpSiUxhkWHk4XI
 
 {
   "author": "Laurenz Albe",
   "url": "",
-  "title": "Gaps in sequences in PostgreSQL"
+  "title": "Gaps in sequences in PostgreSQL",
+  "year": 2002
 }

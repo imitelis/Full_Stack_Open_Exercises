@@ -1,3 +1,7 @@
-DELETE http://localhost:3001/api/blogs/3
+PUT http://localhost:3001/api/users/admin@gmail.com
 Content-Type: "application/json"
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInVzZXJfaWQiOjMsInNlc3Npb25faWQiOjEsImlhdCI6MTc0ODgzNjIwOX0.Pc5NsDDfYQf5WrbClBQXOKwCO2hzODpSiUxhkWHk4XI
+
+{
+  "username": "administrator@gmail.com"
+}

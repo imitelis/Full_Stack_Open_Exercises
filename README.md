@@ -318,20 +318,29 @@
 ## Part 12 - Containers - Exercises 12.1.-12.22.
 
 
-## Part 13 - Relational Databases - Exercises 13.1.-13.
+## Part 13 - Relational Databases - Exercises 13.1.-13.24.
 
-  *  13.1: Blog psql step1
-  *  13.2: Blog psql step2
-  *  13.3: Blog psql step3
-  *  13.4: Blog psql step4
-  *  13.5: Blog psql step5
-  *  13.6: Blog psql step6
-  *  13.7: Blog psql step7
-  *  13.8: Blog psql step8
-  *  13.9: Blog psql step9
-  *  13.10: Blog psql step10
-  *  13.11: Blog psql step11
-  *  13.12: Blog psql step12
-  *  13.13: Blog psql step13
-  *  13.14: Blog psql step14
-  *  13.15: Blog psql step15
+  *  13.1: Blog backend step1
+  *  13.2: Blog backend step2
+  *  13.3: Blog backend step3
+  *  13.4: Blog backend step4
+  *  13.5: Blog backend step5
+  *  13.6: Blog backend step6
+  *  13.7: Blog backend step7
+  *  13.8: Blog backend step8
+  *  13.9: Blog backend step9
+  *  13.10: Blog backend step10
+  *  13.11: Blog backend step11
+  *  13.12: Blog backend step12
+  *  13.13: Blog backend step13
+  *  13.14: Blog backend step14
+  *  13.15: Blog backend step15
+  *  13.16: Blog backend step16
+  *  13.17: Blog backend step17
+  *  13.18: Blog backend step18
+  *  13.19: Blog backend step19
+  *  13.20: Blog backend step20
+  *  13.21: Blog backend step21
+  *  13.22: Blog backend step22
+  *  13.23: Blog backend step23
+  *  13.24: Blog backend step24

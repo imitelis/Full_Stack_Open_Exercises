@@ -1,14 +1,28 @@
+const { Op } = require('sequelize')
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
 
-const { User, Blog } = require('../models')
+const { User, Blog, Session } = require('../models')
+
+const { tokenExtractor } = require('../middlewares/tokenExtractor')
 
 router.get('/', async (req, res) => {
-  const users = await User.findAll({    
-    include: {      
+  const users = await User.findAll({
+    include: [
+      {
         model: Blog,
-        attributes: { exclude: ['userId'] }
-    }  
+        as: 'authored_blogs',
+        attributes: { exclude: ['user_id'] }
+      },
+      {
+        model: Blog,
+        as: 'readings',
+        attributes: { exclude: ['user_id'] },
+        through: {
+          attributes: ['id', 'read']
+        }
+      }
+    ]
   })
   res.json(users)
 })
@@ -19,7 +33,7 @@ router.post('/', async (req, res) => {
 
     if (!password || password.length < 3) {
       return res.status(400).json({
-        error: 'User creation failed: username: Path `password` () is shorter than the minimum allowed length (3).'
+        error: 'User creation failed: username: Path `password` () is shorter than the minimum allowed length (3)'
       })
     }
 
@@ -43,13 +57,39 @@ router.post('/', async (req, res) => {
     delete userData.passwordHash;
 
     res.status(201).json(userData);
-  } catch(error) {
-    return res.status(400).json({ error: "User creation failed: something wrong happened." })
+  } catch(err) {
+    return res.status(400).json({ error: "User creation failed: something wrong happened" })
   }
 })
 
 router.get('/:id', async (req, res) => {
-  const user = await User.findByPk(req.params.id)
+  const where = {}
+
+  if (req.query.read) {
+    where.read = req.query.read === "true"
+  }
+
+  const user = await User.findByPk(req.params.id,
+    {
+      include: [
+        {
+          model: Blog,
+          as: 'authored_blogs',
+          attributes: { exclude: ['user_id'] }
+        },
+        {
+          model: Blog,
+          as: 'readings',
+          attributes: { exclude: ['user_id'] },
+          through: {
+            attributes: ['id', 'read'],
+            where
+          }
+        }
+      ]
+    }
+  )
+
   if (user) {
     res.json(user)
   } else {
@@ -57,15 +97,31 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.put('/:username', async (req, res) => {
-  const user = await User.findOne({ where: { username: req.params.username } })
-  if (user) {
-    user.username = req.body.username; 
-    await user.save()
-    res.json(user)
-  } else {
-    res.status(404).end()
+router.put('/:username', tokenExtractor, async (req, res, next) => {
+  try {
+    const loggedUser = await User.findByPk(req.decodedToken.user_id)
+    const userSession = await Session.findByPk(req.decodedToken.session_id)
+    if (!loggedUser) {
+      return res.status(404).json({ error: 'Logged user not found' })
+    }
+    if (!userSession) {
+      return res.status(404).json({ error: 'User session not found' })
+    }
+
+    const user = await User.findOne({ where: { username: req.params.username } })
+    if (user.id == loggedUser.id) {
+      user.username = req.body.username; 
+      await user.save()
+      res.json(user)
+    } else if (user.id != loggedUser.id) {
+      res.status(403).json({ error: 'Forbidden' })
+    } else if (!user) {
+      res.status(404).json({ error: 'Username not found' })
+    }
+  } catch (err) {
+    next(err)
   }
 })
 
 module.exports = router
+
