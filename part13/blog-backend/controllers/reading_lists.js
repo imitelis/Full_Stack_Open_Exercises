@@ -44,8 +44,9 @@ router.post('/', tokenExtractor, async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', tokenExtractor, async (req, res, next) => {
   try {
+    console.log(req.decodedToken)
     const readingList = await ReadingList.findByPk(req.params.id)
     const loggedUser = await User.findByPk(req.decodedToken.user_id)
     const userSession = await Session.findByPk(req.decodedToken.session_id)

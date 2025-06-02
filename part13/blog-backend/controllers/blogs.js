@@ -25,30 +25,34 @@ router.post('/', tokenExtractor, async (req, res, next) => {
   }
 })
 
-router.get('/', async (req, res) => {
-  const where = {}
+router.get('/', async (req, res, next) => {
+  try {
+    const where = {}
   
-  if (req.query.search) {
-    where[Op.or] = [
-      { title: { [Op.iLike]: `%${req.query.search}%` } },
-      { author: { [Op.iLike]: `%${req.query.search}%` } }
-    ];
+    if (req.query.search) {
+      where[Op.or] = [
+        { title: { [Op.iLike]: `%${req.query.search}%` } },
+        { author: { [Op.iLike]: `%${req.query.search}%` } }
+      ];
+    }
+  
+    const blogs = await Blog.findAll({
+      attributes: { exclude: ['user_id'] },
+      include: {
+        model: User,
+        as: 'posted_by',
+        attributes: ['username', 'name']
+      },
+      where,
+      order: [['likes', 'DESC']]
+    })
+    res.json(blogs)
+  } catch (err) {
+    next(err)
   }
-  
-  const blogs = await Blog.findAll({
-    attributes: { exclude: ['user_id'] },
-    include: {
-      model: User,
-      as: 'posted_by',
-      attributes: ['username', 'name']
-    },
-    where,
-    order: [['likes', 'DESC']]
-  })
-  res.json(blogs)
 })
 
-router.get('/:id', blogFinder, async (req, res) => {  
+router.get('/:id', blogFinder, async (req, res, next) => {  
   try {
     if (req.blog) {
       res.json(req.blog)
@@ -62,7 +66,6 @@ router.get('/:id', blogFinder, async (req, res) => {
 
 router.delete('/:id', blogFinder, tokenExtractor, async (req, res, next) => {
   try {
-    // console.log(req.blog.id)
     const loggedUser = await User.findByPk(req.decodedToken.user_id)
     const userSession = await Session.findByPk(req.decodedToken.session_id)
     if (!loggedUser) {

@@ -34,12 +34,12 @@ Blog.init({
       validate: {
         isGreaterThan(value) {
           if (parseInt(value) <= parseInt(1991)) {
-            throw new Error('Year must be greater than 1991');
+            throw new Error('Year must be greater than 1991')
           }
         },
         isLessThan(value) {
           if (parseInt(currentYear) <= parseInt(value)) {
-            throw new Error(`Year must be less than ${currentYear}`);
+            throw new Error(`Year must be less than ${currentYear}`)
           }
         }
       }

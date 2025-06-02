@@ -72,7 +72,7 @@ The updated number of likes will be relayed with the request:
 
 ### Exercise 13.7.
 
-Centralize the application error handling in middleware as in [part 3](https://fullstackopen.com/en/part3/saving_data_to_mongo_db#moving-error-handling-into-middleware). You can also enable middleware [express-async-errors](https://github.com/davidbanham/express-async-errors) as we did in [part 4](https://fullstackopen.com/en/part4/testing_the_backend#eliminating-the-try-catch).
+Centralize the application error handling in middleware as in [Part 3](https://fullstackopen.com/en/part3/saving_data_to_mongo_db#moving-error-handling-into-middleware). You can also enable middleware [express-async-errors](https://github.com/davidbanham/express-async-errors) as we did in [Part 4](https://fullstackopen.com/en/part4/testing_the_backend#eliminating-the-try-catch).
 
 The data returned in the context of an error message is not very important.
 
@@ -90,7 +90,7 @@ Add support for users to the application. In addition to ID, users have the foll
 
 Unlike in the material, do not prevent Sequelize from creating [timestamps](https://sequelize.org/master/manual/model-basics.html#timestamps) <em>created_at</em> and <em>updated_at</em> for users
 
-All users can have the same password as the material. You can also choose to properly implement passwords as in [part 4](https://fullstackopen.com/en/part4/user_administration).
+All users can have the same password as the material. You can also choose to properly implement passwords as in [Part 4](https://fullstackopen.com/en/part4/user_administration).
 
 Implement the following routes
 
@@ -262,7 +262,7 @@ For example, the information could be in the following form:
       author: "Dan Abramov",
       likes: 34,
       year: null,
-      readings: [
+      reading_lists: [
         {
           read: false,
           id: 2
@@ -276,7 +276,7 @@ For example, the information could be in the following form:
       author: "Bob Martin",
       likes: 5,
       year: null,
-      readings: [
+      reading_lists: [
         {
           read: false,
           id: 3
@@ -289,7 +289,7 @@ For example, the information could be in the following form:
 
 Note: there are several ways to implement this functionality. [This](https://sequelize.org/docs/v6/advanced-association-concepts/advanced-many-to-many/#the-best-of-both-worlds-the-super-many-to-many-relationship) should help.
 
-Note also that despite having an array field <em>readings</em> in the example, it should always just contain exactly one object, the join table entry that connects the book to the particular user's reading list.
+Note also that despite having an array field <em>reading_lists</em> in the example, it should always just contain exactly one object, the join table entry that connects the book to the particular user's reading list.
 
 ### Exercise 13.22.
 
@@ -314,33 +314,35 @@ Modify the route that returns a single user's information so that the request ca
 
 ### Exercise 13.24.
 
-Grand finale: towards the end of part 4 there was mention of a token-criticality problem: if a user's access to the system is decided to be revoked, the user may still use the token in possession to use the system.
+Grand finale: [towards the end of Part 4](https://fullstackopen.com/en/part4/token_authentication#problems-of-token-based-authentication) there was mention of a token-criticality problem: if a user's access to the system is decided to be revoked, the user may still use the token in possession to use the system.
 
-The usual solution to this is to store a record of each token issued to the client in the backend database, and to check with each request whether access is still valid. In this case, the validity of the token can be removed immediately if necessary. Such a solution is often referred to as a server-side session.
+The usual solution to this is to store a record of each token issued to the client in the backend database, and to check with each request whether access is still valid. In this case, the validity of the token can be removed immediately if necessary. Such a solution is often referred to as a <em>server-side session</em>.
 
 Now expand the system so that the user who has lost access will not be able to perform any actions that require login.
 
 You will probably need at least the following for the implementation
 
-    a boolean value column in the user table to indicate whether the user is disabled
-        it is sufficient to disable and enable users directly from the database
+  *  a boolean value column in the user table to indicate whether the user is disabled
+      *  it is sufficient to disable and enable users directly from the database
 
-    a table that stores active sessions
-        a session is stored in the table when a user logs in, i.e. operation POST /api/login
-        the existence (and validity) of the session is always checked when the user makes an operation that requires login
-    a route that allows the user to "log out" of the system, i.e. to practically remove active sessions from the database, the route can be e.g. DELETE /api/logout
+  *  a table that stores active sessions
+      *  a session is stored in the table when a user logs in, i.e. operation `POST /api/login`
+      *  the existence (and validity) of the session is always checked when the user makes an operation that requires login
+  *  a route that allows the user to "log out" of the system, i.e. to practically remove active sessions from the database, the route can be e.g. `DELETE /api/logout`
 
 Keep in mind that actions requiring login should not be successful with an "expired token", i.e. with the same token after logging out.
 
 You may also choose to use some purpose-built npm library to handle sessions.
 
 Make the database changes required for this task using migrations.
-Submitting exercises and getting the credits
 
-Exercises of this part are submitted just like in the previous parts, but unlike parts 0 to 7, the submission goes to an own course instance. Remember that you have to finish all the exercises to pass this part!
+## Submitting exercises and getting the credits
+
+Exercises of this part are submitted just like in the previous parts, but unlike parts 0 to 7, the submission goes to an own [course instance](https://studies.cs.helsinki.fi/stats/courses/fs-psql). Remember that you have to finish all the exercises to pass this part!
 
 Once you have completed the exercises and want to get the credits, let us know through the exercise submission system that you have completed the course:
-Submissions
 
-Note that you need a registration to the corresponding course part for getting the credits registered, see here for more information.
+![plot](./exercises-media/21a.png)
+
+**Note** that you need a registration to the corresponding course part for getting the credits registered, see [here](https://fullstackopen.com/en/part0/general_info#parts-and-completion) for more information.
 

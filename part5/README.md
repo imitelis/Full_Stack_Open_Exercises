@@ -7,7 +7,7 @@ We will now create a frontend for the bloglist backend we created in the last pa
 
 It is enough to submit your finished solution. You can do a commit after each exercise, but that is not necessary.
 
-The first few exercises revise everything we have learned about React so far. They can be challenging, especially if your backend is incomplete. It might be best to use the backend that we marked as the answer for part 4.
+The first few exercises revise everything we have learned about React so far. They can be challenging, especially if your backend is incomplete. It might be best to use the backend that we marked as the answer for Part 4.
 
 While doing the exercises, remember all of the debugging methods we have talked about, especially keeping an eye on the console.
 

@@ -6,28 +6,7 @@ const { User, Blog, Session } = require('../models')
 
 const { tokenExtractor } = require('../middlewares/tokenExtractor')
 
-router.get('/', async (req, res) => {
-  const users = await User.findAll({
-    include: [
-      {
-        model: Blog,
-        as: 'authored_blogs',
-        attributes: { exclude: ['user_id'] }
-      },
-      {
-        model: Blog,
-        as: 'readings',
-        attributes: { exclude: ['user_id'] },
-        through: {
-          attributes: ['id', 'read']
-        }
-      }
-    ]
-  })
-  res.json(users)
-})
-
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     const { username, name, password } = req.body
 
@@ -37,11 +16,11 @@ router.post('/', async (req, res) => {
       })
     }
 
-    const existingUser = await User.findOne({ where: { username: username } });
+    const existingUser = await User.findOne({ where: { username: username } })
     if (existingUser) {
       return res.status(400).json({
         error: `Username ${username} is already taken.`
-      });
+      })
     }
 
     const saltRounds = 10
@@ -53,24 +32,18 @@ router.post('/', async (req, res) => {
       passwordHash
     })
 
-    const userData = user.get();
+    const userData = user.get()
     delete userData.passwordHash;
 
-    res.status(201).json(userData);
+    res.status(201).json(userData)
   } catch(err) {
-    return res.status(400).json({ error: "User creation failed: something wrong happened" })
+      next(err)
   }
 })
 
-router.get('/:id', async (req, res) => {
-  const where = {}
-
-  if (req.query.read) {
-    where.read = req.query.read === "true"
-  }
-
-  const user = await User.findByPk(req.params.id,
-    {
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.findAll({
       include: [
         {
           model: Blog,
@@ -82,18 +55,53 @@ router.get('/:id', async (req, res) => {
           as: 'readings',
           attributes: { exclude: ['user_id'] },
           through: {
-            attributes: ['id', 'read'],
-            where
+            attributes: ['id', 'read']
           }
         }
       ]
-    }
-  )
+    })
+    res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
 
-  if (user) {
-    res.json(user)
-  } else {
-    res.status(404).end()
+router.get('/:id', async (req, res, next) => {
+  try {
+    const where = {}
+
+    if (req.query.read) {
+      where.read = req.query.read === "true"
+    }
+
+    const user = await User.findByPk(req.params.id,
+      {
+        include: [
+          {
+            model: Blog,
+            as: 'authored_blogs',
+            attributes: { exclude: ['user_id'] }
+          },
+          {
+            model: Blog,
+            as: 'readings',
+            attributes: { exclude: ['user_id'] },
+            through: {
+              attributes: ['id', 'read'],
+              where
+            }
+          }
+        ]
+      }
+    )
+
+    if (user) {
+      res.json(user)
+    } else {
+      res.status(404).end()
+    }
+  } catch (err) {
+    next(err)
   }
 })
 

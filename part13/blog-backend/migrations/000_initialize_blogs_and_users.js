@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const timestampColumns = require('../models/timestamp_cols');
+const timestampColumns = require('../models/timestamp_cols')
 
 module.exports = {
   up: async ({ context: queryInterface }) => {

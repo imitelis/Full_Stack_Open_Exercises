@@ -4,7 +4,7 @@ const { User, Session } = require('../models')
 
 const { tokenExtractor } = require('../middlewares/tokenExtractor')
 
-router.delete('/', tokenExtractor, async (req, res) => {
+router.delete('/', tokenExtractor, async (req, res, next) => {
   try {
     const loggedUser = await User.findByPk(req.decodedToken.user_id)
     const userSession = await Session.findByPk(req.decodedToken.session_id)
@@ -16,6 +16,8 @@ router.delete('/', tokenExtractor, async (req, res) => {
     }
 
     await userSession.destroy()
+    loggedUser.disabled = true
+    await loggedUser.save()
 
     res.status(204).end()
   } catch (err) {
