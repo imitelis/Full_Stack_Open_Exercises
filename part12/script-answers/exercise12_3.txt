@@ -1,0 +1,6 @@
+docker start -i wizardly_shtern
+apt-get update
+apt-get -y install nano
+nano /usr/src/app/index.js
+console.log('Hello World')
+exit

@@ -1,0 +1,49 @@
+services:
+  app:
+    image: front-dev
+    build:
+      context: ./library-frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./library-frontend/:/usr/src/app
+    container_name: front-dev
+    environment: 
+      - REACT_APP_GRAPHQL_HTTP=http://localhost:8080/graphql
+      - REACT_APP_GRAPHQL_WS=ws://localhost:8080/graphql
+  server:
+    image: back-dev
+    build:
+      context: ./library-backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./library-backend/:/usr/src/app
+    container_name: back-dev
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/library_db
+      - JWT_SECRET=sekret
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+     - 3456:27017
+    environment:
+      MONGO_INITDB_DATABASE: library_db
+    volumes:
+      - mongo_data:/data/db
+    command: mongod --noauth
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - app
+  
+  debug-helper:
+    image: busybox
+
+volumes:
+  mongo_data:

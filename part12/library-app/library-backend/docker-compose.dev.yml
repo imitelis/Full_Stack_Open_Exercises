@@ -1,0 +1,31 @@
+services:
+  mongo:
+    image: mongo
+    ports:
+     - 3456:27017
+    environment:
+      MONGO_INITDB_DATABASE: library_db
+    volumes:
+      - mongo_data:/data/db
+    command: mongod --noauth
+  server:
+    image: back-dev
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 4123:4000
+    container_name: back-dev
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/library_db
+      - JWT_SECRET=sekret
+    depends_on: 
+      - mongo
+      
+  debug-helper:    
+    image: busybox
+
+volumes:
+  mongo_data:

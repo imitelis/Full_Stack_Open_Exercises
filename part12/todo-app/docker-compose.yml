@@ -1,0 +1,57 @@
+services:
+  app:
+    image: front
+    build:
+      context: ./todo-frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./todo-frontend/:/usr/src/app
+    container_name: front
+    environment: 
+      - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+  server:
+    image: back
+    build:
+      context: ./todo-backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./todo-backend/:/usr/src/app
+    container_name: back
+    environment: 
+      - REDIS_URL=${REDIS_URL}
+      - MONGO_URL=${MONGO_URL}
+  mongo:
+    image: mongo
+    ports:
+     - 3456:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+
+    volumes: 
+      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - mongo_data:/data/db
+  redis:
+    image: redis
+    ports:
+     - 3457:6379
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+     - redis_data:/data
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - app # wait for the frontend container to be started
+  
+  debug-helper:    
+    image: busybox
+
+volumes:
+  mongo_data:
+  redis_data:

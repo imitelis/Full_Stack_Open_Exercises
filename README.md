@@ -317,6 +317,28 @@
   
 ## Part 12 - Containers - Exercises 12.1.-12.22.
 
+  *  12.1: Scripts step1
+  *  12.2: Scripts step2
+  *  12.3: Scripts step3
+  *  12.4: Scripts step4
+  *  12.5: To Do App step1
+  *  12.6: To Do App step2
+  *  12.7: To Do App step3
+  *  12.8: To Do App step4
+  *  12.9: To Do App step5
+  *  12.10: To Do App step6
+  *  12.11: To Do App step7
+  *  12.12: To Do App step8
+  *  12.13: To Do App step9
+  *  12.14: To Do App step10
+  *  12.15: To Do App step11
+  *  12.16: To Do App step12
+  *  12.17: To Do App step13
+  *  12.18: To Do App step14
+  *  12.19: To Do App step15
+  *  12.20: To Do App step16
+  *  12.21: Library App step1
+  *  12.22: Library App step2
 
 ## Part 13 - Relational Databases - Exercises 13.1.-13.24.
 
