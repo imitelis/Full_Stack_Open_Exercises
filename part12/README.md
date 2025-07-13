@@ -334,7 +334,174 @@ Here is a possibly helpful image illustrating the connections within the docker 
 
 ![plot](./exercises-media/15a.png)
 
-...
+
+## Exercises 12.17. - 12.19.
+
+### 12.17: Set up an Nginx reverse proxy server in front of todo-frontend
+
+We are going to put the Nginx server in front of both todo-frontend and todo-backend. Let's start by creating a new docker-compose file <em>todo-app/docker-compose.dev.yml</em> and <em>todo-app/nginx.dev.conf</em>.
+
+```
+todo-app
+├── todo-frontend
+├── todo-backend
+├── nginx.dev.conf└── docker-compose.dev.yml
+```
+
+Add the services Nginx and the todo-frontend built with <em>todo-app/todo-frontend/dev.Dockerfile</em> into the <em>todo-app/docker-compose.dev.yml</em>.
+
+![plot](./exercises-media/17a.png)
+
+In this and the following exercises you **do not** need to support the build option, that is, the command:
+
+```
+docker compose -f docker-compose.dev.yml up --build
+```
+
+It is enough to build the frontend and backend at their own repositories.
+
+### 12.18: Configure the Nginx server to be in front of todo-backend
+
+Add the service todo-backend to the docker-compose file <em>todo-app/docker-compose.dev.yml</em> in development mode.
+
+Add a new location to the <em>nginx.dev.conf</em> file, so that requests to `/api` are proxied to the backend. Something like this should do the trick:
+
+```
+  server {
+    listen 80;
+
+    # Requests starting with root (/) are handled
+    location / {
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection 'upgrade';
+      
+      proxy_pass ...
+    }
+
+    # Requests starting with /api/ are handled
+    location /api/ {
+      proxy_pass ...
+    }
+  }
+```
+
+The `proxy_pass` directive has an interesting feature with a trailing slash. As we are using the path `/api` for location but the backend application only answers in paths `/` or `/todos` we will want the `/api` to be removed from the request. In other words, even though the browser will send a GET request to `/api/todos/1` we want the Nginx to proxy the request to `/todos/1`. Do this by adding a trailing slash `/` to the URL at the end of `proxy_pass`.
+
+This is a [common issue](https://serverfault.com/questions/562756/how-to-remove-the-path-with-an-nginx-proxy-pass)
+
+![plot](./exercises-media/nginx_trailing_slash_stackoverflow.png)
+
+This illustrates what we are looking for and may be helpful if you are having trouble:
+
+![plot](./exercises-media/18a.png)
+
+### 12.19: Connect the services, todo-frontend with todo-backend
+
+<blockquote>In this exercise, submit the entire development environment, including both Express and React applications, dev.Dockerfiles and docker-compose.dev.yml.</blockquote>
+
+Finally, it is time to put all the pieces together. Before starting, it is essential to understand <em>where</em> the React app is actually run. The above diagram might give the impression that React app is run in the container but it is totally wrong.
+
+It is just the <em>React app source code</em> that is in the container. When the browser hits the address [http://localhost:8080](http://localhost:8080/) (assuming that you set up Nginx to be accessed in port 8080), the React source code gets downloaded from the container to the browser:
+
+![plot](./exercises-media/19a.png)
+
+Next, the browser starts executing the React app, and all the requests it makes to the backend should be done through the Nginx reverse proxy:
+
+![plot](./exercises-media/19b.png)
+
+The frontend container is actually only accessed on the first request that gets the React app source code to the browser.
+
+Now set up your app to work as depicted in the above figure. Make sure that the todo-frontend works with todo-backend. It will require changes to the `VITE_BACKEND_URL` environmental variable in the frontend.
+
+Make sure that the development environment is now fully functional, that is:
+
+  *  all features of the todo app work
+  *  you can edit the source files and the changes take effect by reloading the app
+  *  frontend should access the backend through Nginx, so the requests should be done to [http://localhost:8080/api/todos](http://localhost:8080/api/todos):
+
+![plot](./exercises-media/19c.png)
+
+Note that your app should work even if no [exposed port](https://docs.docker.com/network/#published-ports) are defined for the backend and frontend in the docker compose file:
+
+```
+services:
+  app:
+    image: todo-front-dev
+    volumes:
+      - ./todo-frontend/:/usr/src/app
+    # no ports here!
+
+  server:
+      image: todo-back-dev
+      volumes:
+        - ./todo-backend/:/usr/src/app
+      environment: 
+        - ...
+      # no ports here!
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80 # this is needed
+    container_name: reverse-proxy
+    depends_on:
+      - app
+```
+
+We just need to expose the Nginx port to the host machine since the access to the backend and frontend is proxied to the right container port by Nginx. Because Nginx, frontend and backend are defined in the same Docker compose configuration, Docker puts those to the same [Docker network](https://docs.docker.com/network/) and thanks to that, Nginx has direct access to frontend and backend containers ports.
+
+
+## Exercises 12.20.-12.22.
+
+### 12.20:
+
+Create a production <em>todo-app/docker-compose.yml</em> file with all of the services, Nginx, todo-backend, todo-frontend, MongoDB and Redis. Use Dockerfiles instead of <em>dev.Dockerfiles</em> and make sure to start the applications in production mode.
+
+Please use the following structure for this exercise:
+
+```
+todo-app
+├── todo-frontend
+├── todo-backend
+├── nginx.dev.conf
+├── docker-compose.dev.yml
+├── nginx.conf└── docker-compose.yml
+```
+
+### 12.21:
+
+Create a similar containerized development environment of one of <em>your own</em> full stack apps that you have created during the course or in your free time. You should structure the app in your submission repository as follows:
+
+```
+└── my-app
+    ├── frontend
+    |    └── dev.Dockerfile
+    ├── backend
+    |    └── dev.Dockerfile
+    ├── nginx.dev.conf
+    └── docker-compose.dev.yml
+```
+
+### 12.22:
+
+Finish this part by creating a containerized <em>production setup</em> of your own full stack app. Structure the app in your submission repository as follows:
+
+```
+└── my-app
+    ├── frontend
+    |    ├── dev.Dockerfile
+    |    └── Dockerfile
+    ├── backend
+    |    └── dev.Dockerfile
+    |    └── Dockerfile
+    ├── nginx.dev.conf
+    ├── nginx.conf
+    ├── docker-compose.dev.yml
+    └── docker-compose.yml
+```
 
 
 ## Submitting exercises and getting the credits
